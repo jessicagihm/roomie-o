@@ -11,7 +11,7 @@ steps = [
             age INTEGER NOT NULL,
             gender VARCHAR(50) NOT NULL,
             image VARCHAR(1000),
-            bio VARCHAR(500)
+            bio VARCHAR(500) NOT NULL
 
         );
         """,

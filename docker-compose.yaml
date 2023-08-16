@@ -39,7 +39,6 @@ services:
     volumes:
       - ./api:/app
 
-
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh

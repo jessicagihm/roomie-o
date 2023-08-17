@@ -20,6 +20,6 @@ steps = [
         """,
         """
         DROP TABLE rooms;
-        """,
+        """
     ]
 ]

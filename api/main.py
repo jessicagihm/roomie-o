@@ -1,8 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from users.routers import signup
+from routers import rooms
+
 import os
 
 app = FastAPI()
+app.include_router(signup.router)
+app.include_router(rooms.router)
 
 app.add_middleware(
     CORSMiddleware,

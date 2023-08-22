@@ -1,141 +1,201 @@
-import os
-from psycopg_pool import ConnectionPool
-from ..models import AccountIn, AccountOut #AccountOutWithPassword
-pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])
+from pydantic import BaseModel
+from queries.pool import pool
+from typing import List
 
+
+class Error(BaseModel):
+    message: str
+
+
+class UserIn(BaseModel):
+    username: str
+    hashed_password: str
+    first: str
+    last: str
+    age: int
+    gender: str
+    image: str
+    bio: str
+
+
+class UserOut(BaseModel):
+    id: int
+    username: str
+    hashed_password: str
+    first: str
+    last: str
+    age: int
+    gender: str
+    image: str
+    bio: str
+
+
+class UserList(BaseModel):
+    users: List[UserOut]
 
 
 class UserQueries:
-    
-    def get_user(self, username: str): #-> AccountOutWithPassword:
+    def get_all_users(self) -> List[UserOut]:
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    SELECT *
-                    FROM users
-                    WHERE users.username = %s
-                    """,
-                    [username],
-                )
-
-                row = cur.fetchone()
-                return #AccountOutWithPassword(
-                (self.updated_user_record_to_dict(row, cur.description))
-
-    def get_user_info(self, id: int) -> AccountOut:
-        with pool.connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute(
+                    SELECT id,
+                        username,
+                        hashed_password,
+                        first,
+                        last,
+                        age,
+                        gender,
+                        image,
+                        bio
+                    From users
+                    ORDER BY id;
                     """
-                    SELECT
-                    id,
-                    username,
-                    first,
-                    last,
-                    age,
-                    gender,
-                    bio,
-                    profile_image
-                    FROM users
-                    WHERE users.id = %s
-                    """,
-                    [id]
-
                 )
-                row = cur.fetchone()
-                return self.updated_user_record_to_dict(
-                    row, cur.description
+                results = cur.fetchall()
+                user_list = []
+                for result in results:
+                    user_list.append(
+                        UserOut(
+                            id=result[0],
+                            username=result[1],
+                            hashed_password=result[2],
+                            first=result[3],
+                            last=result[4],
+                            age=result[5],
+                            gender=result[6],
+                            image=result[7],
+                            bio=result[8]
+                        )
                     )
-    
-    def create_user(self, data: AccountIn,): #-> AccountOutWithPassword:
-        username = None
-        with pool.connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute(
-    """
-    INSERT INTO users (username, hashed_password, first, last, age, gender, bio)
-    VALUES (%s, %s, %s, %s, %s, %s, %s)
-    RETURNING id
-    """,
-    [
-        data.username, data.hashed_password, data.first, 
-        data.last, data.age, data.gender, data.bio
-    ],
-)
-        username = data.username
+                return user_list
 
-        if username is not None:
-            return self.get_user(username)
-        
-    def update(self, id: int, data: AccountOut) -> AccountOut:
+    def get_user(self, id) -> UserOut:
         with pool.connection() as conn:
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    UPDATE users
-                    SET
-                        username = %s, 
-                        first = %s,
-                        last = %s,
-                        gender = %s,
-                        age = %s,
-                        bio = %s,
-                        profile_image = %s
+                    SELECT id,
+                        username,
+                        hashed_password,
+                        first,
+                        last,
+                        age,
+                        gender,
+                        image,
+                        bio,
+                        id
+                    From users
                     WHERE id = %s
-                    RETURNING *
+                    """,
+                    [id],
+                )
+                result = cur.fetchone()
+                if result:
+                    return UserOut(
+                        id=result[0],
+                        username=result[1],
+                        hashed_password=result[2],
+                        first=result[3],
+                        last=result[4],
+                        age=result[5],
+                        gender=result[6],
+                        image=result[7],
+                        bio=result[8],
+                    )
+            return None
+
+    def create(self, user: UserIn) -> UserOut:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                db.execute(
+                    """
+                    INSERT INTO users
+                    (username, hashed_password, first, last, age, gender, image, bio)
+                    VALUES
+                    (%s, %s, %s, %s, %s, %s, %s, %s)
+                    RETURNING id;
                     """,
                     [
-                        data.username,
-                        data.first,
-                        data.last,
-                        data.gender,
-                        data.age,
-                        data.bio,
-                        data.profile_image,
-                        id,
+                        user.username,
+                        user.hashed_password,
+                        user.first,
+                        user.last,
+                        user.age,
+                        user.gender,
+                        user.image,
+                        user.bio,
                     ],
+                )
+                id = db.fetchone()[0]
+                old_data = user.dict()
+                old_data['id'] = id
+                return UserOut(**old_data)
 
-                )
-                row = cur.fetchone()
-                return self.updated_user_record_to_dict(
-                    row, cur.description
-                )
-    def user_record_to_dict(self, row, description):
-        user = None
-        if row is not None:
-            user = {}
-            user_fields = [
-                "id",
-                "username",
-                "first",
-                "last",
-                "age",
-                "gender",
-                "bio",
-                
-                
-            ]
-            for i, column in enumerate(description):
-                if column.name in user_fields:
-                    user[column.name] = row[i]
-        return user
-                    
-    def updated_user_record_to_dict(self, row, description):
-        user = None
-        if row is not None:
-            user = {}
-            user_fields = [
-                "id",
-                "username",
-                "first",
-                "last",
-                "age",
-                "gender",
-                "bio",
-                "profile_image",
-        ]
-        for i, column in enumerate(description):
-            if column.name in user_fields:
-                user[column.name] = row[i]
-        return user
+    def update(self, id: int, user: UserIn) -> UserOut:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE users
+                        SET
+                            username = %s,
+                            hashed_password = %s,
+                            first = %s,
+                            last = %s,
+                            age = %s,
+                            gender = %s,
+                            image = %s,
+                            bio = %s
+                        WHERE id = %s
+                        """,
+                        [
+                            user.username,
+                            user.hashed_password,
+                            user.first,
+                            user.last,
+                            user.age,
+                            user.gender,
+                            user.image,
+                            user.bio,
+                            id,
+                        ],
+                    )
+                    conn.commit()
+
+                    db.execute(
+                        """
+                        SELECT id,
+                            username,
+                            hashed_password,
+                            first,
+                            last,
+                            age,
+                            gender,
+                            image,
+                            bio
+                        FROM users
+                        WHERE id = %s
+                        """,
+                        [id],
+                    )
+                    updated_user_data = db.fetchone()
+                    if updated_user_data:
+                        return UserOut(
+                            id=updated_user_data[0],
+                            username=updated_user_data[1],
+                            hashed_password=updated_user_data[2],
+                            first=updated_user_data[3],
+                            last=updated_user_data[4],
+                            age=updated_user_data[5],
+                            gender=updated_user_data[6],
+                            image=updated_user_data[7],
+                            bio=updated_user_data[8]
+                        )
+                    else:
+                        return None
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update user"}

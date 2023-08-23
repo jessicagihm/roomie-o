@@ -2,8 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from users.routers import signup
 from routers import rooms
-
-from users.routers import signup
 from preferences.routers import prefs
 import os
 

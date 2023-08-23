@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from datetime import date
 from queries.pool import pool
-from typing import List
+from typing import List, Union
 
 
 class Error(BaseModel):
@@ -176,63 +176,63 @@ class RoomQueries:
                 old_data['room_id'] = id
                 return RoomOut(**old_data)
 
-    # def delete(self, room_id) -> None:
-    #     try:
-    #         with pool.connection() as conn:
-    #             with conn.cursor() as db:
-    #                 db.execute(
-    #                     """
-    #                     DELETE FROM rooms
-    #                     WHERE room_id = %s;
-    #                     """,
-    #                     [room_id]
-    #                 )
-    #         return True
-    #     except Exception:
-    #         return {"message": "Deletion was unsuccessful"}
+    def delete(self, room_id) -> None:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM rooms
+                        WHERE room_id = %s;
+                        """,
+                        [room_id]
+                    )
+            return True
+        except Exception:
+            return {"message": "Deletion was unsuccessful"}
 
-    # def update(self, room_id: int, room: RoomIn) -> Union[Error, RoomOut]:
-    #     try:
-    #         with pool.connection() as conn:
-    #             with conn.cursor() as db:
-    #                 db.execute(
-    #                     """
-    #                     UPDATE rooms
-    #                     SET
-    #                         picture = %s,
-    #                         space = %s,
-    #                         user_id = %s,
-    #                         created = %s,
-    #                         city = %s,
-    #                         state = %s,
-    #                         available_rooms = %s,
-    #                         cost = %s,
-    #                         lease_type = %s,
-    #                         description = %s,
-    #                         pets_allowed = %s,
-    #                         bathrooms = %s
-    #                     WHERE room_id = %s
-    #                     """,
-    #                     [
-    #                         room.picture,
-    #                         room.space,
-    #                         room.user_id,
-    #                         room.created,
-    #                         room.city,
-    #                         room.state,
-    #                         room.available_rooms,
-    #                         room.cost,
-    #                         room.lease_type,
-    #                         room.description,
-    #                         room.pets_allowed,
-    #                         room.bathrooms,
-    #                         room_id
-    #                     ],
-    #                 )
-    #                 updated_room = db.fetchone()
-    #                 if updated_room is None:
-    #                     return None
-    #                 return RoomOut(**updated_room)
-    #     except Exception as e:
-    #         print(e)
-    #         return {"message": "Could not update the room"}
+    def update(self, room_id: int, room: RoomIn) -> Union[Error, RoomOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE rooms
+                        SET
+                            picture = %s,
+                            space = %s,
+                            user_id = %s,
+                            created = %s,
+                            city = %s,
+                            state = %s,
+                            available_rooms = %s,
+                            cost = %s,
+                            lease_type = %s,
+                            description = %s,
+                            pets_allowed = %s,
+                            bathrooms = %s
+                        WHERE room_id = %s
+                        """,
+                        [
+                            room.picture,
+                            room.space,
+                            room.user_id,
+                            room.created,
+                            room.city,
+                            room.state,
+                            room.available_rooms,
+                            room.cost,
+                            room.lease_type,
+                            room.description,
+                            room.pets_allowed,
+                            room.bathrooms,
+                            room_id
+                        ],
+                    )
+                    updated_room = db.fetchone()
+                    if updated_room is None:
+                        return None
+                    return RoomOut(**updated_room)
+        except Exception as e:
+            print(e)
+            return {"message": "Could not update the room"}

@@ -4,14 +4,13 @@ from users.routers import signup
 from routers import rooms
 
 from users.routers import signup
-
+from preferences.routers import prefs
 import os
 
 app = FastAPI()
 app.include_router(signup.router)
 app.include_router(rooms.router)
-
-app.include_router(signup.router)
+app.include_router(prefs.router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[

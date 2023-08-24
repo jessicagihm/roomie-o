@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
-import Construct from "./Construct.js";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Nav from "./Nav";
+import LoginForm from "./LoginForm";
+import Construct from "./Construct";
 import ErrorNotification from "./ErrorNotification";
 import "./App.css";
 
@@ -27,10 +30,18 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <ErrorNotification error={error} />
-      <Construct info={launchInfo} />
-    </div>
+    <Router>
+      <div>
+        <Nav />
+        <ErrorNotification error={error} />
+        <Construct info={launchInfo} />
+        <div className="container">
+          <Routes>
+            <Route path="/login" element={<LoginForm />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 

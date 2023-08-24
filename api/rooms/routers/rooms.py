@@ -1,6 +1,7 @@
+from typing import Union
+from rooms.queries.rooms import RoomIn, RoomOut, RoomList, RoomQueries, Error 
 from fastapi import APIRouter, Depends, HTTPException
-from queries.rooms import RoomIn, RoomOut, RoomList, RoomQueries
-# from typing import Union
+
 
 router = APIRouter()
 
@@ -33,19 +34,16 @@ def create_room(
     return created_room
 
 
-# @router.put("/rooms/{room_id}", response_model=Union[Error, RoomOut])
-# def update_room(
-#     room_id: int,
-#     room: RoomIn,
-#     queries: RoomQueries = Depends(),
-# ) -> Union[Error, RoomOut]:
-#     return queries.update(room_id, room)
+@router.put("/api/rooms/{room_id}", response_model=Union[Error, RoomOut])
+def update_room(room_id: int, room: RoomIn, queries: RoomQueries = Depends()):
+    updated_room = queries.update(room_id, room)
+    if updated_room is None:
+        raise HTTPException(status_code=404, detail="No room found with id {}".format(room_id))
+    return updated_room
 
-
-# @router.delete("/rooms/{room_id}", response_model=bool)
-# def delete_room(
-#     room_id: int,
-#     queries: RoomQueries = Depends()
-# ):
-#     queries.delete_room(room_id)
-#     return True
+@router.delete("/api/rooms/{room_id}", response_model=bool)
+def delete_room(room_id: int, queries: RoomQueries = Depends()):
+    deleted = queries.delete(room_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="No room found with id {}".format(room_id))
+    return True

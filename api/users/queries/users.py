@@ -199,3 +199,19 @@ class UserQueries:
         except Exception as e:
             print(e)
             return {"message": "Could not update user"}
+
+    def delete(self, user_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM vacations
+                        WHERE id = %s
+                        """,
+                        [user_id]
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False

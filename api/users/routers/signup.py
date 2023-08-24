@@ -7,7 +7,7 @@ from ..queries.users import (
     UserOut,
     UserList,
     Error
-    
+
 )
 
 
@@ -58,3 +58,12 @@ def update_user(
     queries: UserQueries = Depends(),
 ) -> Union[Error, UserOut]:
     return queries.update(user_id, user)
+
+
+
+@router.delete("/api/users/{user_id}", response_model=bool)
+def delete_user(
+    user_id: int,
+    queries: UserQueries = Depends(),
+) -> bool:
+    return queries.delete(user_id)

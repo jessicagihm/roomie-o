@@ -26,7 +26,7 @@ class UserOut(BaseModel):
     last: str
     age: int
     gender: str
-    image: str
+    image: str | None
     bio: str
 
 

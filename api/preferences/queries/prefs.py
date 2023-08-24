@@ -18,7 +18,7 @@ class PrefIn(BaseModel):
     allergies: str
     looking_for_roomie: bool
     user_id: int
-    move_in_date: date
+    move_in_date: date | None
 
 
 class PrefOut(BaseModel):
@@ -32,7 +32,7 @@ class PrefOut(BaseModel):
     allergies: str
     looking_for_roomie: bool
     user_id: int
-    move_in_date: date
+    move_in_date: date | None
     pref_id: int
 
     

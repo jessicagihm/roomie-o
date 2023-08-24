@@ -8,7 +8,7 @@ steps = [
         pet_friendly BOOL NOT NULL,
         budget INT NOT NULL,
         house_pref VARCHAR NOT NULL,
-        kids INT NOT NULL,
+        kids INT(15) NOT NULL,
         work_sched VARCHAR(250) NOT NULL,
         allergies VARCHAR(250) NOT NULL,
         looking_for_roomie BOOL NOT NULL,

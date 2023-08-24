@@ -229,10 +229,48 @@ class RoomQueries:
                             room_id
                         ],
                     )
+                    conn.commit()
+
+                    db.execute(
+                        """
+                        SELECT room_id,
+                            picture,
+                            space,
+                            user_id,
+                            created,
+                            city,
+                            state,
+                            available_rooms,
+                            cost,
+                            lease_type,
+                            description,
+                            pets_allowed,
+                            bathrooms
+                        FROM rooms
+                        WHERE room_id = %s
+                        """,
+                        [room_id],
+                    )
                     updated_room = db.fetchone()
-                    if updated_room is None:
+                    if updated_room:
+                        return RoomOut(
+                            room_id=int(updated_room[0]),
+                            picture=updated_room[1],
+                            space=updated_room[2],
+                            user_id=int(updated_room[3]),
+                            created=updated_room[4],
+                            city=str(updated_room[5]),
+                            state=str(updated_room[6]),
+                            available_rooms=int(updated_room[7]),
+                            cost=updated_room[8],
+                            lease_type=updated_room[9],
+                            description=updated_room[10],
+                            pets_allowed=bool(updated_room[11]),
+                            bathrooms=updated_room[12]
+                        )
+                    else:
                         return None
-                    return RoomOut(**updated_room)
+
         except Exception as e:
             print(e)
             return {"message": "Could not update the room"}

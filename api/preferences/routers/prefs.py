@@ -13,6 +13,7 @@ def create_pref(
     created_pref = queries.create_pref(pref)
     return created_pref
 
+
 @router.get("/api/preferences/{pref_id}", response_model=PrefOut)
 def get_pref(
     pref_id: int,
@@ -23,4 +24,11 @@ def get_pref(
         raise HTTPException(status_code=404, detail="No preferences found with that user id {}".format(pref_id))
     else:
         return record
-    
+
+
+@router.delete("/api/preferences/{pref_id}", response_model=bool)
+def delete_pref(
+    pref_id: int,
+    queries: PrefQueries = Depends(),
+) -> bool:
+    return queries.delete(pref_id)

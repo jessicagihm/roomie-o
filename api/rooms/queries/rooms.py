@@ -84,7 +84,7 @@ class RoomQueries:
                             lease_type=result[9],
                             description=result[10],
                             pets_allowed=result[11],
-                            bathrooms=result[12]
+                            bathrooms=result[12],
                         )
                     )
                 return room_list
@@ -128,7 +128,7 @@ class RoomQueries:
                         lease_type=result[9],
                         description=result[10],
                         pets_allowed=result[11],
-                        bathrooms=result[12]
+                        bathrooms=result[12],
                     )
                 return None
 
@@ -173,7 +173,7 @@ class RoomQueries:
                 )
                 id = db.fetchone()[0]
                 old_data = room.dict()
-                old_data['room_id'] = id
+                old_data["room_id"] = id
                 return RoomOut(**old_data)
 
     def delete(self, room_id) -> None:
@@ -185,7 +185,7 @@ class RoomQueries:
                         DELETE FROM rooms
                         WHERE room_id = %s;
                         """,
-                        [room_id]
+                        [room_id],
                     )
             return True
         except Exception:
@@ -226,7 +226,7 @@ class RoomQueries:
                             room.description,
                             room.pets_allowed,
                             room.bathrooms,
-                            room_id
+                            room_id,
                         ],
                     )
                     conn.commit()
@@ -266,7 +266,7 @@ class RoomQueries:
                             lease_type=updated_room[9],
                             description=updated_room[10],
                             pets_allowed=bool(updated_room[11]),
-                            bathrooms=updated_room[12]
+                            bathrooms=updated_room[12],
                         )
                     else:
                         return None

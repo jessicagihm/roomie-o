@@ -7,6 +7,7 @@ from typing import List, Union
 class Error(BaseModel):
     message: str
 
+
 class PrefIn(BaseModel):
     smoker_friendly: bool
     hobbies: str
@@ -78,8 +79,8 @@ class PrefQueries:
                         allergies=result[8],
                         looking_for_roomie=result[9],
                         user_id=result[10],
-                        move_in_date=result[11]
-                        )
+                        move_in_date=result[11],
+                    )
                 return None
 
     def create_pref(self, pref: PrefIn) -> PrefOut:
@@ -122,9 +123,9 @@ class PrefQueries:
                 )
                 id = db.fetchone()[0]
                 old_data = pref.dict()
-                old_data['pref_id'] = id
+                old_data["pref_id"] = id
                 return PrefOut(**old_data)
-
+        
     def delete(self, pref_id: int) -> None:
         try:
             with pool.connection() as conn:
@@ -141,4 +142,5 @@ class PrefQueries:
             print(e)
             return {"message": "Could not delete preferences"}
 
+        
     # def update_pref(self, pref_id: int, pref: PrefIn) -> Union[Error, PrefOut]:

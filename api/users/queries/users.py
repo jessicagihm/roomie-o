@@ -35,6 +35,32 @@ class UserList(BaseModel):
 
 
 class UserQueries:
+    def get_one(self, user_id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        SELECT id
+                            username,
+                            hashed_password,
+                            first,
+                            last,
+                            age,
+                            gender,
+                            image,
+                            bio
+                        From users
+                        WHERE id = %s
+                        """,
+                        [user_id]
+                    )
+
+                return True
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get that user"}
+
     def get_all_users(self) -> List[UserOut]:
         with pool.connection() as conn:
             with conn.cursor() as cur:
@@ -206,7 +232,7 @@ class UserQueries:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        DELETE FROM vacations
+                        DELETE FROM users
                         WHERE id = %s
                         """,
                         [user_id]
@@ -214,4 +240,4 @@ class UserQueries:
                     return True
         except Exception as e:
             print(e)
-            return False
+            return {"message": "Could not delete user"}

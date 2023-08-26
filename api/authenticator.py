@@ -27,7 +27,6 @@ class MyAuthenticator(Authenticator):
     def get_hashed_password(self, account: UserOut):
         # Return the encrypted password value from your
         # account object
-        print(account)
         return account.password_hash
 
     def get_account_data_for_cookie(self, account: UserIn):

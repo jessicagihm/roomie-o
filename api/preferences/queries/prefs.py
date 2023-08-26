@@ -7,6 +7,7 @@ from typing import List, Union
 class Error(BaseModel):
     message: str
 
+
 class PrefIn(BaseModel):
     smoker_friendly: bool
     hobbies: str
@@ -18,7 +19,7 @@ class PrefIn(BaseModel):
     allergies: str
     looking_for_roomie: bool
     user_id: int
-    move_in_date: date
+    move_in_date: date | None
 
 
 class PrefOut(BaseModel):
@@ -32,10 +33,9 @@ class PrefOut(BaseModel):
     allergies: str
     looking_for_roomie: bool
     user_id: int
-    move_in_date: date
+    move_in_date: date | None
     pref_id: int
 
-    
 
 class PrefList(BaseModel):
     prefs: List[PrefOut]
@@ -79,11 +79,10 @@ class PrefQueries:
                         allergies=result[8],
                         looking_for_roomie=result[9],
                         user_id=result[10],
-                        move_in_date=result[11]
-                        )
+                        move_in_date=result[11],
+                    )
                 return None
-        
-        
+
     def create_pref(self, pref: PrefIn) -> PrefOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
@@ -119,16 +118,29 @@ class PrefQueries:
                         pref.looking_for_roomie,
                         pref.user_id,
                         pref.move_in_date,
-                            
+
                     ],
                 )
                 id = db.fetchone()[0]
                 old_data = pref.dict()
-                old_data['pref_id'] = id
+                old_data["pref_id"] = id
                 return PrefOut(**old_data)
-        
-        
-        
-    # def update_pref(self, pref_id: int, pref: PrefIn) -> Union[Error, PrefOut]:
 
-    
+    def delete(self, pref_id: int) -> None:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM preferences
+                        WHERE pref_id = %s
+                        """,
+                        [pref_id]
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return {"message": "Could not delete preferences"}
+
+
+    # def update_pref(self, pref_id: int, pref: PrefIn) -> Union[Error, PrefOut]:

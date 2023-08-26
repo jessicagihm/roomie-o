@@ -29,9 +29,13 @@ services:
 
   fastapi:
     environment:
-      CORS_HOST: http://localhost:3000
-      DATABASE_URL: postgresql://admin:secret@postgres/meme-team-supreme
+      SIGNING_KEY: 94e66e430379916038b7687ed13858a15b6e96086ae014b904aa5e60429a5d53
       WAIT_HOSTS: postgres:5432
+      WAIT_BEFORE: 5
+      WAIT_TIMEOUT: 60
+      DATABASE_URL: postgresql://admin:secret@postgres/meme-team-supreme
+      CORS_HOST: http://localhost:3000
+
     build:
       context: api
       dockerfile: Dockerfile.dev

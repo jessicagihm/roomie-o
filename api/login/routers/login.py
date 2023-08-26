@@ -1,6 +1,6 @@
 # from fastapi import APIRouter, HTTPException
 # from jwtdown_fastapi.authentication import Authenticator, Token
-# from users.queries.users import UserQueries  
+# from users.queries.users import UserQueries
 # from pydantic import BaseModel
 # import secrets
 
@@ -24,7 +24,7 @@
 
 # authenticator = MyAuthenticator(secret_key)
 
-# user_queries = UserQueries()  
+# user_queries = UserQueries()
 
 # class LoginForm(BaseModel):
 #     username: str

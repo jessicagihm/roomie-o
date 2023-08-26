@@ -1,6 +1,7 @@
 from typing import Union
 from rooms.queries.rooms import RoomIn, RoomOut, RoomList, RoomQueries, Error
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Response
+from authenticator import authenticator
 
 
 router = APIRouter()
@@ -27,10 +28,24 @@ def get_room(
         return record
 
 
+# @router.post("/api/rooms", response_model=RoomOut)
+# def create_room(room: RoomIn, queries: RoomQueries = Depends()):
+#     created_room = queries.create_room(room)
+#     return created_room
+
+
 @router.post("/api/rooms", response_model=RoomOut)
-def create_room(room: RoomIn, queries: RoomQueries = Depends()):
-    created_room = queries.create_room(room)
-    return created_room
+def create_room(
+    room: RoomIn,
+    queries: RoomQueries = Depends(),
+    user: dict = Depends(authenticator.get_current_account_data),
+
+):
+    if user:
+        result = queries.create_room(room)
+        return result
+    else:
+        raise HTTPException(status_code=401, detail="You must login to continue.")
 
 
 @router.put("/api/rooms/{room_id}", response_model=Union[Error, RoomOut])

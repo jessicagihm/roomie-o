@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function Nav() {
   return (

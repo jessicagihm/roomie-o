@@ -17,6 +17,7 @@ from ..queries.users import (
     UserList,
     Error,
     DuplicateAccountError,
+    UserUpdate,
 )
 
 
@@ -72,7 +73,7 @@ async def create_account(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Cannot create an account with those credentials",
         )
-    
+
     form = SignUpForm(username=info.username, password=info.password)
     token = await authenticator.login(response, request, form, users)
     return UserToken(account=account, **token.dict())
@@ -81,10 +82,22 @@ async def create_account(
 @router.put("/api/users/{user_id}", response_model=Union[Error, UserOut])
 def update_user(
     user_id: int,
-    user: UserIn,
+    user: UserUpdate,
     queries: UserQueries = Depends(),
-) -> Union[Error, UserOut]:
-    return queries.update(user_id, user)
+    authenticated_user: dict = Depends(authenticator.get_current_account_data),
+):
+    print(user)
+    user_with_hashed_password = user.dict()
+    user_with_hashed_password["password_hash"] = authenticator.hash_password(user_with_hashed_password["password_hash"])
+    if authenticated_user:
+        updated_user = queries.update_user(user_id, UserUpdate(**user_with_hashed_password))
+        if updated_user is None:
+            raise HTTPException(
+                status_code=404, detail="No user found with id {}". format(user_id)
+            )
+        return updated_user
+    else:
+        raise HTTPException(status_code=401, detail="You must be logged in")
 
 
 @router.delete("/api/users/{user_id}", response_model=bool)

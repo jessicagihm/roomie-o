@@ -1,20 +1,23 @@
-from fastapi import APIRouter, Depends, HTTPException
+from authenticator import authenticator
+from fastapi import APIRouter, Depends, HTTPException, Response
 from ..queries.prefs import PrefIn, PrefOut, PrefList, PrefQueries
-
+from typing import Union
 
 router = APIRouter()
 
 
-@router.post("/api/preferences", response_model=PrefOut)
-def create_pref(pref: PrefIn, queries: PrefQueries = Depends()):
-    created_pref = queries.create_pref(pref)
-    return created_pref
+# @router.post("/api/preferences", response_model=PrefOut)
+# def create_pref(pref: PrefIn, queries: PrefQueries):
+#     account_data =dict = Depends(authenticator.get_current_account_data)
+#     created_pref = queries.create_pref(pref)
+#     return created_pref
 
 
 @router.get("/api/preferences/{pref_id}", response_model=PrefOut)
 def get_pref(
     pref_id: int,
     queries: PrefQueries = Depends(),
+    record: dict = Depends(authenticator.get_current_account_data),
 ):
     record = queries.get_pref(pref_id)
     if record is None:
@@ -32,3 +35,21 @@ def delete_pref(
     queries: PrefQueries = Depends(),
 ) -> bool:
     return queries.delete(pref_id)
+
+
+
+@router.post("/api/preferences", response_model=PrefOut)
+def create_pref(
+    pref: PrefIn, 
+    response: Response, 
+    queries: PrefQueries = Depends(), 
+    user: dict = Depends(authenticator.get_current_account_data),
+):
+    if user:
+        response.status_code = 200
+        result = queries.create_pref(pref)
+        return result
+    else:
+        raise HTTPException(status_code=401, detail="You must login to continue")
+    
+   

@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from queries.pool import pool
 from typing import List
-from users.models import UserIn, UserOut, UserOutWithPassword
+from users.models import UserIn, UserOut, UserOutWithPassword, UserUpdate
 
 
 class DuplicateAccountError(ValueError):
@@ -203,7 +203,7 @@ class UserQueries:
                     )
 
 
-    def update(self, id: int, user: UserIn) -> UserOut:
+    def update_user(self, id: int, user: UserIn) -> UserOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -223,7 +223,7 @@ class UserQueries:
                         """,
                         [
                             user.username,
-                            user.password,
+                            user.password_hash,
                             user.first,
                             user.last,
                             user.age,
@@ -239,7 +239,7 @@ class UserQueries:
                         """
                         SELECT id,
                             username,
-                            password,
+                            password_hash,
                             first,
                             last,
                             age,

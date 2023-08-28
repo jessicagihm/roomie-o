@@ -33,7 +33,7 @@ class UserQueries:
                 if result:
                     return result[0]
                 return None
-            
+
     async def get_user_by_email(self, email: str) -> UserOut:
         with pool.connection() as conn:
             with conn.cursor() as cur:
@@ -67,7 +67,7 @@ class UserQueries:
                         bio=result[8],
                     )
             return None
-        
+
     def get_one(self, user_id: int) -> bool:
         try:
             with pool.connection() as conn:
@@ -201,8 +201,7 @@ class UserQueries:
                         image=result[7],
                         bio=result[8],
                     )
-                    
-        
+
 
     def update(self, id: int, user: UserIn) -> UserOut:
         try:

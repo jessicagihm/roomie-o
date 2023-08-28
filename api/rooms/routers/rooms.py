@@ -49,20 +49,34 @@ def create_room(
 
 
 @router.put("/api/rooms/{room_id}", response_model=Union[Error, RoomOut])
-def update_room(room_id: int, room: RoomIn, queries: RoomQueries = Depends()):
-    updated_room = queries.update(room_id, room)
-    if updated_room is None:
-        raise HTTPException(
-            status_code=404, detail="No room found with id {}".format(room_id)
-        )
-    return updated_room
-
+def update_room(
+    room_id: int,
+    room: RoomIn,
+    queries: RoomQueries = Depends(),
+    user: dict = Depends(authenticator.get_current_account_data),
+) -> Union[Error, RoomOut]:
+    if user:
+        updated_room = queries.update(room_id, room)
+        if updated_room is None:
+            raise HTTPException(
+                status_code=404, detail="No room found with id {}".format(room_id)
+            )
+        return updated_room
+    else:
+        raise HTTPException(status_code=401, detail="You must login to continue")
 
 @router.delete("/api/rooms/{room_id}", response_model=bool)
-def delete_room(room_id: int, queries: RoomQueries = Depends()):
-    deleted = queries.delete(room_id)
-    if not deleted:
-        raise HTTPException(
-            status_code=404, detail="No room found with id {}".format(room_id)
-        )
-    return True
+def delete_room(
+    room_id: int,
+    queries: RoomQueries = Depends(),
+    user: dict = Depends(authenticator.get_current_account_data),
+):
+    if user:
+        deleted = queries.delete(room_id)
+        if not deleted:
+            raise HTTPException(
+                status_code=404, detail="No room found with id {}".format(room_id)
+            )
+        return True
+    else:
+        raise HTTPException(status_code=401, detail="You must login to continue")

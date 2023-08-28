@@ -17,6 +17,7 @@ from ..queries.users import (
     UserList,
     Error,
     DuplicateAccountError,
+    UserUpdate,
 )
 
 

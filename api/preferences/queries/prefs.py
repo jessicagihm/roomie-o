@@ -125,7 +125,7 @@ class PrefQueries:
                 old_data = pref.dict()
                 old_data["pref_id"] = id
                 return PrefOut(**old_data)
-        
+
     def delete(self, pref_id: int) -> None:
         try:
             with pool.connection() as conn:
@@ -142,5 +142,5 @@ class PrefQueries:
             print(e)
             return {"message": "Could not delete preferences"}
 
-        
+
     # def update_pref(self, pref_id: int, pref: PrefIn) -> Union[Error, PrefOut]:

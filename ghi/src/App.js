@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
-import Construct from "./Construct.js";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider, useAuthContext } from './path/to/auth-context'; // Import AuthProvider and useAuthContext
+import Nav from "./Nav";
+import LoginForm from "./LoginForm";
+import Construct from "./Construct";
 import ErrorNotification from "./ErrorNotification";
 import "./App.css";
 
 function App() {
+  const { token } = useAuthContext();
   const [launchInfo, setLaunchInfo] = useState([]);
   const [error, setError] = useState(null);
 
@@ -27,10 +32,20 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <ErrorNotification error={error} />
-      <Construct info={launchInfo} />
-    </div>
+    <AuthProvider> {/* Wrap your app with AuthProvider */}
+      <Router>
+        <div>
+          <Nav />
+          <ErrorNotification error={error} />
+          <Construct info={launchInfo} />
+          <div className="container">
+            <Routes>
+              <Route path="/login" element={<LoginForm />} />
+            </Routes>
+          </div>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

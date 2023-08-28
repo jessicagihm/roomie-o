@@ -22,7 +22,7 @@ class UserOut(BaseModel):
     gender: str
     image: str | None
     bio: str | None
-   
+
 
 class UserOutWithPassword(UserOut):
     hashed_password: str

@@ -40,9 +40,9 @@ def delete_pref(
 
 @router.post("/api/preferences", response_model=PrefOut)
 def create_pref(
-    pref: PrefIn, 
-    response: Response, 
-    queries: PrefQueries = Depends(), 
+    pref: PrefIn,
+    response: Response,
+    queries: PrefQueries = Depends(),
     user: dict = Depends(authenticator.get_current_account_data),
 ):
     if user:
@@ -51,5 +51,3 @@ def create_pref(
         return result
     else:
         raise HTTPException(status_code=401, detail="You must login to continue")
-    
-   

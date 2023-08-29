@@ -1,79 +1,85 @@
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+// import useToken from "./App"
 
-// function SignUpForm() {
-//   const [username, setUsername] = useState("");
-//   const [firstName, setFirstName] = useState("");
-//   const [lastName, setLastName] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-//   const [error, setError] = useState("");
-//   const navigate = useNavigate();
+function SignUpForm() {
+  const [username, setUsername] = useState("");
+  const [password_hash, setPassword_hash] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+//   const { register } = useToken
+  const navigate = useNavigate();
 
-//   function handleUsernameChange(event) {
-//     setUsername(event.target.value);
-//   }
-
-//   function handleFirstNameChange(event) {
-//     setFirstName(event.target.value);
-//   }
-
-//   function handleLastNameChange(event) {
-//     setLastName(event.target.value);
-//   }
-
-//   function handlePasswordChange(event) {
-//     setPassword(event.target.value);
-//     setError(event.target.value !== passwordConfirmation ? "Password does not match" : "");
-//   }
-
-//   function handlePasswordConfirmationChange(event) {
-//     setPasswordConfirmation(event.target.value);
-//     setError(event.target.value !== password ? "Password does not match" : "");
-//   }
-
-//   async function handleSubmit(event) {
-//     event.preventDefault();
-//     if (password !== passwordConfirmation) {
-//       setError("Password does not match");
-//       return;
-//     }
-
-//     // Perform signup logic here
-//     // You can use an API call or any other method to handle signup
-
-//     // Clear error message after successful signup
-//     setError("");
-
-//     // Navigate to another page after successful signup
-//     navigate("/home");
-//   }
-
-//     return (
-//         <div className="row">
-//             <div className="offset-3 col-6">
-//                 <div className="shadow p-4 mt-4">
-//                     <h1>Add a technician</h1>
-//                     <form onSubmit={handleSubmit} id="add-a-technician-form">
-//                         <div className="form-floating mb-3">
-//                             <input value={firstName} onChange={handleFirstNameChange} placeholder="First name" type="text" name="first_name" id="first_name" className="form-control" />
-//                             <label htmlFor="firstName">First name</label>
-//                         </div>
-//                         <div className="form-floating mb-3">
-//                             <input value={lastName} onChange={handleLastNameChange} placeholder="Last name" type="text" name="last_name" id="last_name" className="form-control" />
-//                             <label htmlFor="lastName">Last name</label>
-//                         </div>
-//                         <div className="form-floating mb-3">
-//                             <input value={employeeId} onChange={handleEmployeeIdChange} placeholder="Employee ID" type="text" name="employee_id" id="employee_id" className="form-control" />
-//                             <label htmlFor="employee_Id">Employee ID</label>
-//                         </div>
-//                         <button className="btn btn-primary">Create</button>
-//                     </form>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
+   const handleRegistration = (e) => {
+    e.preventDefault();
+    const accountData = {
+      username: username,
+      password_hash: password_hash,
+      passwordConfirmation: passwordConfirmation,
+    };
+    // register(accountData, `${process.env.REACT_APP_API_HOST}/api/signup`);
+    // e.target.reset();
+    // navigate("/preferences");
+  };
 
 
-// export default SignUpForm;
+
+    return (
+      <div className="row">
+        <div className="offset-3 col-6">
+          <div className="shadow p-4 mt-4">
+            <h1>SignUpForm</h1>
+            <form onSubmit={(e) => handleRegistration(e)} id="create-user-form">
+              <div className="form-floating mb-3">
+                <input
+                  value={username}
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                  placeholder=""
+                  type="text"
+                  name="username"
+                  id="username"
+                  className="form-control"
+                />
+                <label htmlFor="username">Username</label>
+              </div>
+              <div className="form-floating mb-3">
+                <input
+                  value={password_hash}
+                  onChange={(e) => {
+                    setPassword_hash(e.target.value);
+                  }}
+                  placeholder="password_hash"
+                  type="text"
+                  name="password_hash"
+                  id="password_hash"
+                  className="form-control"
+                />
+                <label htmlFor="password_hash">Password</label>
+              </div>
+              <div className="form-floating mb-3">
+                <input
+                  value={passwordConfirmation}
+                  onChange={(e) => {
+                    setPasswordConfirmation(e.target.value);
+                  }}
+                  placeholder="Password Confirmation"
+                  type="text"
+                  name="passwordConfirmation"
+                  id="passwordConfirmation"
+                  className="form-control"
+                />
+                <label htmlFor="passwordConfirmation">
+                  Password Confirmation
+                </label>
+              </div>
+              <button className="btn btn-primary">Create</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+}
+
+
+export default SignUpForm;

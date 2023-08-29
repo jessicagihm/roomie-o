@@ -1,52 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AuthProvider, useAuthContext } from './path/to/auth-context'; // Import AuthProvider and useAuthContext
-import Nav from "./Nav";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import { AuthProvider, useAuthContext } from './path/to/auth-context'; // Import AuthProvider and useAuthContext
 import LoginForm from "./LoginForm";
-import Construct from "./Construct";
-import ErrorNotification from "./ErrorNotification";
+import SignUpForm from "./SignUpForm";
 import "./App.css";
+import MainPage from "./MainPage";
+import { NavLink } from "react-router-dom";
+
 
 function App() {
-  const { token } = useAuthContext();
-  const [launchInfo, setLaunchInfo] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function getData() {
-      let url = `${process.env.REACT_APP_API_HOST}/api/launch-details`;
-      console.log("fastapi url: ", url);
-      let response = await fetch(url);
-      console.log("------- hello? -------");
-      let data = await response.json();
-
-      if (response.ok) {
-        console.log("got launch data!");
-        setLaunchInfo(data.launch_details);
-      } else {
-        console.log("drat! something happened");
-        setError(data.message);
-      }
-    }
-    getData();
-  }, []);
+const domain = /https:\/\/[^/]+/;
+const basename = process.env.PUBLIC_URL.replace(domain, "");
 
   return (
-    <AuthProvider> {/* Wrap your app with AuthProvider */}
-      <Router>
-        <div>
-          <Nav />
-          <ErrorNotification error={error} />
-          <Construct info={launchInfo} />
-          <div className="container">
-            <Routes>
-              <Route path="/login" element={<LoginForm />} />
-            </Routes>
-          </div>
-        </div>
-      </Router>
-    </AuthProvider>
+    <div className="container">
+      <BrowserRouter basename={basename}>
+        {/* <AuthProvider> */}
+          <Routes>
+            <Route exact path="/" element={<MainPage />}></Route>
+            <Route exact path="/signup" element={<SignUpForm />}></Route>
+            <Route exact path="/login" element={<LoginForm />}></Route>
+          </Routes>
+        {/* </AuthProvider> */}
+      </BrowserRouter>
+    </div>
   );
 }
+
 
 export default App;

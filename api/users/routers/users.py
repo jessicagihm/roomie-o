@@ -79,17 +79,17 @@ async def create_account(
     return UserToken(account=account, **token.dict())
 
 
-# @router.get("/token", response_model=UserToken | None)
-# async def get_token(
-#     request: Request,
-#     account: UserOut = Depends(authenticator.try_get_current_account_data),
-# ) -> UserToken | None:
-#     if account and authenticator.cookie_name in request.cookies:
-#         return {
-#             "access_token": request.cookies[authenticator.cookie_name],
-#             "type": "Bearer",
-#             "account": account,
-#         }
+@router.get("/token", response_model=UserToken | None)
+async def get_token(
+    request: Request,
+    account: UserOut = Depends(authenticator.try_get_current_account_data),
+) -> UserToken | None:
+    if account and authenticator.cookie_name in request.cookies:
+        return {
+            "access_token": request.cookies[authenticator.cookie_name],
+            "type": "Bearer",
+            "account": account,
+        }
 
 
 @router.put("/api/users/{user_id}", response_model=Union[Error, UserOut])

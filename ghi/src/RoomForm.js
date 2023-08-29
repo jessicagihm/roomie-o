@@ -6,15 +6,13 @@ import './RoomForm.css';
 
 function RoomForm() {
   const [housingType, setHousingType] = useState('');
-  const [rooms, setRooms] = useState('');
+  const [availableRooms, setAvailableRooms] = useState('');
   const [leaseType, setLeaseType] = useState('');
   const [bathrooms, setBathrooms] = useState('');
-  const [locationValue, setLocationValue] = useState('');
   const [availableDate, setAvailableDate] = useState('');
   const [listingPrice, setListingPrice] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
-  const [zipCode, setZipCode] = useState('');
   const [petsAllowed, setPetsAllowed] = useState('');
   const [description, setDescription] = useState('');
   const [pictureUpload, setPictureUpload] = useState(null);
@@ -23,8 +21,22 @@ function RoomForm() {
   const currentLocation = useLocation();
   const navigate = useNavigate();
 
-  function handleRooms(e) {
-    setRooms(e.target.value);
+  const stateOptions = [
+  "AL", "AK", "AZ", "AR", "CA",
+  "CO", "CT", "DE", "FL", "GA",
+  "HI", "ID", "IL", "IN", "IA",
+  "KS", "KY", "LA", "ME", "MD",
+  "MA", "MI", "MN", "MS", "MO",
+  "MT", "NE", "NV", "NH", "NJ",
+  "NM", "NY", "NC", "ND", "OH",
+  "OK", "OR", "PA", "RI", "SC",
+  "SD", "TN", "TX", "UT", "VT",
+  "VA", "WA", "WV", "WI", "WY"
+
+ ];
+
+  function handleAvailableRooms(e) {
+    setAvailableRooms(e.target.value);
   }
 
   function handleLeaseType(e) {
@@ -33,10 +45,6 @@ function RoomForm() {
 
   function handleBathrooms(e) {
     setBathrooms(e.target.value);
-  }
-
-  function handleLocationValue(e) {
-    setLocationValue(e.target.value);
   }
 
   function handleAvailableDate(e) {
@@ -75,10 +83,6 @@ function RoomForm() {
     setState(e.target.value);
   }
 
-  function handleZipCode(e) {
-    setZipCode(e.target.value);
-  }
-
   function handleDescription(e) {
     setDescription(e.target.value);
   }
@@ -91,7 +95,7 @@ function RoomForm() {
 
   const createRoom = async (roomData) => {
   try {
-    const response = await fetch(`http://localhost:8000/api/rooms/create`, { // Added 'http://' before 'localhost'
+    const response = await fetch(`http://localhost:8000/api/rooms/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -113,11 +117,16 @@ function RoomForm() {
 
     const roomData = {
       housingType,
-      rooms,
+      availableRooms,
       leaseType,
       bathrooms,
-      location: locationValue,
       availableDate,
+      listingPrice,
+      city,
+      state,
+      petsAllowed,
+      description,
+      pictureUpload
     };
 
     try {
@@ -160,8 +169,8 @@ function RoomForm() {
                 </select>
             </label>
             <label>
-                Rooms:
-                <input type="text" value={rooms} onChange={handleRooms} className="input"/>
+                Available Rooms:
+                <input type="text" value={availableRooms} onChange={handleAvailableRooms} className="input"/>
             </label>
             <label>
                 Lease Type:
@@ -170,10 +179,6 @@ function RoomForm() {
             <label>
                 Bathrooms:
                 <input type="text" value={bathrooms} onChange={handleBathrooms} className="input" />
-            </label>
-            <label>
-                Location:
-                <input type="text" value={locationValue} onChange={handleLocationValue} className="input" />
             </label>
             <label>
                 Available Date:
@@ -198,12 +203,15 @@ function RoomForm() {
                 <input type="text" value={city} onChange={handleCity} className="input" />
             </label>
             <label>
-                State:
-                <input type="text" value={state} onChange={handleState} className="input" />
-            </label>
-            <label>
-                Zip Code:
-                <input type="text" value={zipCode} onChange={handleZipCode} className="input" />
+              State:
+              <select value={state} onChange={handleState} className="input">
+                <option value="">Select State</option>
+                {stateOptions.map((stateOption) => (
+                  <option key={stateOption} value={stateOption}>
+                    {stateOption}
+                  </option>
+                ))}
+              </select>
             </label>
             <label className="label">
                 Pets Allowed:

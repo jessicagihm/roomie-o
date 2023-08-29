@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import { AuthProvider, useAuthContext } from './path/to/auth-context'; // Import AuthProvider and useAuthContext
+import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import Nav from "./Nav";
 // import Construct from "./Construct";
 // import ErrorNotification from "./ErrorNotification";
@@ -36,7 +36,7 @@ function App() {
   // }, []);
 
   return (
-    // <AuthProvider>
+    <AuthProvider>
       <Router>
         <div>
           <Nav />
@@ -50,7 +50,7 @@ function App() {
           </div>
         </div>
       </Router>
-    // </AuthProvider>
+    </AuthProvider>
   );
 }
 

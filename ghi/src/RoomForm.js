@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+// import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './RoomForm.css';
+
 
 function RoomForm() {
   const [housingType, setHousingType] = useState('');
@@ -88,23 +90,23 @@ function RoomForm() {
 
 
   const createRoom = async (roomData) => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/rooms/create`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(roomData),
-      });
+  try {
+    const response = await fetch(`http://localhost:8000/api/rooms/create`, { // Added 'http://' before 'localhost'
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(roomData),
+    });
 
-      if (!response.ok) {
-        throw new Error('Failed to create room');
-      }
-    } catch (error) {
-      console.error('Error creating room:', error);
-      throw error;
+    if (!response.ok) {
+      throw new Error('Failed to create room');
     }
-  };
+  } catch (error) {
+    console.error('Error creating room:', error);
+    throw error;
+  }
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();

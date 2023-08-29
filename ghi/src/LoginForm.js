@@ -3,28 +3,21 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 
-function LoginForm() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const { login } = useToken();
-    const navigate = useNavigate();
+const LoginForm = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useToken();
+  const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(username, password);
+    console.log("Login submitted");
+    e.target.reset();
+    navigate('/home');
+    console.log("Navigation executed");
+  };
 
-
-        const isAuthenticated = await login(username, password);
-
-        if (isAuthenticated) {
-            navigate('/home'); // Redirect to home page upon successful login
-        } else {
-            console.log('Invalid username or password');
-        }
-
-        // Reset fields
-        setUsername('');
-        setPassword('');
-    };
 
     return (
     <div className="container flex-r">

@@ -5,6 +5,7 @@ import Nav from "./Nav";
 // import Construct from "./Construct";
 // import ErrorNotification from "./ErrorNotification";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginForm from "./LoginForm";
 import RoomForm from "./RoomForm";
 import MainPage from "./MainPage";

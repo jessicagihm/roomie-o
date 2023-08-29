@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom';
 function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { login } = useToken(); // Ensure the import and usage are correct
+    const { login } = useToken();
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Call the login function to handle authentication
+
         const isAuthenticated = await login(username, password);
 
         if (isAuthenticated) {

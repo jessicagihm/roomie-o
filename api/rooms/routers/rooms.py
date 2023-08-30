@@ -1,6 +1,6 @@
 from typing import Union
 from rooms.queries.rooms import RoomIn, RoomOut, RoomList, RoomQueries, Error
-from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi import APIRouter, Depends, HTTPException
 from authenticator import authenticator
 
 
@@ -34,7 +34,7 @@ def get_room(
 #     return created_room
 
 
-@router.post("/api/rooms", response_model=RoomOut)
+@router.post("/api/rooms/create", response_model=RoomOut)
 def create_room(
     room: RoomIn,
     queries: RoomQueries = Depends(),
@@ -64,6 +64,7 @@ def update_room(
         return updated_room
     else:
         raise HTTPException(status_code=401, detail="You must login to continue")
+
 
 @router.delete("/api/rooms/{room_id}", response_model=bool)
 def delete_room(

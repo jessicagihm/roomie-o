@@ -1,30 +1,36 @@
-import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
-import SignUpForm from "./SignUpForm";
+import Nav from "./Nav";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import LoginForm from "./LoginForm";
+import RoomForm from "./RoomForm";
 import MainPage from "./MainPage";
-import Nav from './Nav';
-
-
+import HomePage from "./HomePage";
 
 function App() {
-  const domain = /https:\/\/[^/]+/;
-  const basename = process.env.PUBLIC_URL.replace(domain, "");
-
   return (
     <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
-      <BrowserRouter>
-        <Nav />
-        <div className="container">
-          <Routes>
-            <Route path="/signup" element={<SignUpForm />} />
-          </Routes>
+      <Router>
+        <div>
+          <Nav />
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/rooms/create" element={<RoomForm />} />
+              <Route path="/signup" element={<SignUpForm />} />
+            </Routes>
+          </div>
         </div>
-      </BrowserRouter>
+      </Router>
     </AuthProvider>
   );
 }
 
-
 export default App;
+
+
+

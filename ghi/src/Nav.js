@@ -9,40 +9,18 @@ function Nav() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-info">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">
-        RoomieO
-        </NavLink>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <NavLink className="nav-link active" aria-current="page" to="/">
-                Home
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/signup">
-                SignUp
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/login">
-                Login
-              </NavLink>
-
-            </li>
-          </ul>
+        <NavLink className="navbar-brand" to="/home">Home</NavLink>
+        <div className="ml-auto">
+          <div className="dropdown d-inline-block">
+            <button className="btn btn-light dropdown-toggle me-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Menu
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <NavLink className="dropdown-item" to="/login/">Login</NavLink>
+              <NavLink className="dropdown-item" to="/rooms/create">List a Room</NavLink>
+              <NavLink className="dropdown-item" to="/signup/">SignUp</NavLink>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
@@ -53,3 +31,5 @@ function Nav() {
 
 
 export default Nav;
+
+// import useToken from "@galvanize-inc/jwtdown-for-react"; */}

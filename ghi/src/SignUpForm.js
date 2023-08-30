@@ -38,7 +38,7 @@ function SignUpForm() {
     e.target.reset();
     navigate("/preferences");
   };
-  
+
   return (
     <div className="card text-bg-light mb-3">
       <h5 className="card-header">Sign Up</h5>

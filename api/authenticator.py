@@ -1,7 +1,7 @@
 import os
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends
 from jwtdown_fastapi.authentication import Authenticator
-from users.models import UserOut, UserOutWithPassword, UserIn
+from users.models import UserOut, UserIn
 from users.queries.users import UserQueries
 
 
@@ -13,7 +13,6 @@ class MyAuthenticator(Authenticator):
     ):
         # Use your repo to get the account based on the
         # username (which could be an email)
-
         account = await accounts.get_user_by_email(username)
         return account
 

@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from datetime import date
 from queries.pool import pool
-from typing import List, Union
+from typing import List
 
 
 class Error(BaseModel):
@@ -141,6 +141,5 @@ class PrefQueries:
         except Exception as e:
             print(e)
             return {"message": "Could not delete preferences"}
-
 
     # def update_pref(self, pref_id: int, pref: PrefIn) -> Union[Error, PrefOut]:

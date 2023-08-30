@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from queries.pool import pool
 from typing import List
-from users.models import UserIn, UserOut
+from users.models import UserIn, UserOut, UserUpdate
 
 
 class DuplicateAccountError(ValueError):
@@ -202,7 +202,7 @@ class UserQueries:
                         bio=result[8],
                     )
 
-    def update_user(self, id: int, user: UserIn) -> UserOut:
+    def update_user(self, id: int, user: UserUpdate) -> UserOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:

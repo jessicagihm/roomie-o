@@ -65,6 +65,7 @@ async def create_account(
     response: Response,
     users: UserQueries = Depends(),
 ):
+    print(info)
     hashed_password = authenticator.hash_password(info.password)
     try:
         account = users.create(info, hashed_password)
@@ -77,6 +78,19 @@ async def create_account(
     form = SignUpForm(username=info.username, password=info.password)
     token = await authenticator.login(response, request, form, users)
     return UserToken(account=account, **token.dict())
+
+
+@router.get("/token", response_model=UserToken | None)
+async def get_token(
+    request: Request,
+    account: UserOut = Depends(authenticator.try_get_current_account_data),
+) -> UserToken | None:
+    if account and authenticator.cookie_name in request.cookies:
+        return {
+            "access_token": request.cookies[authenticator.cookie_name],
+            "type": "Bearer",
+            "account": account,
+        }
 
 
 @router.put("/api/users/{user_id}", response_model=Union[Error, UserOut])

@@ -3,9 +3,15 @@ import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function SignUpForm() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [password_confirmation, setPasswordConf] = useState("");
+  const [first, setFirst] = useState("");
+  const [last, setLast] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [image, setImage] = useState("");
+  const [bio, setBio] = useState("");
+
 
   const { register } = useToken();
   const navigate = useNavigate();
@@ -13,16 +19,26 @@ function SignUpForm() {
   const handleRegistration = (e) => {
     e.preventDefault();
     const accountData = {
-      email: email,
+      username: username,
       password: password,
-      password_confirmation: password_confirmation,
+      first: first,
+      last: last,
+      age: age,
+      gender: gender,
+      image: image,
+      bio: bio,
+
 
     };
-    register(accountData, `${process.env.REACT_APP_API_HOST}/api/signup`);
-    e.target.reset();
-    navigate("/");
-  };
+    register(
+      accountData,
+      `${process.env.REACT_APP_API_HOST}/api/signup`
+    );
 
+    e.target.reset();
+    navigate("/preferences");
+  };
+  
   return (
     <div className="card text-bg-light mb-3">
       <h5 className="card-header">Sign Up</h5>
@@ -35,7 +51,7 @@ function SignUpForm() {
               type="text"
               className="form-control"
               onChange={(e) => {
-                setEmail(e.target.value);
+                setUsername(e.target.value);
               }}
             />
         </div>
@@ -50,14 +66,69 @@ function SignUpForm() {
               }}
             />
         </div>
-          <div className="mb-3">
-            <label className="form-label">Password Confirmation</label>
+        <div className="mb-3">
+            <label className="form-label">First</label>
             <input
               name="first"
               type="text"
               className="form-control"
               onChange={(e) => {
-                setPasswordConf(e.target.value);
+                setFirst(e.target.value);
+              }}
+            />
+        </div>
+        <div className="mb-3">
+            <label className="form-label">Last</label>
+            <input
+              name="last"
+              type="text"
+              className="form-control"
+              onChange={(e) => {
+                setLast(e.target.value);
+              }}
+            />
+        </div>
+        <div className="mb-3">
+            <label className="form-label">Age</label>
+            <input
+              name="age"
+              type="text"
+              className="form-control"
+              onChange={(e) => {
+                setAge(e.target.value);
+              }}
+            />
+        </div>
+        <div className="mb-3">
+            <label className="form-label">Gender</label>
+            <input
+              name="gender"
+              type="text"
+              className="form-control"
+              onChange={(e) => {
+                setGender(e.target.value);
+              }}
+            />
+        </div>
+        <div className="mb-3">
+            <label className="form-label">Image</label>
+            <input
+              name="image"
+              type="text"
+              className="form-control"
+              onChange={(e) => {
+                setImage(e.target.value);
+              }}
+            />
+        </div>
+        <div className="mb-3">
+            <label className="form-label">Bio</label>
+            <input
+              name="bio"
+              type="text"
+              className="form-control"
+              onChange={(e) => {
+                setBio(e.target.value);
               }}
             />
         </div>

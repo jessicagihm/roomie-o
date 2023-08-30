@@ -13,7 +13,7 @@ class MyAuthenticator(Authenticator):
     ):
         # Use your repo to get the account based on the
         # username (which could be an email)
-         
+
         account = await accounts.get_user_by_email(username)
         return account
 
@@ -33,5 +33,6 @@ class MyAuthenticator(Authenticator):
         # Return the username and the data for the cookie.
         # You must return TWO values from this method.
         return account.username, UserOut(**account.dict())
+
 
 authenticator = MyAuthenticator(os.environ["SIGNING_KEY"])

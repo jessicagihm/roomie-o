@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useToken from "@galvanize-inc/jwtdown-for-react";
 // import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './RoomForm.css';
@@ -17,7 +18,7 @@ function RoomForm() {
   const [description, setDescription] = useState('');
   const [pictureUpload, setPictureUpload] = useState(null);
 
-
+  const { token } = useToken();
   const currentLocation = useLocation();
   const navigate = useNavigate();
 
@@ -130,12 +131,39 @@ function RoomForm() {
     };
 
     try {
-      await createRoom(roomData);
+      const roomUrl = `${process.env.REACT_APP_API_HOST}/api/rooms/create`;
+      const fetchConfig = {
+        method: 'POST',
+        body: JSON.stringify(roomData),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization:  `Bearer ${token}`,
+        },
+      };
+      const response = await fetch(roomUrl, fetchConfig);
+
+      if (!response.ok) {
+        throw new Error('Failed to create room');
+      }
+
+      setHousingType('');
+      setAvailableRooms('');
+      setLeaseType('');
+      setBathrooms('');
+      setAvailableDate('');
+      setListingPrice('');
+      setCity('');
+      setState('');
+      setPetsAllowed('');
+      setDescription('');
+      setPictureUpload(null);
+
       navigate('/success');
     } catch (error) {
       console.error('Error submitting room form:', error);
     }
   };
+
 
   const isCreateRoomPage = currentLocation.pathname === '/rooms/create';
 

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+// import useToken from "./auth forms/newindex.tsx";
 import Nav from "./Nav";
-// import Construct from "./Construct";
-// import ErrorNotification from "./ErrorNotification";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginForm from "./LoginForm";
@@ -12,7 +11,8 @@ import MainPage from "./MainPage";
 import HomePage from "./HomePage";
 
 function App() {
-  // const { token } = useAuthContext();
+  // const { token } = useToken();
+  // const { user } = useUser(token);
   // const [launchInfo, setLaunchInfo] = useState([]);
   // const [error, setError] = useState(null);
 
@@ -36,7 +36,7 @@ function App() {
   // }, []);
 
   return (
-    <AuthProvider>
+    <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
       <Router>
         <div>
           <Nav />

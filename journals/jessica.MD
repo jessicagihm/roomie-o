@@ -8,5 +8,15 @@ Today I worked:
 August 28, 2023
 Today I worked on:
 -Sending a MR for protected update user endpoint
-- Started a user preferences pages
+- Started a user sign up page
 
+August 29, 2023
+Today I worked on:
+-Created a Sign Up Form
+-Started working on frontend authorization for Sign Up
+
+August 30, 2023
+Today I worked on:
+-Completed a working frontend authorization for Sign Up
+-Started CSS styling on Sign Up
+-Working on unit test

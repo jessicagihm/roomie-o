@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import Nav from "./Nav";
 import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginForm from "./LoginForm";
+import SignUpForm from "./SignUpForm";
 import RoomForm from "./RoomForm";
 import MainPage from "./MainPage";
 import HomePage from "./HomePage";
@@ -31,6 +32,3 @@ function App() {
 }
 
 export default App;
-
-
-

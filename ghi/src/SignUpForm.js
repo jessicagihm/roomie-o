@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import './SignUpForm.css';
 
 function SignUpForm() {
   const [username, setUsername] = useState("");
@@ -47,7 +48,7 @@ function SignUpForm() {
           <div className="mb-3">
             <label className="form-label">Email</label>
             <input
-              name="username"
+              value={username}
               type="text"
               className="form-control"
               onChange={(e) => {
@@ -58,7 +59,7 @@ function SignUpForm() {
           <div className="mb-3">
             <label className="form-label">Password</label>
             <input
-              name="password"
+              value={password}
               type="password"
               className="form-control"
               onChange={(e) => {

@@ -61,10 +61,8 @@ function RoomForm() {
   function handleListingPriceChange(e) {
     const inputText = e.target.value;
 
-    // Remove non-numeric characters and convert to a valid numeric value
     const numericValue = parseFloat(inputText.replace(/[^0-9.-]/g, ''));
 
-    // Format numeric value with the dollar sign and update the state
     if (!isNaN(numericValue)) {
         const formattedValue = new Intl.NumberFormat('en-US', {
         style: 'currency',

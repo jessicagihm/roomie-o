@@ -1,6 +1,6 @@
 from typing import Union
 from rooms.queries.rooms import RoomIn, RoomOut, RoomList, RoomQueries, Error
-from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi import APIRouter, Depends, HTTPException
 from authenticator import authenticator
 
 

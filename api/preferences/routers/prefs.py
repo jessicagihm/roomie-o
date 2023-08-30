@@ -1,7 +1,7 @@
 from authenticator import authenticator
 from fastapi import APIRouter, Depends, HTTPException, Response
-from ..queries.prefs import PrefIn, PrefOut, PrefList, PrefQueries
-from typing import Union
+from ..queries.prefs import PrefIn, PrefOut, PrefQueries
+
 
 router = APIRouter()
 
@@ -35,7 +35,6 @@ def delete_pref(
     queries: PrefQueries = Depends(),
 ) -> bool:
     return queries.delete(pref_id)
-
 
 
 @router.post("/api/preferences", response_model=PrefOut)

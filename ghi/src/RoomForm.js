@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import useToken from "@galvanize-inc/jwtdown-for-react";
-// import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './RoomForm.css';
 
 
 function RoomForm() {
   const [housingType, setHousingType] = useState('');
-  const [availableRooms, setAvailableRooms] = useState('');
   const [leaseType, setLeaseType] = useState('');
+  const [availableRooms, setAvailableRooms] = useState('');
   const [bathrooms, setBathrooms] = useState('');
   const [availableDate, setAvailableDate] = useState('');
   const [listingPrice, setListingPrice] = useState('');
@@ -19,6 +18,8 @@ function RoomForm() {
   const [pictureUpload, setPictureUpload] = useState(null);
 
   const { token } = useToken();
+  const decodedToken = jwtDecode(token);
+  const userId = decodedToken.sub;
   const currentLocation = useLocation();
   const navigate = useNavigate();
 
@@ -36,12 +37,12 @@ function RoomForm() {
 
  ];
 
-  function handleAvailableRooms(e) {
-    setAvailableRooms(e.target.value);
-  }
-
   function handleLeaseType(e) {
     setLeaseType(e.target.value);
+  }
+
+  function handleAvailableRooms(e) {
+    setAvailableRooms(e.target.value);
   }
 
   function handleBathrooms(e) {
@@ -52,26 +53,8 @@ function RoomForm() {
     setAvailableDate(e.target.value);
   }
 
-//   const formattedListingPrice = new Intl.NumberFormat('en-US', {
-//     style: 'currency',
-//     currency: 'USD',
-//   }).format(listingPrice);
-
-
-  function handleListingPriceChange(e) {
-    const inputText = e.target.value;
-
-    const numericValue = parseFloat(inputText.replace(/[^0-9.-]/g, ''));
-
-    if (!isNaN(numericValue)) {
-        const formattedValue = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        }).format(numericValue);
-        setListingPrice(formattedValue);
-    } else {
-        setListingPrice('');
-    }
+  function handleListingPrice(e) {
+    setListingPrice(e.target.value);
   }
 
   function handleCity(e) {
@@ -92,32 +75,32 @@ function RoomForm() {
   }
 
 
-  const createRoom = async (roomData) => {
-  try {
-    const response = await fetch(`http://localhost:8000/api/rooms/create`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(roomData),
-    });
+//   const createRoom = async (roomData) => {
+//   try {
+//     const response = await fetch(`${process.env.REACT_APP_API_HOST}/api/rooms/create`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(roomData),
+//     });
 
-    if (!response.ok) {
-      throw new Error('Failed to create room');
-    }
-  } catch (error) {
-    console.error('Error creating room:', error);
-    throw error;
-  }
-};
+//     if (!response.ok) {
+//       throw new Error('Failed to create room');
+//     }
+//   } catch (error) {
+//     console.error('Error creating room:', error);
+//     throw error;
+//   }
+// };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const roomData = {
       housingType,
-      availableRooms,
       leaseType,
+      availableRooms,
       bathrooms,
       availableDate,
       listingPrice,
@@ -125,7 +108,8 @@ function RoomForm() {
       state,
       petsAllowed,
       description,
-      pictureUpload
+      pictureUpload,
+      user_id: userId,
     };
 
     try {
@@ -145,8 +129,8 @@ function RoomForm() {
       }
 
       setHousingType('');
-      setAvailableRooms('');
       setLeaseType('');
+      setAvailableRooms('');
       setBathrooms('');
       setAvailableDate('');
       setListingPrice('');
@@ -195,17 +179,31 @@ function RoomForm() {
                 </select>
             </label>
             <label>
-                Available Rooms:
-                <input type="text" value={availableRooms} onChange={handleAvailableRooms} className="input"/>
-            </label>
-            <label>
                 Lease Type:
                 <input type="text" value={leaseType} onChange={handleLeaseType} className="input" />
             </label>
             <label>
-                Bathrooms:
-                <input type="text" value={bathrooms} onChange={handleBathrooms} className="input" />
+                Available Rooms:
+                <input
+                    type="number"
+                    value={availableRooms}
+                    onChange={handleAvailableRooms}
+                    className="input"
+                    min="0"
+                    max="50"
+                />
             </label>
+            <label>
+                Bathrooms:
+                <input
+                    type="number"
+                    value={bathrooms}
+                    onChange={handleBathrooms}
+                    className="input"
+                    min="0"
+                    max="50"
+                />
+           </label>
             <label>
                 Available Date:
                 <input
@@ -218,10 +216,12 @@ function RoomForm() {
             <label>
                 Listing Price:
                 <input
-                    type="text"
+                    type="number"
                     value={listingPrice}
-                    onChange={(e) => setListingPrice(e.target.value)}
+                    onChange={handleListingPrice}
                     className="input"
+                    min="0"
+                    max="5000"
                 />
             </label>
             <label>

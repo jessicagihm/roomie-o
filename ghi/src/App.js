@@ -9,7 +9,8 @@ import SignUpForm from "./SignUpForm";
 import RoomForm from "./RoomForm";
 import MainPage from "./MainPage";
 import HomePage from "./HomePage";
-import UsersList from "./UsersList"
+import UsersList from "./UsersList";
+
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
               <Route path="/home" element={<HomePage />} />
               <Route path="/rooms/create" element={<RoomForm />} />
               <Route path="/signup" element={<SignUpForm />} />
-              <Route path="/users/" element={<UsersList />} />
+              <Route path="/users" element={<UsersList />} />
             </Routes>
           </div>
         </div>

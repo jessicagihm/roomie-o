@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import './SignUpForm.css';
+
 
 function SignUpForm() {
   const [username, setUsername] = useState("");

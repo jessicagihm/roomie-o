@@ -115,17 +115,15 @@ function SignUpForm() {
               }}
             />
           </div>
-          <div className="mb-3">
-            <label className="form-label">Image</label>
+          <label>
+            Profile Picture:
             <input
-              name="image"
-              type="text"
-              className="form-control"
-              onChange={(e) => {
-                setImageUpload(e.target.value);
-              }}
+              type="file"
+              accept="image/*"
+              onChange={handlePictureUpload}
+              className="input"
             />
-          </div>
+          </label>
           <div className="mb-3">
             <label className="form-label">Bio</label>
             <input
@@ -137,15 +135,6 @@ function SignUpForm() {
               }}
             />
           </div>
-          <label>
-            User Picture:
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handlePictureUpload}
-              className="input"
-            />
-          </label>
           <div>
             <input className="btn btn-primary" type="submit" value="SignUp" />
           </div>

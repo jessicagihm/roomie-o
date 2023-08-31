@@ -19,6 +19,7 @@ function Nav() {
               <NavLink className="dropdown-item" to="/login/">Login</NavLink>
               <NavLink className="dropdown-item" to="/rooms/create">List a Room</NavLink>
               <NavLink className="dropdown-item" to="/signup/">SignUp</NavLink>
+              <NavLink className="dropdown-item" to="/users/">UsersList</NavLink>
             </div>
           </div>
         </div>

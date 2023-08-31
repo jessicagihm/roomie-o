@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import './SignUpForm.css';
+
 
 function SignUpForm() {
   const [username, setUsername] = useState("");
@@ -10,7 +10,7 @@ function SignUpForm() {
   const [last, setLast] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImageUpload] = useState("");
   const [bio, setBio] = useState("");
 
 
@@ -40,6 +40,10 @@ function SignUpForm() {
     navigate("/preferences");
   };
 
+  function handlePictureUpload(e) {
+    const file = e.target.files[0];
+    setImageUpload(file);
+  }
   return (
     <div className="card text-bg-light mb-3">
       <h5 className="card-header">Sign Up</h5>
@@ -55,7 +59,7 @@ function SignUpForm() {
                 setUsername(e.target.value);
               }}
             />
-        </div>
+          </div>
           <div className="mb-3">
             <label className="form-label">Password</label>
             <input
@@ -66,8 +70,8 @@ function SignUpForm() {
                 setPassword(e.target.value);
               }}
             />
-        </div>
-        <div className="mb-3">
+          </div>
+          <div className="mb-3">
             <label className="form-label">First</label>
             <input
               name="first"
@@ -77,8 +81,8 @@ function SignUpForm() {
                 setFirst(e.target.value);
               }}
             />
-        </div>
-        <div className="mb-3">
+          </div>
+          <div className="mb-3">
             <label className="form-label">Last</label>
             <input
               name="last"
@@ -88,8 +92,8 @@ function SignUpForm() {
                 setLast(e.target.value);
               }}
             />
-        </div>
-        <div className="mb-3">
+          </div>
+          <div className="mb-3">
             <label className="form-label">Age</label>
             <input
               name="age"
@@ -99,8 +103,8 @@ function SignUpForm() {
                 setAge(e.target.value);
               }}
             />
-        </div>
-        <div className="mb-3">
+          </div>
+          <div className="mb-3">
             <label className="form-label">Gender</label>
             <input
               name="gender"
@@ -110,19 +114,19 @@ function SignUpForm() {
                 setGender(e.target.value);
               }}
             />
-        </div>
-        <div className="mb-3">
+          </div>
+          <div className="mb-3">
             <label className="form-label">Image</label>
             <input
               name="image"
               type="text"
               className="form-control"
               onChange={(e) => {
-                setImage(e.target.value);
+                setImageUpload(e.target.value);
               }}
             />
-        </div>
-        <div className="mb-3">
+          </div>
+          <div className="mb-3">
             <label className="form-label">Bio</label>
             <input
               name="bio"
@@ -132,7 +136,16 @@ function SignUpForm() {
                 setBio(e.target.value);
               }}
             />
-        </div>
+          </div>
+          <label>
+            User Picture:
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handlePictureUpload}
+              className="input"
+            />
+          </label>
           <div>
             <input className="btn btn-primary" type="submit" value="SignUp" />
           </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import jwtDecode from 'jwt-decode';
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './RoomForm.css';
@@ -18,10 +19,15 @@ function RoomForm() {
   const [pictureUpload, setPictureUpload] = useState(null);
 
   const { token } = useToken();
+  const isAuthenticated = !!token;
   const decodedToken = jwtDecode(token);
   const userId = decodedToken.sub;
   const currentLocation = useLocation();
   const navigate = useNavigate();
+
+  if (!isAuthenticated) {
+    return <div>Please log in to list a room.</div>;
+  }
 
   const stateOptions = [
   "AL", "AK", "AZ", "AR", "CA",

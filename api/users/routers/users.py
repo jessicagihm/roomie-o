@@ -65,6 +65,7 @@ async def create_account(
     response: Response,
     users: UserQueries = Depends(),
 ):
+    print(info)
     hashed_password = authenticator.hash_password(info.password)
     try:
         account = users.create(info, hashed_password)

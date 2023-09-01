@@ -9,6 +9,12 @@ import RoomForm from "./RoomForm";
 import MainPage from "./MainPage";
 import HomePage from "./HomePage";
 // import RoomDetails from "./RoomDetails";
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import LoginForm from "./LoginForm";
+import SignUpForm from "./SignUpForm";
+import RoomForm from "./RoomForm";
+import MainPage from "./MainPage";
+import HomePage from "./HomePage";
 
 function App() {
   return (
@@ -23,6 +29,7 @@ function App() {
               <Route path="/home" element={<HomePage />} />
               <Route path="/rooms/create" element={<RoomForm />} />
               {/* <Route path="/rooms/:roomId" element={<RoomDetails />} /> */}
+              <Route path="/signup" element={<SignUpForm />} />
             </Routes>
           </div>
         </div>

@@ -24,8 +24,9 @@ export default Nav;
 import React from "react";
 
 function Nav() {
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg navbar-light bg-info">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/home">Home</NavLink>
         <div className="ml-auto">
@@ -43,6 +44,9 @@ function Nav() {
     </nav>
   );
 }
+
+
+
 
 export default Nav;
 

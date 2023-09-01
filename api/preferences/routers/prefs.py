@@ -3,7 +3,6 @@ from fastapi import APIRouter, Depends, HTTPException, Response
 from ..queries.prefs import PrefIn, PrefOut, PrefQueries, Error
 from typing import Union
 
-
 router = APIRouter()
 
 

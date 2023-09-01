@@ -6,22 +6,24 @@ import './RoomForm.css';
 
 
 function RoomForm() {
-  const [housingType, setHousingType] = useState('');
+  const [space, setSpace] = useState('');
   const [leaseType, setLeaseType] = useState('');
   const [availableRooms, setAvailableRooms] = useState('');
   const [bathrooms, setBathrooms] = useState('');
-  const [availableDate, setAvailableDate] = useState('');
-  const [listingPrice, setListingPrice] = useState('');
+  const [created, setCreated] = useState('');
+  const [cost, setCost] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [petsAllowed, setPetsAllowed] = useState('');
   const [description, setDescription] = useState('');
-  const [pictureUpload, setPictureUpload] = useState(null);
+  const [picture, setPicture] = useState(null);
 
   const { token } = useToken();
   const isAuthenticated = !!token;
   const decodedToken = jwtDecode(token);
-  const userId = decodedToken.sub;
+  const userId = decodedToken.account.id;
+  console.log("User ID:", userId);
+
   const currentLocation = useLocation();
   const navigate = useNavigate();
 
@@ -55,12 +57,12 @@ function RoomForm() {
     setBathrooms(e.target.value);
   }
 
-  function handleAvailableDate(e) {
-    setAvailableDate(e.target.value);
+  function handleCreated(e) {
+    setCreated(e.target.value);
   }
 
-  function handleListingPrice(e) {
-    setListingPrice(e.target.value);
+  function handleCost(e) {
+    setCost(e.target.value);
   }
 
   function handleCity(e) {
@@ -75,47 +77,36 @@ function RoomForm() {
     setDescription(e.target.value);
   }
 
-  function handlePictureUpload(e) {
+  function handlePicture(e) {
     const file = e.target.files[0];
-    setPictureUpload(file);
+    setPicture(file);
+
+    if (file) {
+      const fileSizeInBytes = file.size;
+      const fileSizeInKB = fileSizeInBytes / 1024;
+
+
+      setPicture({ file: file, sizeKB: fileSizeInKB });
+    }
   }
 
-
-//   const createRoom = async (roomData) => {
-//   try {
-//     const response = await fetch(`${process.env.REACT_APP_API_HOST}/api/rooms/create`, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(roomData),
-//     });
-
-//     if (!response.ok) {
-//       throw new Error('Failed to create room');
-//     }
-//   } catch (error) {
-//     console.error('Error creating room:', error);
-//     throw error;
-//   }
-// };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const roomData = {
-      housingType,
-      leaseType,
-      availableRooms,
-      bathrooms,
-      availableDate,
-      listingPrice,
+      space,
+      lease_type: leaseType,
+      available_rooms: parseInt(availableRooms),
+      bathrooms: parseInt(bathrooms),
+      created: created,
+      cost: parseInt(cost),
       city,
       state,
-      petsAllowed,
+      pets_allowed: petsAllowed === "yes" ? true : false,
       description,
-      pictureUpload,
-      user_id: userId,
+      picture: picture ? URL.createObjectURL(picture.file) : null,
+      user_id: parseInt(userId),
     };
 
     try {
@@ -131,24 +122,27 @@ function RoomForm() {
       const response = await fetch(roomUrl, fetchConfig);
 
       if (!response.ok) {
-        throw new Error('Failed to create room');
+        throw new Error('Could not create room');
       }
 
-      setHousingType('');
+      setSpace('');
       setLeaseType('');
       setAvailableRooms('');
       setBathrooms('');
-      setAvailableDate('');
-      setListingPrice('');
+      setCreated('');
+      setCost('');
       setCity('');
       setState('');
       setPetsAllowed('');
       setDescription('');
-      setPictureUpload(null);
+      setPicture(null);
 
-      navigate('/success');
+      const responseData = await response.json();
+      const roomId = responseData.room_id;
+
+      navigate(`/rooms/${roomId}`);
     } catch (error) {
-      console.error('Error submitting room form:', error);
+      console.error('Could not submit room:', error);
     }
   };
 
@@ -175,7 +169,7 @@ function RoomForm() {
             )}
             <label className="label">
                 Housing Type:
-                <select value={housingType} onChange={(e) => setHousingType(e.target.value)}>
+                <select value={space} onChange={(e) => setSpace(e.target.value)}>
                 <option value="">Select Housing Type</option>
                 <option value="apartment">Apartment</option>
                 <option value="house">House</option>
@@ -214,8 +208,8 @@ function RoomForm() {
                 Available Date:
                 <input
                 type="date"
-                value={availableDate}
-                onChange={handleAvailableDate}
+                value={created}
+                onChange={handleCreated}
                 className="input"
                 />
             </label>
@@ -223,8 +217,8 @@ function RoomForm() {
                 Listing Price:
                 <input
                     type="number"
-                    value={listingPrice}
-                    onChange={handleListingPrice}
+                    value={cost}
+                    onChange={handleCost}
                     className="input"
                     min="0"
                     max="5000"
@@ -272,10 +266,17 @@ function RoomForm() {
                 Description:
                 <textarea value={description} onChange={handleDescription} className="input" > </textarea>
             </label>
-            <label>
-                Room Picture:
-                <input type="file" accept="image/*" onChange={handlePictureUpload} className="input" />
-            </label>
+            {picture ? (
+              <div>
+                <p>Picture Attached: {picture.name}</p>
+                <button onClick={() => setPicture(null)}>Remove Picture</button>
+              </div>
+            ) : (
+              <label className="label">
+                Upload Picture:
+                <input type="file" accept="image/*" onChange={handlePicture} />
+              </label>
+            )}
             <button type="submit">List Room</button>
             </form>
         </div>

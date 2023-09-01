@@ -8,6 +8,7 @@ import LoginForm from "./LoginForm";
 import RoomForm from "./RoomForm";
 import MainPage from "./MainPage";
 import HomePage from "./HomePage";
+// import RoomDetails from "./RoomDetails";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path="/login" element={<LoginForm />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/rooms/create" element={<RoomForm />} />
+              {/* <Route path="/rooms/:roomId" element={<RoomDetails />} /> */}
             </Routes>
           </div>
         </div>

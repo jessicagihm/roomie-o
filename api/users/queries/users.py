@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from queries.pool import pool
 from typing import List
 from users.models import UserIn, UserOut, UserUpdate
+from fastapi.exceptions import HTTPException
 
 
 class DuplicateAccountError(ValueError):
@@ -14,6 +15,41 @@ class Error(BaseModel):
 
 class UserList(BaseModel):
     users: List[UserOut]
+
+
+class AllUsers(BaseModel):
+    data: dict
+
+
+class UserRepo:
+    """
+    Methods:
+        .getAllUserProfiles(): returns all users in a key: value dict
+        """
+    def getAllUserProfiles(self) -> AllUsers:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    result = cur.execute(
+                        """
+                        SELECT *
+                        FROM users
+                        """
+                    )
+                    record = result.fetchall()
+                    if record is None:
+                        raise HTTPException(
+                            status_code=404,
+                            detail="Users not found/registered"
+                        )
+
+                    response = {}
+                    for user in record:
+                        response[user['user_id']] = {k: v for k, v in user.items() if k != 'user_id'}
+                    return AllUsers(data=response)
+        except Exception as error:
+            print(error)
+            raise HTTPException(status_code=400, detail="Bad request")
 
 
 class UserQueries:

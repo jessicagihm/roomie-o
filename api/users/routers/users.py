@@ -18,6 +18,7 @@ from ..queries.users import (
     Error,
     DuplicateAccountError,
     UserUpdate,
+    UserRepo,
 )
 
 
@@ -43,6 +44,11 @@ def get_all_users(
 ):
     return {"users": queries.get_all_users()}
 
+@router.get("api/users/profiles", response_model=UserRepo)
+def get_all_user_profiles(
+    queries: UserRepo.getAllUserProfiles = Depends(),
+):
+    return {"users": queries}
 
 @router.get("/api/users/{user_id}", response_model=UserOut)
 def get_user(

@@ -169,7 +169,7 @@ function RoomForm() {
       const responseData = await response.json();
       const roomId = responseData.room_id;
 
-      navigate(`/roomslist${roomId}`);
+      navigate(`/rooms${roomId}`);
     } catch (error) {
       console.error("Could not list room:", error);
     }

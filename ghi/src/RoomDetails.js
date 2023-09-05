@@ -12,7 +12,7 @@ useEffect(() => {
   fetch(roomUrl)
     .then((response) => {
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('Failed network response');
       }
       return response.json();
     })
@@ -25,7 +25,7 @@ useEffect(() => {
 }, [roomId]);
 
 if (!roomData) {
-    return <div>Loading room details...</div>;
+    return <div>Room details</div>;
   }
 
 
@@ -38,7 +38,7 @@ if (!roomData) {
         <p>Description: {roomData.description}</p>
       </div>
     ) : (
-      <p>Loading room data...</p>
+      <p>Room data</p>
     )}
   </div>
 ); }

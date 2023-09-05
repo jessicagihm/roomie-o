@@ -4,6 +4,7 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./RoomForm.css";
 
+
 function RoomForm() {
   const [space, setSpace] = useState("");
   const [leaseType, setLeaseType] = useState("");

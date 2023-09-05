@@ -162,7 +162,6 @@ function RoomForm() {
                     Menu
                     </button>
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {/* Additional dropdown menu items */}
                     </div>
                 </div>
                 </div>

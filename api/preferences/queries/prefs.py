@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from datetime import date
 from queries.pool import pool
-from typing import List
+from typing import List, Union
 
 
 class Error(BaseModel):
@@ -125,6 +125,86 @@ class PrefQueries:
                 old_data = pref.dict()
                 old_data["pref_id"] = id
                 return PrefOut(**old_data)
+
+    def update(self, pref_id: int, pref: PrefIn) -> Union[Error, PrefOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE preferences
+                        SET
+                            smoker_friendly = %s,
+                            hobbies = %s,
+                            pet_friendly = %s,
+                            budget = %s,
+                            house_pref = %s,
+                            kids = %s,
+                            work_sched = %s,
+                            allergies = %s,
+                            looking_for_roomie = %s,
+                            user_id = %s,
+                            move_in_date = %s
+                        WHERE pref_id = %s
+                        """,
+                        [
+                            pref.smoker_friendly,
+                            pref.hobbies,
+                            pref.pet_friendly,
+                            pref.budget,
+                            pref.house_pref,
+                            pref.kids,
+                            pref.work_sched,
+                            pref.allergies,
+                            pref.looking_for_roomie,
+                            pref.user_id,
+                            pref.move_in_date,
+                            pref_id,
+                        ],
+                    )
+                    conn.commit()
+
+                    db.execute(
+                        """
+                        SELECT pref_id,
+                            smoker_friendly,
+                            hobbies,
+                            pet_friendly,
+                            budget,
+                            house_pref,
+                            kids,
+                            work_sched,
+                            allergies,
+                            looking_for_roomie,
+                            user_id,
+                            move_in_date
+                        FROM preferences
+                        WHERE pref_id = %s
+                        """,
+                        [pref_id],
+                    )
+                    updated_pref = db.fetchone()
+                    if updated_pref:
+                        return PrefOut(
+                            pref_id=int(updated_pref[0]),
+                            smoker_friendly=bool(updated_pref[1]),
+                            hobbies=updated_pref[2],
+                            pet_friendly=bool(updated_pref[3]),
+                            budget=int(updated_pref[4]),
+                            house_pref=str(updated_pref[5]),
+                            kids=str(updated_pref[6]),
+                            work_sched=str(updated_pref[7]),
+                            allergies=str(updated_pref[8]),
+                            looking_for_roomie=bool(updated_pref[9]),
+                            user_id=int(updated_pref[10]),
+                            move_in_date=bool(updated_pref[11]),
+                        )
+                    else:
+                        return None
+
+        except Exception as e:
+            error_message = f"Could not update preferences. Error: {e}"
+            return Error(message=error_message)
 
     def delete(self, pref_id: int) -> None:
         try:

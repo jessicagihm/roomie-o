@@ -1,26 +1,35 @@
 import React, { useState } from 'react';
+import jwtDecode from 'jwt-decode';
 import useToken from "@galvanize-inc/jwtdown-for-react";
-// import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './RoomForm.css';
 
 
 function RoomForm() {
-  const [housingType, setHousingType] = useState('');
-  const [availableRooms, setAvailableRooms] = useState('');
+  const [space, setSpace] = useState('');
   const [leaseType, setLeaseType] = useState('');
+  const [availableRooms, setAvailableRooms] = useState('');
   const [bathrooms, setBathrooms] = useState('');
-  const [availableDate, setAvailableDate] = useState('');
-  const [listingPrice, setListingPrice] = useState('');
+  const [created, setCreated] = useState('');
+  const [cost, setCost] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [petsAllowed, setPetsAllowed] = useState('');
   const [description, setDescription] = useState('');
-  const [pictureUpload, setPictureUpload] = useState(null);
+  const [picture, setPicture] = useState(null);
 
   const { token } = useToken();
+  const isAuthenticated = !!token;
+  const decodedToken = jwtDecode(token);
+  const userId = decodedToken.account.id;
+  console.log("User ID:", userId);
+
   const currentLocation = useLocation();
   const navigate = useNavigate();
+
+  if (!isAuthenticated) {
+    return <div>Please log in to list a room.</div>;
+  }
 
   const stateOptions = [
   "AL", "AK", "AZ", "AR", "CA",
@@ -36,42 +45,24 @@ function RoomForm() {
 
  ];
 
-  function handleAvailableRooms(e) {
-    setAvailableRooms(e.target.value);
-  }
-
   function handleLeaseType(e) {
     setLeaseType(e.target.value);
+  }
+
+  function handleAvailableRooms(e) {
+    setAvailableRooms(e.target.value);
   }
 
   function handleBathrooms(e) {
     setBathrooms(e.target.value);
   }
 
-  function handleAvailableDate(e) {
-    setAvailableDate(e.target.value);
+  function handleCreated(e) {
+    setCreated(e.target.value);
   }
 
-//   const formattedListingPrice = new Intl.NumberFormat('en-US', {
-//     style: 'currency',
-//     currency: 'USD',
-//   }).format(listingPrice);
-
-
-  function handleListingPriceChange(e) {
-    const inputText = e.target.value;
-
-    const numericValue = parseFloat(inputText.replace(/[^0-9.-]/g, ''));
-
-    if (!isNaN(numericValue)) {
-        const formattedValue = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        }).format(numericValue);
-        setListingPrice(formattedValue);
-    } else {
-        setListingPrice('');
-    }
+  function handleCost(e) {
+    setCost(e.target.value);
   }
 
   function handleCity(e) {
@@ -86,46 +77,36 @@ function RoomForm() {
     setDescription(e.target.value);
   }
 
-  function handlePictureUpload(e) {
+  function handlePicture(e) {
     const file = e.target.files[0];
-    setPictureUpload(file);
-  }
+    setPicture(file);
+
+    if (file) {
+      const fileSizeInBytes = file.size;
+      const fileSizeInKB = fileSizeInBytes / 1024;
 
 
-  const createRoom = async (roomData) => {
-  try {
-    const response = await fetch(`http://localhost:8000/api/rooms/create`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(roomData),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to create room');
+      setPicture({ file: file, sizeKB: fileSizeInKB });
     }
-  } catch (error) {
-    console.error('Error creating room:', error);
-    throw error;
   }
-};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const roomData = {
-      housingType,
-      availableRooms,
-      leaseType,
-      bathrooms,
-      availableDate,
-      listingPrice,
+      space,
+      lease_type: leaseType,
+      available_rooms: parseInt(availableRooms),
+      bathrooms: parseInt(bathrooms),
+      created: created,
+      cost: parseInt(cost),
       city,
       state,
-      petsAllowed,
+      pets_allowed: petsAllowed === "yes" ? true : false,
       description,
-      pictureUpload
+      picture: picture ? URL.createObjectURL(picture.file) : null,
+      user_id: parseInt(userId),
     };
 
     try {
@@ -141,24 +122,27 @@ function RoomForm() {
       const response = await fetch(roomUrl, fetchConfig);
 
       if (!response.ok) {
-        throw new Error('Failed to create room');
+        throw new Error('Could not create room');
       }
 
-      setHousingType('');
-      setAvailableRooms('');
+      setSpace('');
       setLeaseType('');
+      setAvailableRooms('');
       setBathrooms('');
-      setAvailableDate('');
-      setListingPrice('');
+      setCreated('');
+      setCost('');
       setCity('');
       setState('');
       setPetsAllowed('');
       setDescription('');
-      setPictureUpload(null);
+      setPicture(null);
 
-      navigate('/success');
+      const responseData = await response.json();
+      const roomId = responseData.room_id;
+
+      navigate(`/rooms/${roomId}`);
     } catch (error) {
-      console.error('Error submitting room form:', error);
+      console.error('Could not submit room:', error);
     }
   };
 
@@ -178,14 +162,13 @@ function RoomForm() {
                     Menu
                     </button>
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {/* Additional dropdown menu items */}
                     </div>
                 </div>
                 </div>
             )}
             <label className="label">
                 Housing Type:
-                <select value={housingType} onChange={(e) => setHousingType(e.target.value)}>
+                <select value={space} onChange={(e) => setSpace(e.target.value)}>
                 <option value="">Select Housing Type</option>
                 <option value="apartment">Apartment</option>
                 <option value="house">House</option>
@@ -195,33 +178,49 @@ function RoomForm() {
                 </select>
             </label>
             <label>
-                Available Rooms:
-                <input type="text" value={availableRooms} onChange={handleAvailableRooms} className="input"/>
-            </label>
-            <label>
                 Lease Type:
                 <input type="text" value={leaseType} onChange={handleLeaseType} className="input" />
             </label>
             <label>
-                Bathrooms:
-                <input type="text" value={bathrooms} onChange={handleBathrooms} className="input" />
+                Available Rooms:
+                <input
+                    type="number"
+                    value={availableRooms}
+                    onChange={handleAvailableRooms}
+                    className="input"
+                    min="0"
+                    max="50"
+                />
             </label>
+            <label>
+                Bathrooms:
+                <input
+                    type="number"
+                    value={bathrooms}
+                    onChange={handleBathrooms}
+                    className="input"
+                    min="0"
+                    max="50"
+                />
+           </label>
             <label>
                 Available Date:
                 <input
                 type="date"
-                value={availableDate}
-                onChange={handleAvailableDate}
+                value={created}
+                onChange={handleCreated}
                 className="input"
                 />
             </label>
             <label>
                 Listing Price:
                 <input
-                    type="text"
-                    value={listingPrice}
-                    onChange={(e) => setListingPrice(e.target.value)}
+                    type="number"
+                    value={cost}
+                    onChange={handleCost}
                     className="input"
+                    min="0"
+                    max="5000"
                 />
             </label>
             <label>
@@ -266,10 +265,17 @@ function RoomForm() {
                 Description:
                 <textarea value={description} onChange={handleDescription} className="input" > </textarea>
             </label>
-            <label>
-                Room Picture:
-                <input type="file" accept="image/*" onChange={handlePictureUpload} className="input" />
-            </label>
+            {picture ? (
+              <div>
+                <p>Picture Attached: {picture.name}</p>
+                <button onClick={() => setPicture(null)}>Remove Picture</button>
+              </div>
+            ) : (
+              <label className="label">
+                Upload Picture:
+                <input type="file" accept="image/*" onChange={handlePicture} />
+              </label>
+            )}
             <button type="submit">List Room</button>
             </form>
         </div>

@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
-import jwtDecode from 'jwt-decode';
+import React, { useState } from "react";
+import jwtDecode from "jwt-decode";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import './RoomForm.css';
-
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import "./RoomForm.css";
 
 function RoomForm() {
-  const [space, setSpace] = useState('');
-  const [leaseType, setLeaseType] = useState('');
-  const [availableRooms, setAvailableRooms] = useState('');
-  const [bathrooms, setBathrooms] = useState('');
-  const [created, setCreated] = useState('');
-  const [cost, setCost] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [petsAllowed, setPetsAllowed] = useState('');
-  const [description, setDescription] = useState('');
+  const [space, setSpace] = useState("");
+  const [leaseType, setLeaseType] = useState("");
+  const [availableRooms, setAvailableRooms] = useState("");
+  const [bathrooms, setBathrooms] = useState("");
+  const [created, setCreated] = useState("");
+  const [cost, setCost] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [petsAllowed, setPetsAllowed] = useState("");
+  const [description, setDescription] = useState("");
   const [picture, setPicture] = useState(null);
 
   const { token } = useToken();
@@ -32,18 +31,57 @@ function RoomForm() {
   }
 
   const stateOptions = [
-  "AL", "AK", "AZ", "AR", "CA",
-  "CO", "CT", "DE", "FL", "GA",
-  "HI", "ID", "IL", "IN", "IA",
-  "KS", "KY", "LA", "ME", "MD",
-  "MA", "MI", "MN", "MS", "MO",
-  "MT", "NE", "NV", "NH", "NJ",
-  "NM", "NY", "NC", "ND", "OH",
-  "OK", "OR", "PA", "RI", "SC",
-  "SD", "TN", "TX", "UT", "VT",
-  "VA", "WA", "WV", "WI", "WY"
-
- ];
+    "AL",
+    "AK",
+    "AZ",
+    "AR",
+    "CA",
+    "CO",
+    "CT",
+    "DE",
+    "FL",
+    "GA",
+    "HI",
+    "ID",
+    "IL",
+    "IN",
+    "IA",
+    "KS",
+    "KY",
+    "LA",
+    "ME",
+    "MD",
+    "MA",
+    "MI",
+    "MN",
+    "MS",
+    "MO",
+    "MT",
+    "NE",
+    "NV",
+    "NH",
+    "NJ",
+    "NM",
+    "NY",
+    "NC",
+    "ND",
+    "OH",
+    "OK",
+    "OR",
+    "PA",
+    "RI",
+    "SC",
+    "SD",
+    "TN",
+    "TX",
+    "UT",
+    "VT",
+    "VA",
+    "WA",
+    "WV",
+    "WI",
+    "WY",
+  ];
 
   function handleLeaseType(e) {
     setLeaseType(e.target.value);
@@ -85,11 +123,9 @@ function RoomForm() {
       const fileSizeInBytes = file.size;
       const fileSizeInKB = fileSizeInBytes / 1024;
 
-
       setPicture({ file: file, sizeKB: fileSizeInKB });
     }
   }
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -112,29 +148,29 @@ function RoomForm() {
     try {
       const roomUrl = `${process.env.REACT_APP_API_HOST}/api/rooms/create`;
       const fetchConfig = {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify(roomData),
         headers: {
-          'Content-Type': 'application/json',
-          Authorization:  `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       };
       const response = await fetch(roomUrl, fetchConfig);
 
       if (!response.ok) {
-        throw new Error('Could not create room');
+        throw new Error("Could not create room");
       }
 
-      setSpace('');
-      setLeaseType('');
-      setAvailableRooms('');
-      setBathrooms('');
-      setCreated('');
-      setCost('');
-      setCity('');
-      setState('');
-      setPetsAllowed('');
-      setDescription('');
+      setSpace("");
+      setLeaseType("");
+      setAvailableRooms("");
+      setBathrooms("");
+      setCreated("");
+      setCost("");
+      setCity("");
+      setState("");
+      setPetsAllowed("");
+      setDescription("");
       setPicture(null);
 
       const responseData = await response.json();
@@ -142,90 +178,108 @@ function RoomForm() {
 
       navigate(`/rooms/${roomId}`);
     } catch (error) {
-      console.error('Could not submit room:', error);
+      console.error("Could not submit room:", error);
     }
   };
 
-
-  const isCreateRoomPage = currentLocation.pathname === '/rooms/create';
+  const isCreateRoomPage = currentLocation.pathname === "/rooms/create";
 
   return (
     <div className="row">
-        <div className="offset-3 col-6">
+      <div className="offset-3 col-6">
         <div className="shadow p-5 mt-5">
-            <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             {!isCreateRoomPage && (
-                <div className="form-container">
+              <div className="form-container">
                 <NavLink to="/">Home</NavLink>
                 <div className="dropdown">
-                    <button className="btn btn-light dropdown-toggle me-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button
+                    className="btn btn-light dropdown-toggle me-2"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
                     Menu
-                    </button>
-                    <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    </div>
+                  </button>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  ></div>
                 </div>
-                </div>
+              </div>
             )}
             <label className="label">
-                Housing Type:
-                <select value={space} onChange={(e) => setSpace(e.target.value)}>
+              Housing Type:
+              <select value={space} onChange={(e) => setSpace(e.target.value)}>
                 <option value="">Select Housing Type</option>
                 <option value="apartment">Apartment</option>
                 <option value="house">House</option>
                 <option value="condo">Condo</option>
                 <option value="studio">Studio</option>
                 <option value="off-grid">Off Grid</option>
-                </select>
+              </select>
             </label>
             <label>
-                Lease Type:
-                <input type="text" value={leaseType} onChange={handleLeaseType} className="input" />
+              Lease Type:
+              <input
+                type="text"
+                value={leaseType}
+                onChange={handleLeaseType}
+                className="input"
+              />
             </label>
             <label>
-                Available Rooms:
-                <input
-                    type="number"
-                    value={availableRooms}
-                    onChange={handleAvailableRooms}
-                    className="input"
-                    min="0"
-                    max="50"
-                />
+              Available Rooms:
+              <input
+                type="number"
+                value={availableRooms}
+                onChange={handleAvailableRooms}
+                className="input"
+                min="0"
+                max="50"
+              />
             </label>
             <label>
-                Bathrooms:
-                <input
-                    type="number"
-                    value={bathrooms}
-                    onChange={handleBathrooms}
-                    className="input"
-                    min="0"
-                    max="50"
-                />
-           </label>
+              Bathrooms:
+              <input
+                type="number"
+                value={bathrooms}
+                onChange={handleBathrooms}
+                className="input"
+                min="0"
+                max="50"
+              />
+            </label>
             <label>
-                Available Date:
-                <input
+              Available Date:
+              <input
                 type="date"
                 value={created}
                 onChange={handleCreated}
                 className="input"
-                />
+              />
             </label>
             <label>
-                Listing Price:
-                <input
-                    type="number"
-                    value={cost}
-                    onChange={handleCost}
-                    className="input"
-                    min="0"
-                    max="5000"
-                />
+              Listing Price:
+              <input
+                type="number"
+                value={cost}
+                onChange={handleCost}
+                className="input"
+                min="0"
+                max="5000"
+              />
             </label>
             <label>
-                City:
-                <input type="text" value={city} onChange={handleCity} className="input" />
+              City:
+              <input
+                type="text"
+                value={city}
+                onChange={handleCity}
+                className="input"
+              />
             </label>
             <label>
               State:
@@ -239,31 +293,37 @@ function RoomForm() {
               </select>
             </label>
             <label className="label">
-                Pets Allowed:
-                <div>
+              Pets Allowed:
+              <div>
                 <label>
-                    <input
+                  <input
                     type="radio"
                     value="yes"
                     checked={petsAllowed === "yes"}
                     onChange={() => setPetsAllowed("yes")}
-                    />
-                    Yes
+                  />
+                  Yes
                 </label>
                 <label>
-                    <input
+                  <input
                     type="radio"
                     value="no"
                     checked={petsAllowed === "no"}
                     onChange={() => setPetsAllowed("no")}
-                    />
-                    No
+                  />
+                  No
                 </label>
-                </div>
+              </div>
             </label>
             <label>
-                Description:
-                <textarea value={description} onChange={handleDescription} className="input" > </textarea>
+              Description:
+              <textarea
+                value={description}
+                onChange={handleDescription}
+                className="input"
+              >
+                {" "}
+              </textarea>
             </label>
             {picture ? (
               <div>
@@ -277,10 +337,10 @@ function RoomForm() {
               </label>
             )}
             <button type="submit">List Room</button>
-            </form>
+          </form>
         </div>
-        </div>
+      </div>
     </div>
-    );
-    }
+  );
+}
 export default RoomForm;

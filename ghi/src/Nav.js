@@ -8,8 +8,10 @@ function Nav() {
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">Home</NavLink>
         <div className="d-flex">
-          <NavLink className="btn btn-light me-2" to="/login/">Login</NavLink>
+          <NavLink className="btn btn-light me-2" to="/login">Login</NavLink>
           <NavLink className="btn btn-light" to="/rooms/create">List a Room</NavLink>
+          <NavLink className="btn btn-light" to="/signup">Sign Up</NavLink>
+
         </div>
       </div>
     </nav>

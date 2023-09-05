@@ -20,4 +20,13 @@
 
 8/28/23
 -finished protecting endpoints and backend auth
--we will begin front end auth, sign up form and individual pages
+-we began working on frontend auth and individual pages
+-created a login and roomform page
+-dabbled with some custom css and bootstrap
+
+8/29/23
+-finished correctly displaying login page
+-created a token endpoint for frontend auth to work with login
+
+8/30/23
+-trying to get auth/token to work with room form

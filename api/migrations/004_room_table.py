@@ -3,7 +3,7 @@ steps = [
         """
         CREATE TABLE rooms (
         room_id SERIAL PRIMARY KEY NOT NULL,
-        picture VARCHAR(1000),
+        picture VARCHAR(10000),
         space VARCHAR(255),
         user_id INT NOT NULL REFERENCES users(id),
         created DATE NOT NULL,

@@ -37,7 +37,15 @@ function SignUpForm() {
     );
 
     e.target.reset();
-    navigate("/preferences");
+    navigate("/");
+
+
+
+    // this is going to navigate to the user preferences page.
+    // expecting this to be ("/preferences") on Ln40
+
+
+
   };
 
   return (

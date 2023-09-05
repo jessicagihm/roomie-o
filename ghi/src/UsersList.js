@@ -1,58 +1,62 @@
 import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card"
-import Button from "react-bootstrap/Button"
+// import Button from "react-bootstrap/Button"
 import { Link } from "react-router-dom";
-import UserRepo from users.queries.users
+import { useNavigate } from "react-router-dom";
+import "./RoomForm.css";
+
+
+
 
 function UsersList() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState();
+  const navigate = useNavigate();
 
-    const getData = async () => {
-        const response = await fetch('http://localhost:8000/api/users/');
-        const data = await response.json();
-        setUsers(data.users)
+  const getData = async () => {
+    const response = await fetch("http://localhost:8000/api/users");
+    const data = await response.json();
+    setUsers(data.users)
+  }
 
 
   useEffect(() => {
-    getData
-  })
+    getData()
+  }, [])
 
-   };
-  //  register(UsersList, `${process.env.REACT_APP_API_HOST}/api/users`);
+  return(
+    <div>
+      {
+        users
+        ?
+        users.map((user) => {
+          return(
+            <div>
+              <button onClick={()=> navigate("/")} className="unstyled-button">
+                <Card key={user.id} style={{ width: '18rem' }}>
+                  <Card.Img variant="top" src={user.image} />
+                  <Card.Body>
+                    <Card.Title>{user.first} {user.last}</Card.Title>
+                    <Card.Text>
+                      About Me
+                    </Card.Text>
+                    <Link to={`/user/${user.id}`}>
+                    </Link>
+                  </Card.Body>
+                </Card>
+              </button>
+            </div>
+          )
+          })
+          :
+          null
+        }
 
-//    e.target.reset();
-//    navigate("/user");
-//  };
-  const { Meta } = Card;
-
-
-  // {UsersList.map(users); => ( users
-  // )
-
-
+      </div>
+  )
   }
-  class EventCard extends Component {
-    render () {
-      return (
-        <div>
-          <button onClick={alert("Hello from here")} className="unstyled-button">
-            <Card key={users.id} style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={users.image} />
-              <Card.Body>
-                <Card.Title>{user.first} {users.last}</Card.Title>
-                <Card.Text>
-                  About Me
-                </Card.Text>
-                <Link to={`/user/${users.id}`}>
-                </Link>
-              </Card.Body>
-            </Card>
-          </button>
-        </div>
-                    );
-      }
-  }
-  export default EventCard;
+  // }
+
+  export default UsersList;
 
 //   }
 //   return (

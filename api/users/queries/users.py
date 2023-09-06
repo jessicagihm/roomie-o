@@ -18,62 +18,6 @@ class UserList(BaseModel):
     users: List[UserOut]
 
 
-# class AllUsers(BaseModel):
-#     data: dict
-
-
-# class UserRepo:
-#     """
-#     Methods:
-#         .getAllUserProfiles(): returns all users in a key: value dict
-#         """
-#     def getAllUserProfiles(self) -> AllUsers:
-#         try:
-#             with pool.connection() as conn:
-#                 with conn.cursor(row_factory=dict_row) as db:
-#                     result = db.execute(
-#                         """
-#                         SELECT id,
-#                             username,
-#                             password_hash,
-#                             first,
-#                             last,
-#                             age,
-#                             gender,
-#                             image,
-#                             bio
-#                         FROM users
-#                         """
-
-#                     )
-#                     print(result)
-#                     response = result.fetchall()
-#                     print(response)
-
-#                     if response is None:
-#                         raise HTTPException(
-#                                 status_code=404,
-#                                 detail="Users not found/registered"
-#                             )
-
-#                     result = {}
-#                     return UserOut(
-#                         id=result[0],
-#                         username=result[1],
-#                         password_hash=result[2],
-#                         first=result[3],
-#                         last=result[4],
-#                         age=result[5],
-#                         gender=result[6],
-#                         image=result[7],
-#                         bio=result[8],
-#                     )
-
-#         except Exception as error:
-#             print(error)
-#             raise HTTPException(status_code=400, detail="Bad request")
-
-
 class UserQueries:
 
     async def get_hashed_password(self, email: str) -> str:
@@ -342,6 +286,3 @@ class UserQueries:
         except Exception as e:
             print(e)
             return {"message": "Could not delete user"}
-    
-    
-    

@@ -2,8 +2,6 @@ from pydantic import BaseModel
 from queries.pool import pool
 from typing import List
 from users.models import UserIn, UserOut, UserUpdate
-from fastapi.exceptions import HTTPException
-from psycopg.rows import dict_row
 
 
 class DuplicateAccountError(ValueError):

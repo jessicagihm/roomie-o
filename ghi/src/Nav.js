@@ -27,6 +27,11 @@ function Nav() {
               className="custom-logo-img"
             />
           </NavLink>
+          {/* <NavLink className="btn btn-light me-2" to="/rooms/">
+            RoomsList
+          </NavLink> */}
+            User
+          </NavLink>
         </div>
         <div
           className={`navbar-center ${

@@ -27,40 +27,20 @@ function Nav() {
               className="custom-logo-img"
             />
           </NavLink>
-        </div>
-        <div
-          className={`navbar-center ${
-            isUserAuthenticated ? "is-authenticated" : ""
-          }`}
-        >
-          {isUserAuthenticated ? (
-            <>
-              <NavLink className="logged-in-nav-button" to="/rooms/create">
-                List a Room
-              </NavLink>
-              <NavLink className="logged-in-nav-button" to="/preferences">
-                Preferences
-              </NavLink>
-              <NavLink className="logged-in-nav-button" to="/users">
-                Roomies
-              </NavLink>
-              <NavLink className="logged-in-nav-button" to="/rooms">
-                Rooms
-              </NavLink>
-              <button className="logged-in-nav-button" onClick={handleLogout}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <NavLink className="custom-nav-button" to="/login/">
-                Login
-              </NavLink>
-              <NavLink className="custom-nav-button" to="/signup/">
-                Sign Up
-              </NavLink>
-            </>
-          )}
+          <NavLink className="btn btn-light" to="/rooms/create">
+            List a Room
+          </NavLink>
+          <NavLink className="btn btn-light me-2" to="/signup/">
+            SignUp
+          </NavLink>
+          <NavLink className="btn btn-light me-2" to="/users/">
+            UsersList
+          </NavLink>
+          {/* <NavLink className="btn btn-light me-2" to="/rooms/">
+            RoomsList
+          </NavLink> */}
+            User
+          </NavLink>
         </div>
       </div>
     </nav>

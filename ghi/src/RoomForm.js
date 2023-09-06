@@ -142,7 +142,7 @@ function RoomForm() {
 
       navigate(`/rooms/${roomId}`);
     } catch (error) {
-      console.error('Could not submit room:', error);
+      console.error('Could not list room:', error);
     }
   };
 

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import Nav from "./Nav";
 import "./App.css";
-// import RoomDetails from "./RoomDetails";
+import RoomDetails from "./RoomDetails";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
@@ -24,7 +24,7 @@ function App() {
               <Route path="/login" element={<LoginForm />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/rooms/create" element={<RoomForm />} />
-              {/* <Route path="/rooms/:roomId" element={<RoomDetails />} /> */}
+              <Route path="/rooms/:roomId" element={<RoomDetails />} />
               <Route path="/signup" element={<SignUpForm />} />
               <Route path="/users" element={<UsersList />} />
             </Routes>

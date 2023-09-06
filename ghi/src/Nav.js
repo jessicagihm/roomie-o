@@ -19,6 +19,9 @@ function Nav() {
           <NavLink className="btn btn-light me-2" to="/signup/">
             SignUp
           </NavLink>
+          <NavLink className="btn btn-light me-2" to="/users/">
+            User
+          </NavLink>
         </div>
       </div>
     </nav>

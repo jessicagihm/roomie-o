@@ -40,6 +40,7 @@ function Nav() {
             RoomsList
           </NavLink> */}
             User
+          </NavLink>
         </div>
       </div>
     </nav>

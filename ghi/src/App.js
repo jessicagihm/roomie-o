@@ -4,12 +4,13 @@ import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import Nav from "./Nav";
 import "./App.css";
 import RoomDetails from "./RoomDetails";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
 import RoomForm from "./RoomForm";
 import MainPage from "./MainPage";
 import HomePage from "./HomePage";
+import PreferenceCreateForm from "./PreferencesForm";
 import UsersList from "./UsersList";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
               <Route path="/rooms/create" element={<RoomForm />} />
               <Route path="/rooms/:roomId" element={<RoomDetails />} />
               <Route path="/signup" element={<SignUpForm />} />
+              <Route path="/preferences" element={<PreferenceCreateForm />} />
               <Route path="/users" element={<UsersList />} />
             </Routes>
           </div>

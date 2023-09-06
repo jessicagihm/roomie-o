@@ -342,3 +342,6 @@ class UserQueries:
         except Exception as e:
             print(e)
             return {"message": "Could not delete user"}
+    
+    
+    

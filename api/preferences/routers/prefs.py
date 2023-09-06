@@ -6,11 +6,6 @@ from typing import Union
 router = APIRouter()
 
 
-# @router.post("/api/preferences", response_model=PrefOut)
-# def create_pref(pref: PrefIn, queries: PrefQueries):
-#     account_data =dict = Depends(authenticator.get_current_account_data)
-#     created_pref = queries.create_pref(pref)
-#     return created_pref
 
 
 @router.get("/api/preferences/{pref_id}", response_model=PrefOut)

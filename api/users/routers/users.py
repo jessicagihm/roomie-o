@@ -49,14 +49,6 @@ def get_all_users(
     raise HTTPException(status_code=401, detail="Login required")
 
 
-
-# @router.get("/api/users/profile", response_model=AllUsers)
-# def get_all_user_profiles(
-#     queries: UserRepo = Depends(),
-# ):
-#     return {"users": queries.getAllUserProfiles()}
-
-
 @router.get("/api/users/{user_id}", response_model=UserOut)
 def get_user(
     user_id: int,

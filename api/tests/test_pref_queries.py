@@ -45,7 +45,7 @@ def test_create_pref():
         move_in_date="2023-08-31"
     )
 
-    with patch("DATABASE_URL", return_value=mock_conn):
+    with patch("postgresql://admin:secret@postgres/meme-team-supreme", return_value=mock_conn):
         queries = PrefIn()
         result = queries.create_pref(pref_in)
         assert result == expected_output

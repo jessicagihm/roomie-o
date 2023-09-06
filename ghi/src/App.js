@@ -12,6 +12,7 @@ import MainPage from "./MainPage";
 import HomePage from "./HomePage";
 import PreferenceCreateForm from "./PreferencesForm";
 import UsersList from "./UsersList";
+import RoomsList from "./RoomsList";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/home" element={<HomePage />} />
               <Route path="/rooms/create" element={<RoomForm />} />
               <Route path="/rooms/:roomId" element={<RoomDetails />} />
+              {/* <Route path="/rooms" element={<RoomsList />} /> */}
               <Route path="/signup" element={<SignUpForm />} />
               <Route path="/preferences" element={<PreferenceCreateForm />} />
               <Route path="/users" element={<UsersList />} />

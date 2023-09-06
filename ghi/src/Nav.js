@@ -32,6 +32,7 @@ function Nav() {
             RoomsList
           </NavLink> */}
             User
+          </NavLink>
         </div>
         <div
           className={`navbar-center ${

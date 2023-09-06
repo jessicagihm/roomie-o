@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
-
 function SignUpForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -12,7 +11,6 @@ function SignUpForm() {
   const [gender, setGender] = useState("");
   const [image, setImage] = useState("");
   const [bio, setBio] = useState("");
-
 
   const { register } = useToken();
   const navigate = useNavigate();
@@ -28,24 +26,14 @@ function SignUpForm() {
       gender: gender,
       image: image,
       bio: bio,
-
-
     };
-    register(
-      accountData,
-      `${process.env.REACT_APP_API_HOST}/api/signup`
-    );
+    register(accountData, `${process.env.REACT_APP_API_HOST}/api/signup`);
 
     e.target.reset();
-    navigate("/");
-
-
+    navigate("/preferences");
 
     // this is going to navigate to the user preferences page.
     // expecting this to be ("/preferences") on Ln40
-
-
-
   };
 
   return (
@@ -63,7 +51,7 @@ function SignUpForm() {
                 setUsername(e.target.value);
               }}
             />
-        </div>
+          </div>
           <div className="mb-3">
             <label className="form-label">Password</label>
             <input
@@ -74,8 +62,8 @@ function SignUpForm() {
                 setPassword(e.target.value);
               }}
             />
-        </div>
-        <div className="mb-3">
+          </div>
+          <div className="mb-3">
             <label className="form-label">First</label>
             <input
               name="first"
@@ -85,8 +73,8 @@ function SignUpForm() {
                 setFirst(e.target.value);
               }}
             />
-        </div>
-        <div className="mb-3">
+          </div>
+          <div className="mb-3">
             <label className="form-label">Last</label>
             <input
               name="last"
@@ -96,8 +84,8 @@ function SignUpForm() {
                 setLast(e.target.value);
               }}
             />
-        </div>
-        <div className="mb-3">
+          </div>
+          <div className="mb-3">
             <label className="form-label">Age</label>
             <input
               name="age"
@@ -107,8 +95,8 @@ function SignUpForm() {
                 setAge(e.target.value);
               }}
             />
-        </div>
-        <div className="mb-3">
+          </div>
+          <div className="mb-3">
             <label className="form-label">Gender</label>
             <input
               name="gender"
@@ -118,8 +106,8 @@ function SignUpForm() {
                 setGender(e.target.value);
               }}
             />
-        </div>
-        <div className="mb-3">
+          </div>
+          <div className="mb-3">
             <label className="form-label">Image</label>
             <input
               name="image"
@@ -129,8 +117,8 @@ function SignUpForm() {
                 setImage(e.target.value);
               }}
             />
-        </div>
-        <div className="mb-3">
+          </div>
+          <div className="mb-3">
             <label className="form-label">Bio</label>
             <input
               name="bio"
@@ -140,7 +128,7 @@ function SignUpForm() {
                 setBio(e.target.value);
               }}
             />
-        </div>
+          </div>
           <div>
             <input className="btn btn-primary" type="submit" value="SignUp" />
           </div>

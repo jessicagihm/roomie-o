@@ -103,7 +103,13 @@ class PrefQueries:
                     move_in_date
                     )
                     VALUES
-                    (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    (%s, %s, %s, %s, %s, %s, %s, %s,
+                    CASE
+                        WHEN %s::text = 'true' THEN TRUE
+                        WHEN %s::text = '1' THEN TRUE
+                        ELSE FALSE
+                    END,
+                    %s, %s)
                     RETURNING pref_id;
                     """,
                     [
@@ -116,9 +122,9 @@ class PrefQueries:
                         pref.work_sched,
                         pref.allergies,
                         pref.looking_for_roomie,
+                        pref.looking_for_roomie,
                         pref.user_id,
-                        pref.move_in_date,
-
+                        pref.move_in_date
                     ],
                 )
                 id = db.fetchone()[0]
@@ -221,5 +227,3 @@ class PrefQueries:
         except Exception as e:
             print(e)
             return {"message": "Could not delete preferences"}
-
-    # def update_pref(self, pref_id: int, pref: PrefIn) -> Union[Error, PrefOut]:

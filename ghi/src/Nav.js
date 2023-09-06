@@ -20,7 +20,7 @@ function Nav() {
             SignUp
           </NavLink>
           <NavLink className="btn btn-light me-2" to="/users/">
-            User
+            UsersList
           </NavLink>
         </div>
       </div>

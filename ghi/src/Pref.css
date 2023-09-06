@@ -1,0 +1,77 @@
+.row {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Form container */
+.preferences-form {
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  width: 80%;
+  padding: 20px;
+}
+
+/* Form title */
+.preferences-form h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Checkbox and radio labels */
+.preferences-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+/* Checkboxes and radios */
+.preferences-form input[type="checkbox"],
+.preferences-form input[type="radio"] {
+  margin-right: 10px;
+}
+
+/* Input fields */
+.preferences-form-input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #555;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Floating labels */
+.preferences-floating > label {
+  padding: 0 10px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.preferences-floating > input:focus + label {
+  color: #007bff;
+}
+
+/* Submit button */
+.preferences-btn {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.preferences-btn:hover {
+  background-color: #0056b3;
+}

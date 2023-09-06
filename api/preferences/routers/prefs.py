@@ -6,8 +6,6 @@ from typing import Union
 router = APIRouter()
 
 
-
-
 @router.get("/api/preferences/{pref_id}", response_model=PrefOut)
 def get_pref(
     pref_id: int,

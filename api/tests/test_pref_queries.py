@@ -14,7 +14,7 @@ def test_create_pref():
 
     mock_conn.cursor.return_value = mock_cursor
 
-    mock_cursor.fetchone.return_value = [1]  
+    mock_cursor.fetchone.return_value = [1]
 
     pref_in = PrefIn(
         smoker_friendly=True,

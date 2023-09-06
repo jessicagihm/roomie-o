@@ -12,7 +12,7 @@ import MainPage from "./MainPage";
 import HomePage from "./HomePage";
 import PreferenceCreateForm from "./PreferencesForm";
 import UsersList from "./UsersList";
-import RoomsList from "./RoomsList";
+// import RoomsList from "./RoomsList";
 
 function App() {
   return (

@@ -8,15 +8,32 @@ client = TestClient(app)
 
 
 class EmptyUserQueries:
-    def get_users(self):
+    def get_all_users(self):
         return []
+
+
+def fake_get_current_data():
+    return {
+        "id": 1,
+        "username": "string",
+        "password_hash": "string",
+        "first": "string",
+        "last": "string",
+        "age": 1,
+        "gender": "string",
+        "image": "string",
+        "bio": "string",
+
+        }
 
 
 def test_get_all_users():
 
     app.dependency_overrides[UserQueries] = EmptyUserQueries
-    app.dependency_overrides[authenticator.try_get_current_account] = EmptyUserQueries
+    app.dependency_overrides[authenticator.try_get_current_account_data] = fake_get_current_data
     # ARRANGE
+
+
 
     # ACT
     response = client.get("/api/users")

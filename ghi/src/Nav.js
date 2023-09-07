@@ -21,13 +21,21 @@ function Nav() {
   return (
     <nav className="custom-navbar navbar navbar-expand-lg">
       <div className="container-fluid">
-        <div className="navbar-center">
-          <NavLink to="/home">
-            <img
-              src={`${process.env.PUBLIC_URL}/roomieologo.png`}
-              alt="Logo"
-              className="custom-logo-img"
-            />
+        <NavLink className="navbar-brand" to="/">
+          Home
+        </NavLink>
+        <div className="d-flex">
+          <NavLink className="btn btn-light me-2" to="/login/">
+            Login
+          </NavLink>
+          <NavLink className="btn btn-light" to="/rooms/create">
+            List a Room
+          </NavLink>
+          <NavLink className="btn btn-light me-2" to="/signup/">
+            SignUp
+          </NavLink>
+          <NavLink className="btn btn-light me-2" to="/users/">
+            UsersList
           </NavLink>
         </div>
         <div

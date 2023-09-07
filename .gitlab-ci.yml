@@ -21,11 +21,12 @@ api-unit-tests-job:
   needs:
     - lint-test-job
   script:
+    - export SIGNING_KEY="94e66e430379916038b7687ed13858a15b6e96086ae014b904aa5e60429a5d53"
+    - export DATABASE_URL="postgresql://admin:secret@postgres/meme-team-supreme"
     - cd api
     - pip install -r requirements.txt
     - python -m pytest
-    - export SIGNING_KEY="94e66e430379916038b7687ed13858a15b6e96086ae014b904aa5e60429a5d53"
-    - export DATABASE_URL="postgresql://admin:secret@postgres/meme-team-supreme"
+
 
 # Build API Image:
 build-api-image:

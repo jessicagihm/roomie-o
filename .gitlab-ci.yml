@@ -24,6 +24,7 @@ api-unit-tests-job:
     - cd api
     - pip install -r requirements.txt
     - python -m pytest
+    - export DATABASE_URL="postgresql://admin:secret@postgres/meme-team-supreme"
 
 # Build API Image:
 build-api-image:

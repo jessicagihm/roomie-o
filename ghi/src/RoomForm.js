@@ -3,7 +3,7 @@ import jwtDecode from "jwt-decode";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./RoomForm.css";
-import "./RoomsList";
+// import "./RoomsList";
 
 function RoomForm() {
   const [space, setSpace] = useState("");
@@ -177,7 +177,7 @@ function RoomForm() {
       const responseData = await response.json();
       const roomId = responseData.room_id;
 
-      navigate(`/roomslist${roomId}`);
+      navigate(`/rooms${roomId}`);
     } catch (error) {
       console.error("Could not submit room:", error);
     }

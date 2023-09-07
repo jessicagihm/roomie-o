@@ -33,8 +33,6 @@ def test_get_all_users():
     app.dependency_overrides[authenticator.try_get_current_account_data] = fake_get_current_data
     # ARRANGE
 
-
-
     # ACT
     response = client.get("/api/users")
 

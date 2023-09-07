@@ -42,7 +42,7 @@ router = APIRouter()
 @router.get("/api/users", response_model=UserList)
 def get_all_users(
     queries: UserQueries = Depends(),
-    account: dict = Depends(authenticator.get_current_account_data),
+    account: dict = ,
 ):
     if account:
         return {"users": queries.get_all_users()}

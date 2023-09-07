@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 from main import app
 from rooms.queries.rooms import RoomQueries
+export DATABASE_URL = "postgresql://admin:secret@postgres/meme-team-supreme"
 
 client = TestClient(app)
 

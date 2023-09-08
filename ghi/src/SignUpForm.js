@@ -16,6 +16,10 @@ function SignUpForm() {
   const { register } = useToken();
   const navigate = useNavigate();
 
+  const handlePicture = (e) => {
+    picture: picture ? URL.createObjectURL(picture.file) : null,
+  }
+
   const handleRegistration = (e) => {
     e.preventDefault();
     const accountData = {
@@ -109,7 +113,7 @@ function SignUpForm() {
             <label className="form-label">Image</label>
             <input
               name="image"
-              type="text"
+              type="file"
               className="form-control"
               onChange={(e) => {
                 setImage(e.target.value);

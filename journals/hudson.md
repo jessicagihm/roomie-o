@@ -23,3 +23,7 @@ September 5
 September 6
 
 -Got preferences working entirely and functions as shown in the wireframe
+
+September 7
+
+-

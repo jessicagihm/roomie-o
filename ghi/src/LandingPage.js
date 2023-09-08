@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./LandingPage.css";
-import Nav from "./Nav"; // Import the Nav component
+// import Nav from "./Nav"; // Import the Nav component
 import Testimonials from "./Testimonials"; // Import the Testimonials component
 
 function LandingPage() {

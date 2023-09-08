@@ -11,9 +11,16 @@ app.include_router(users.router)
 app.include_router(rooms.router)
 app.include_router(prefs.router)
 app.include_router(authenticator.router)
+
+origins = [
+    "http://localhost3000",
+    os.environ.get("CORS_HOST", None),
+
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[os.environ.get("CORS_HOST", "http://localhost:3000")],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

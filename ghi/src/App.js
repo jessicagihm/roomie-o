@@ -16,9 +16,12 @@ import PreferenceDisplay from "./PreferenceDisplay";
 import RoomsList from "./RoomsList";
 
 function App() {
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, "");
+
   return (
     <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
-      <Router>
+      <Router basename={basename}>
         <div>
           <Nav />
           <div className="container">

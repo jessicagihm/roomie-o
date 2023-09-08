@@ -1,5 +1,7 @@
 from fastapi.testclient import TestClient
 from fastapi import FastAPI, Depends, HTTPException, APIRouter, Response
+from pydantic import BaseModel
+from datetime import date
 from authenticator import authenticator
 from typing import Union
 from preferences.queries.prefs import PrefQueries, PrefIn, PrefOut, Error
@@ -13,7 +15,7 @@ router = APIRouter()
 
 class MockPrefQueries:
     def create_pref(self, pref: PrefIn) -> Union[PrefOut, Error]:
-        return PrefOut(**pref.dict(), pref_id=1)
+        return PrefOut(pref.dict(), pref_id=1)
 
 
 def mock_get_current_account_data():

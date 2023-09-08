@@ -13,7 +13,7 @@ function RoomsList() {
 
   const fetchRooms = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/rooms", {
+      const response = await fetch(`${process.env.REACT_APP_API_HOST}/api/rooms`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -56,7 +56,7 @@ function RoomsList() {
 
           return (
             <div key={room.id}>
-              <button onClick={() => navigate("/")} className="unstyled-button">
+              <button onClick={() => navigate(`/rooms/${room.room_id}`)} className="unstyled-button">
                 <Card style={{ width: "18rem" }}>
                   <Card.Img variant="top" src={room.picture} />
                   <Card.Body>

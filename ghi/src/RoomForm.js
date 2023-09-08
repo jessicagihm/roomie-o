@@ -15,7 +15,7 @@ function RoomForm() {
   const [state, setState] = useState('');
   const [petsAllowed, setPetsAllowed] = useState('yes');
   const [description, setDescription] = useState('');
-  const [picture, setPicture] = useState(null);
+  const [picture, setPicture] = useState('');
 
   const { token } = useToken();
   const isAuthenticated = !!token;
@@ -116,15 +116,7 @@ function RoomForm() {
   }
 
   function handlePicture(e) {
-    const file = e.target.files[0];
-    setPicture(file);
-
-    if (file) {
-      const fileSizeInBytes = file.size;
-      const fileSizeInKB = fileSizeInBytes / 1024;
-
-      setPicture({ file: file, sizeKB: fileSizeInKB });
-    }
+    setPicture(e.target.value)
   }
 
   const handleSubmit = async (e) => {
@@ -141,7 +133,7 @@ function RoomForm() {
       state,
       pets_allowed: petsAllowed === "yes" ? true : false,
       description,
-      picture: picture ? URL.createObjectURL(picture.file) : null,
+      picture,
       user_id: parseInt(userId),
     };
 
@@ -171,7 +163,7 @@ function RoomForm() {
       setState("");
       setPetsAllowed("");
       setDescription("");
-      setPicture(null);
+      setPicture("");
 
       const responseData = await response.json();
       const roomId = responseData.room_id;
@@ -185,162 +177,159 @@ function RoomForm() {
   const isCreateRoomPage = currentLocation.pathname === "/rooms/create";
 
   return (
-    <div className="row">
-      <div className="offset-3 col-6">
-        <div className="shadow p-5 mt-5">
-          <form onSubmit={handleSubmit}>
-            {!isCreateRoomPage && (
-              <div className="form-container">
-                <NavLink to="/">Home</NavLink>
-                <div className="dropdown">
-                  <button
-                    className="btn btn-light dropdown-toggle me-2"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Menu
-                  </button>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  ></div>
-                </div>
+  <div className="row">
+    <div className="offset-3 col-6">
+      <div className="shadow p-5 mt-5">
+        <form onSubmit={handleSubmit}>
+          {!isCreateRoomPage && (
+            <div className="form-container">
+              <NavLink to="/">Home</NavLink>
+              <div className="dropdown">
+                <button
+                  className="btn btn-light dropdown-toggle me-2"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Menu
+                </button>
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton"
+                ></div>
               </div>
-            )}
-            <label className="label">
-              Housing Type:
-              <select value={space} onChange={(e) => setSpace(e.target.value)}>
-                <option value="">Select Housing Type</option>
-                <option value="apartment">Apartment</option>
-                <option value="house">House</option>
-                <option value="condo">Condo</option>
-                <option value="studio">Studio</option>
-                <option value="off-grid">Off Grid</option>
-              </select>
-            </label>
-            <label>
-              Lease Type:
-              <input
-                type="text"
-                value={leaseType}
-                onChange={handleLeaseType}
-                className="input"
-              />
-            </label>
-            <label>
-              Available Rooms:
-              <input
-                type="number"
-                value={availableRooms}
-                onChange={handleAvailableRooms}
-                className="input"
-                min="0"
-                max="50"
-              />
-            </label>
-            <label>
-              Bathrooms:
-              <input
-                type="number"
-                value={bathrooms}
-                onChange={handleBathrooms}
-                className="input"
-                min="0"
-                max="50"
-              />
-            </label>
-            <label>
-              Available Date:
-              <input
-                type="date"
-                value={created}
-                onChange={handleCreated}
-                className="input"
-              />
-            </label>
-            <label>
-              Listing Price:
-              <input
-                type="number"
-                value={cost}
-                onChange={handleCost}
-                className="input"
-                min="0"
-                max="5000"
-              />
-            </label>
-            <label>
-              City:
-              <input
-                type="text"
-                value={city}
-                onChange={handleCity}
-                className="input"
-              />
-            </label>
-            <label>
-              State:
-              <select value={state} onChange={handleState} className="input">
-                <option value="">Select State</option>
-                {stateOptions.map((stateOption) => (
-                  <option key={stateOption} value={stateOption}>
-                    {stateOption}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="label">
-              Pets Allowed:
-              <div>
-                <label>
-                  <input
-                    type="radio"
-                    value="yes"
-                    checked={petsAllowed === "yes"}
-                    onChange={() => setPetsAllowed("yes")}
-                  />
-                  Yes
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    value="no"
-                    checked={petsAllowed === "no"}
-                    onChange={() => setPetsAllowed("no")}
-                  />
-                  No
-                </label>
-              </div>
-            </label>
-            <label>
-              Description:
-              <textarea
-                value={description}
-                onChange={handleDescription}
-                className="input"
-              >
-                {" "}
-              </textarea>
-            </label>
-            {picture ? (
-              <div>
-                <p>Picture Attached: {picture.name}</p>
-                <button onClick={() => setPicture(null)}>Remove Picture</button>
-              </div>
-            ) : (
-              <label className="label">
-                Upload Picture:
-                <input type="file" accept="image/*" onChange={handlePicture} />
+            </div>
+          )}
+          <label className="label">
+            Housing Type:
+            <select value={space} onChange={(e) => setSpace(e.target.value)}>
+              <option value="">Select Housing Type</option>
+              <option value="apartment">Apartment</option>
+              <option value="house">House</option>
+              <option value="condo">Condo</option>
+              <option value="studio">Studio</option>
+              <option value="off-grid">Off Grid</option>
+            </select>
+          </label>
+          <label>
+            Lease Type:
+            <input
+              type="text"
+              value={leaseType}
+              onChange={handleLeaseType}
+              className="input"
+            />
+          </label>
+          <label>
+            Available Rooms:
+            <input
+              type="number"
+              value={availableRooms}
+              onChange={handleAvailableRooms}
+              className="input"
+              min="0"
+              max="50"
+            />
+          </label>
+          <label>
+            Bathrooms:
+            <input
+              type="number"
+              value={bathrooms}
+              onChange={handleBathrooms}
+              className="input"
+              min="0"
+              max="50"
+            />
+          </label>
+          <label>
+            Available Date:
+            <input
+              type="date"
+              value={created}
+              onChange={handleCreated}
+              className="input"
+            />
+          </label>
+          <label>
+            Listing Price:
+            <input
+              type="number"
+              value={cost}
+              onChange={handleCost}
+              className="input"
+              min="0"
+              max="5000"
+            />
+          </label>
+          <label>
+            City:
+            <input
+              type="text"
+              value={city}
+              onChange={handleCity}
+              className="input"
+            />
+          </label>
+          <label>
+            State:
+            <select value={state} onChange={handleState} className="input">
+              <option value="">Select State</option>
+              {stateOptions.map((stateOption) => (
+                <option key={stateOption} value={stateOption}>
+                  {stateOption}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="label">
+            Pets Allowed:
+            <div>
+              <label>
+                <input
+                  type="radio"
+                  value="yes"
+                  checked={petsAllowed === "yes"}
+                  onChange={() => setPetsAllowed("yes")}
+                />
+                Yes
               </label>
-            )}
-            <button type="submit">List Room</button>
-          </form>
-        </div>
+              <label>
+                <input
+                  type="radio"
+                  value="no"
+                  checked={petsAllowed === "no"}
+                  onChange={() => setPetsAllowed("no")}
+                />
+                No
+              </label>
+            </div>
+          </label>
+          <label>
+            Description:
+            <textarea
+              value={description}
+              onChange={handleDescription}
+              className="input"
+            />
+          </label>
+          <label>
+            Image:
+            <input
+              type="text"
+              value={picture}
+              onChange={handlePicture}
+              className="input"
+            />
+          </label>
+          <button type="submit">List Room</button>
+        </form>
       </div>
     </div>
-  );
+  </div>
+);
+
 }
 export default RoomForm;

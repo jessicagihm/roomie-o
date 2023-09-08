@@ -1,23 +1,46 @@
 import React, { useEffect, useState } from "react";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 import Card from "react-bootstrap/Card"
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 
 function UsersList() {
-  const [users, setUsers] = useState();
+  const { token } = useToken();
+  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
-  const getData = async () => {
-    const response = await fetch("http://localhost:8000/api/users");
-    const data = await response.json();
-    setUsers(data.users)
-  }
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_HOST}/api/users`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
+      if (!response.ok) {
+        throw new Error(
+          `Network response was not ok (status ${response.status})`
+        );
+      }
+
+      const data = await response.json();
+      setUsers(data.users);
+    } catch (error) {
+      console.error("Could not fetch user data:", error);
+    }
+  };
 
   useEffect(() => {
-    getData()
-  }, [])
+    if (token) {
+      fetchUsers();
+    }
+  }, [token]);
+
+
+  function capFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
   return(
     <div>

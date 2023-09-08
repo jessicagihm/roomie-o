@@ -10,8 +10,11 @@ router = APIRouter()
 @router.get("/api/rooms", response_model=RoomList)
 def get_all_rooms(
     queries: RoomQueries = Depends(),
+    account: dict = Depends(authenticator.get_current_account_data),
 ):
-    return {"rooms": queries.get_all_rooms()}
+    if account:
+        return {"rooms": queries.get_all_rooms()}
+    raise HTTPException(status_code=401, detail="Login required")
 
 
 @router.get("/api/rooms/{room_id}", response_model=RoomOut)
@@ -26,12 +29,6 @@ def get_room(
         )
     else:
         return record
-
-
-# @router.post("/api/rooms", response_model=RoomOut)
-# def create_room(room: RoomIn, queries: RoomQueries = Depends()):
-#     created_room = queries.create_room(room)
-#     return created_room
 
 
 @router.post("/api/rooms/create", response_model=RoomOut)

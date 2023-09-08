@@ -11,3 +11,15 @@ August 25
 August 29
 
 -Working on the frontend for preferences
+
+September 4
+
+-Troubleshooting preferences
+
+September 5
+
+-Got preferences working then merged the main and it stopped working
+
+September 6
+
+-Got preferences working entirely and functions as shown in the wireframe

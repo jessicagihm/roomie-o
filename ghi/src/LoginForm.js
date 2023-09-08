@@ -1,7 +1,7 @@
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './LoginForm.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./LoginForm.css";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -14,12 +14,11 @@ const LoginForm = () => {
     login(username, password);
     console.log("Login submitted");
     e.target.reset();
-    navigate('/home');
+    navigate("/home");
     console.log("Navigation executed");
   };
 
-
-    return (
+  return (
     <div className="container flex-r">
       <form onSubmit={handleSubmit} className="login-text">
         <div className="logo">
@@ -57,7 +56,7 @@ const LoginForm = () => {
           Login
         </button>
         <p className="extra-line">
-          Don't have an account? <a href="#">Sign up</a>
+          Don't have an account? <Link to="/signup">Sign up</Link>
         </p>
       </form>
     </div>

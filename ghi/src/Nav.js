@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
-import './Navbar.css';
+import "./Navbar.css";
 
 function Nav() {
   return (
@@ -22,10 +22,8 @@ function Nav() {
           <NavLink className="btn btn-light me-2" to="/users/">
             UsersList
           </NavLink>
-          {/* <NavLink className="btn btn-light me-2" to="/rooms/">
-            RoomsList
-          </NavLink> */}
-            User
+          <NavLink className="btn btn-light me-2" to="/preferences/pref_id">
+            Preferences
           </NavLink>
         </div>
       </div>

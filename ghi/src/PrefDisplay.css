@@ -1,0 +1,52 @@
+.preference-display {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+.preference-display input[type="text"],
+.preference-display input[type="number"],
+.preference-display select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #d0d0d0;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.preference-display button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.preference-display button:hover {
+  opacity: 0.9;
+}
+
+.preference-display button:last-child {
+  margin-right: 0;
+}
+
+.preference-display button:nth-child(1) {
+  background-color: #4caf50; /* Green for Save */
+  color: white;
+}
+
+.preference-display button:nth-child(2) {
+  background-color: #f44336; /* Red for Delete */
+  color: white;
+}
+
+.preference-display button:nth-child(3) {
+  background-color: #2196f3; /* Blue for Create */
+  color: white;
+}

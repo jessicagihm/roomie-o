@@ -113,7 +113,7 @@ function SignUpForm() {
             <label className="form-label">Image</label>
             <input
               name="image"
-              type="text"
+              type="file"
               className="form-control"
               onChange={(e) => {
                 setImage(e.target.value);

@@ -20,3 +20,11 @@ Today I worked on:
 -Completed a working frontend authorization for Sign Up
 -Started CSS styling on Sign Up
 -Working on unit test
+
+Sept 6, 2023
+-Started deployment as a team
+-Updated the test_users unit test to pass after Get All User endpoint was created
+
+Sept 7, 2023
+-Completed backend deployment
+

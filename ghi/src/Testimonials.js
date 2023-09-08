@@ -47,7 +47,7 @@ function Testimonials({ sliderSettings }) {
               <div className="testimonial-image-container">
                 <img
                   src={`/images/${testimonial.image}`}
-                  alt={`${testimonial.author}'s photo`}
+                  alt={`${testimonial.author}`}
                   className="testimonial-image"
                 />
               </div>

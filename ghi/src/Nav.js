@@ -6,7 +6,7 @@ import "./Nav.css";
 function Nav() {
   const { token, logout, isAuthenticated } = useToken();
   const [isUserAuthenticated, setIsUserAuthenticated] = useState(!!token);
-
+  console.log(isAuthenticated);
   const handleLogout = () => {
     logout();
     setIsUserAuthenticated(false);

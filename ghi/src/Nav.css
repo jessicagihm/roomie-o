@@ -1,0 +1,44 @@
+.custom-logo-img {
+  width: 100px;
+  height: auto;
+}
+
+.custom-navbar {
+  background-color: #000000f8;
+}
+
+.custom-nav-button {
+  color: #fff;
+  margin: 0 10px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+}
+
+.custom-nav-button:hover {
+  background-color: #343a40;
+}
+
+.container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-center {
+  display: flex;
+  align-items: center;
+}
+
+.logged-in-nav-button {
+  display: none;
+}
+
+.is-authenticated .logged-in-nav-button {
+  display: inline-block;
+  color: #fff;
+  margin: 0 10px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+}

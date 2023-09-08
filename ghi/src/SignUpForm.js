@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import "./LoginForm.css";
 
 function SignUpForm() {
   const [username, setUsername] = useState("");
@@ -130,7 +131,7 @@ function SignUpForm() {
             />
           </div>
           <div>
-            <input className="btn btn-primary" type="submit" value="SignUp" />
+            <input className="custom-button" type="submit" value="Sign Up" />
           </div>
         </form>
       </div>

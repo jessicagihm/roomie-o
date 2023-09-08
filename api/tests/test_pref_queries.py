@@ -15,7 +15,7 @@ router = APIRouter()
 
 class MockPrefQueries:
     def create_pref(self, pref: PrefIn) -> Union[PrefOut, Error]:
-        return PrefOut(pref.dict(), pref_id=1)
+        return PrefOut(**pref.dict(), pref_id=1)
 
 
 def mock_get_current_account_data():

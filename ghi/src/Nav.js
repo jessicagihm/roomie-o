@@ -20,7 +20,10 @@ function Nav() {
             SignUp
           </NavLink>
           <NavLink className="btn btn-light me-2" to="/users/">
-            UsersList
+            Roomies
+          </NavLink>
+          <NavLink className="btn btn-light me-2" to="/rooms">
+            Rooms
           </NavLink>
           <NavLink className="btn btn-light me-2" to="/preferences/pref_id">
             Preferences

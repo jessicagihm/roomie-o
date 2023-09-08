@@ -23,9 +23,9 @@ function App() {
   const basename = process.env.PUBLIC_URL.replace(domain, "");
 
   return (
+    <BrowserRouter basename={basename}>
     <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
-      <Router basename={basename}>
-        <div>
+      <Router>
           <Nav />
           <div className="container">
             <Routes>

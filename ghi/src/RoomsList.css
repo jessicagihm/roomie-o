@@ -1,18 +1,18 @@
 .rooms-container {
   display: flex;
-  flex-wrap: wrap; /* Allow cards to wrap to the next row */
-  justify-content: space-between; /* Spread cards evenly across the row */
-  padding: 10px; /* Add spacing between cards */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px;
 }
 
 .room-card {
-  flex: 1; /* Allow cards to grow and shrink to fill available space */
-  margin: 10px; /* Add margin around each card */
-  max-width: calc(25% - 20px); /* Set the maximum width for each card in a row of four */
+  flex: 1;
+  margin: 10px;
+  max-width: calc(25% - 20px);
 }
 
 @media (max-width: 768px) {
   .room-card {
-    max-width: calc(50% - 20px); /* Set the maximum width for each card in a row of two on smaller screens */
+    max-width: calc(50% - 20px);
   }
 }

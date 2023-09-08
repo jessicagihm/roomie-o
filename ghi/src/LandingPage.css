@@ -1,0 +1,115 @@
+.landing-page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#video-background {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.signup-button,
+.login-button {
+  display: inline-block;
+  padding: 15px 40px;
+  margin: 0 10px;
+  font-size: 18px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #d063ff;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.signup-button:hover,
+.login-button:hover {
+  background-color: #f44646;
+  transform: scale(1.05);
+}
+
+.hidden-text {
+  display: none;
+}
+
+.testimonials {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.testimonial-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.testimonial-content {
+  margin-top: 20px;
+}
+
+.testimonial-image-container {
+  overflow: hidden;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.testimonial-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testimonial-text {
+  font-size: 26px;
+  margin-top: 15px;
+}
+
+.testimonial-author {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.testimonials h2 {
+  font-size: 36px;
+}
+
+.application-info {
+  padding: 40px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.application-info h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.application-info p {
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.application-info a {
+  color: #d063ff;
+  text-decoration: underline;
+  transition: color 0.3s;
+}

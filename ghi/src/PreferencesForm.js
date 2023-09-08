@@ -76,7 +76,7 @@ export default function PreferenceCreateForm() {
 
     const response = await fetch(prefsUrl, fetchConfig);
     if (response.ok) {
-      window.location.href = `${process.env.PUBLIC_URL}/`;
+      window.location.href = `${process.env.PUBLIC_URL}/home`;
     } else {
       const data = await response.json();
       alert(JSON.stringify(data.detail)); // Display error message from backend

@@ -15,17 +15,14 @@ import UsersList from "./UsersList";
 import PreferenceDisplay from "./PreferenceDisplay";
 import RoomsList from "./RoomsList";
 
-const domain = /https:\/\/[^/]+/;
-const basename = process.env.PUBLIC_URL.replace(domain, "");
-
 function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
 
   return (
-    <BrowserRouter basename={basename}>
     <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
-      <Router>
+      <Router basename={basename}>
+        <div>
           <Nav />
           <div className="container">
             <Routes>
@@ -42,9 +39,9 @@ function App() {
               />
             </Routes>
           </div>
-        </Router>
-      </AuthProvider>
-    </BrowserRouter>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

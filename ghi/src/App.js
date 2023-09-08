@@ -14,28 +14,33 @@ import PreferenceCreateForm from "./PreferencesForm";
 import UsersList from "./UsersList";
 import RoomsList from "./RoomsList";
 
+const domain = /https:\/\/[^/]+/;
+const basename = process.env.PUBLIC_URL.replace(domain, "");
+
 function App() {
   return (
-    <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
-      <Router>
-        <div>
-          <Nav />
-          <div className="container">
-            <Routes>
-              <Route path="/" element={<MainPage />} />
-              <Route path="/login" element={<LoginForm />} />
-              <Route path="/home" element={<HomePage />} />
-              <Route path="/rooms/create" element={<RoomForm />} />
-              <Route path="/rooms/:roomId" element={<RoomDetails />} />
-              {/* <Route path="/rooms" element={<RoomsList />} /> */}
-              <Route path="/signup" element={<SignUpForm />} />
-              <Route path="/preferences" element={<PreferenceCreateForm />} />
-              <Route path="/users" element={<UsersList />} />
-            </Routes>
+    <BrowserRouter basename={basename}>
+      <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
+        <Router>
+          <div>
+            <Nav />
+            <div className="container">
+              <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/login" element={<LoginForm />} />
+                <Route path="/home" element={<HomePage />} />
+                <Route path="/rooms/create" element={<RoomForm />} />
+                <Route path="/rooms/:roomId" element={<RoomDetails />} />
+                {/* <Route path="/rooms" element={<RoomsList />} /> */}
+                <Route path="/signup" element={<SignUpForm />} />
+                <Route path="/preferences" element={<PreferenceCreateForm />} />
+                <Route path="/users" element={<UsersList />} />
+              </Routes>
+            </div>
           </div>
-        </div>
-      </Router>
-    </AuthProvider>
+        </Router>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

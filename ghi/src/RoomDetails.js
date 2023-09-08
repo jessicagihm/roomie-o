@@ -60,7 +60,7 @@ function RoomDetails() {
                 <p>Description: {roomData.description}</p>
                 <p>City: {roomData.city}</p>
                 <p>State: {roomData.state}</p>
-                <p>Pets Allowed: {roomData.pets_allowed}</p>
+                <p>Pets Allowed: {roomData.pets_allowed ? 'Yes' : 'No'}</p>
                 <p>Available Date: {formatDate(roomData.created)}</p>
               </div>
             </div>

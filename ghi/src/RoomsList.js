@@ -48,17 +48,17 @@ function RoomsList() {
      <div className="rooms-container">
       {rooms
       ? rooms.map((room) => {
-          const [firstName, lastName] = typeof room.user_id === 'string' && room.user_id.includes(' ')
+          const [first, last] = typeof room.user_id === 'string' && room.user_id.includes(' ')
         ? room.user_id.split(' ')
         : ['', ''];
 
-          const displayName = firstName && lastName ? `${firstName} ${lastName}` : room.user_id;
+          const displayName = first && last ? `${first} ${last}` : room.user_id;
 
           return (
             <div key={room.id}>
               <button onClick={() => navigate("/")} className="unstyled-button">
                 <Card style={{ width: "18rem" }}>
-                  <Card.Img variant="top" src={room.image} />
+                  <Card.Img variant="top" src={room.picture} />
                   <Card.Body>
                     <Card.Title>
                       {displayName}

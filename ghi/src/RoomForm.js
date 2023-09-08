@@ -13,7 +13,7 @@ function RoomForm() {
   const [cost, setCost] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
-  const [petsAllowed, setPetsAllowed] = useState('');
+  const [petsAllowed, setPetsAllowed] = useState('yes');
   const [description, setDescription] = useState('');
   const [picture, setPicture] = useState(null);
 
@@ -139,7 +139,7 @@ function RoomForm() {
       const responseData = await response.json();
       const roomId = responseData.room_id;
 
-      navigate(`/rooms${roomId}`);
+      navigate(`/rooms/${roomId}`);
     } catch (error) {
       console.error('Could not list room:', error);
     }

@@ -16,7 +16,7 @@ def get_pref(
     if record is None:
         raise HTTPException(
             status_code=404,
-            detail="No preferences found with that user id {}".format(pref_id),
+            detail="No preferences found with that id {}".format(pref_id),
         )
     else:
         return record

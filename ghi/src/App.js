@@ -24,23 +24,25 @@ function App() {
 
   return (
     <BrowserRouter basename={basename}>
-      <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
-        <Router>
-          <div>
-            <Nav />
-            <div className="container">
-              <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/login" element={<LoginForm />} />
-                <Route path="/home" element={<HomePage />} />
-                <Route path="/rooms/create" element={<RoomForm />} />
-                <Route path="/rooms/:roomId" element={<RoomDetails />} />
-                {/* <Route path="/rooms" element={<RoomsList />} /> */}
-                <Route path="/signup" element={<SignUpForm />} />
-                <Route path="/preferences" element={<PreferenceCreateForm />} />
-                <Route path="/users" element={<UsersList />} />
-              </Routes>
-            </div>
+    <AuthProvider baseUrl={process.env.REACT_APP_API_HOST}>
+      <Router>
+          <Nav />
+          <div className="container">
+            <Routes>
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/rooms/create" element={<RoomForm />} />
+              <Route path="/rooms/:roomId" element={<RoomDetails />} />
+              <Route path="/rooms" element={<RoomsList />} />
+              <Route path="/signup" element={<SignUpForm />} />
+              <Route path="/preferences" element={<PreferenceCreateForm />} />
+              <Route path="/users" element={<UsersList />} />
+              <Route
+                path="/preferences/:user_id"
+                element={<PreferenceDisplay />}
+              />
+            </Routes>
           </div>
         </Router>
       </AuthProvider>

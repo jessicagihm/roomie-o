@@ -8,7 +8,7 @@ Today I worked:
 August 28, 2023
 Today I worked on:
 -Sending a MR for protected update user endpoint
-- Started a user sign up page
+-Started a user sign up page
 
 August 29, 2023
 Today I worked on:
@@ -27,4 +27,3 @@ Sept 6, 2023
 
 Sept 7, 2023
 -Completed backend deployment
-

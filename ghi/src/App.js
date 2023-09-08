@@ -15,6 +15,9 @@ import UsersList from "./UsersList";
 import PreferenceDisplay from "./PreferenceDisplay";
 import RoomsList from "./RoomsList";
 
+const domain = /https:\/\/[^/]+/;
+const basename = process.env.PUBLIC_URL.replace(domain, "");
+
 function App() {
   const domain = /https:\/\/[^/]+/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
@@ -41,9 +44,9 @@ function App() {
               />
             </Routes>
           </div>
-        </div>
-      </Router>
-    </AuthProvider>
+        </Router>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

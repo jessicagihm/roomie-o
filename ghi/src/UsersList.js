@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ function UsersList() {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_HOST}/api/users`, {
         headers: {
@@ -19,7 +19,7 @@ function UsersList() {
 
       if (!response.ok) {
         throw new Error(
-          `Network response was not ok (status ${response.status})`
+          `Network response failed (status ${response.status})`
         );
       }
 
@@ -28,13 +28,17 @@ function UsersList() {
     } catch (error) {
       console.error("Could not fetch user data:", error);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
-    if (token) {
-      fetchUsers();
-    }
-  }, [token]);
+    const loadData = async () => {
+      if (token) {
+        await fetchUsers();
+      }
+    };
+
+    loadData();
+  }, [token, fetchUsers]);
 
   function capFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

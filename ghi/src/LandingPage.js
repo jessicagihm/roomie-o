@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./LandingPage.css";
-// import Nav from "./Nav"; // Import the Nav component
-import Testimonials from "./Testimonials"; // Import the Testimonials component
+import Testimonials from "./Testimonials";
 
 function LandingPage() {
   const [isTextVisible, setIsTextVisible] = useState(false);
@@ -13,13 +12,13 @@ function LandingPage() {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000, // Adjust the speed (time between slides) in milliseconds
+    autoplaySpeed: 3000,
   };
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const revealThreshold = 200; // Adjust this value as needed
+      const revealThreshold = 200;
 
       if (scrollPosition > revealThreshold) {
         setIsTextVisible(true);
@@ -39,7 +38,10 @@ function LandingPage() {
     <div className="landing-page">
       <div id="video-container">
         <video id="video-background" autoPlay loop muted>
-          <source src="/VideoBanner.mp4" type="video/mp4" />
+          <source
+            src={`${process.env.PUBLIC_URL}/VideoBanner.mp4`}
+            type="video/mp4"
+          />
         </video>
       </div>
       <div className={`content ${isTextVisible ? "reveal-text" : ""}`}>

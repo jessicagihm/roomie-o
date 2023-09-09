@@ -49,7 +49,7 @@ function RoomDetails() {
             </div>
             <div className="text-columns">
               <div className="column">
-                <p>Listing Price: {roomData.cost}</p>
+                <p>Listing Price: ${roomData.cost} <span style={{ fontSize: '12px' }}>month</span></p>
                 <p>Lease Type: {roomData.lease_type}</p>
                 <p>Available Rooms: {roomData.available_rooms}</p>
                 <p>Bathrooms: {roomData.bathrooms}</p>

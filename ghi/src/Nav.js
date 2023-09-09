@@ -38,9 +38,6 @@ function Nav() {
               <NavLink className="logged-in-nav-button" to="/rooms/create">
                 List a Room
               </NavLink>
-              <NavLink className="logged-in-nav-button" to="/rooms">
-                Rooms
-              </NavLink>
               <NavLink className="logged-in-nav-button" to="/preferences">
                 Preferences
               </NavLink>

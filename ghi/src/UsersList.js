@@ -49,7 +49,7 @@ function UsersList() {
                 <Card style={{ width: '18rem' }}>
                   <Card.Img variant="top" src={user.image} />
                   <Card.Body>
-                    <Card.Title>{user.first} {user.last}</Card.Title>
+                    <Card.Title>{capFirstLetter(user.first)} {capFirstLetter(user.last)}</Card.Title>
                     <Card.Text>
                       Room
                     </Card.Text>

@@ -254,7 +254,7 @@ function RoomForm() {
             />
           </label>
           <label>
-            Listing Price:
+            Listing Price (per month):
             <input
               type="number"
               value={cost}

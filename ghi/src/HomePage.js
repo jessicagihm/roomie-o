@@ -99,7 +99,7 @@ const HomePage = () => {
             <span
               className="clickable-card"
               onClick={() => {
-                window.location.href = `/room/${room.room_id}`;
+                window.location.href = `/rooms/${room.room_id}`;
               }}
             >
               <div className="room-card">

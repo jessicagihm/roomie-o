@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import './RoomsList.css';
 
-
 function RoomsList() {
   const { token } = useToken();
   const [rooms, setRooms] = useState([]);
@@ -32,17 +31,19 @@ function RoomsList() {
     }
   };
 
-  useEffect(() => {
+  const capFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  const loadData = async () => {
     if (token) {
-      fetchRooms();
+      await fetchRooms();
     }
+  };
+
+  useEffect(() => {
+    loadData();
   }, [token]);
-
-
-  function capFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
 
   return (
     <div className="rooms-container">
@@ -59,7 +60,6 @@ function RoomsList() {
                   <Card.Text>
                     {capFirstLetter(room.space)}
                   </Card.Text>
-                  <Link to={`/rooms/${room.id}`}></Link>
                 </Card.Body>
               </Card>
             </button>

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import Card from "react-bootstrap/Card"
-import { Link } from "react-router-dom";
+import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
-
+import './UsersList.css';
 
 function UsersList() {
   const { token } = useToken();
@@ -37,42 +36,31 @@ function UsersList() {
     }
   }, [token]);
 
-
   function capFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
-  return(
-    <div>
-      {
-        users
-        ?
-        users.map((user) => {
-          return(
-            <div>
-              <button onClick={()=> navigate("/")} className="unstyled-button">
-                <Card key={user.id} style={{ width: '18rem' }}>
+  return (
+    <div className="users-container">
+      {users
+        ? users.map((user) => (
+            <div key={user.id}>
+              <button onClick={() => navigate(`/preferences/${user.pref_id}`)} className="unstyled-button">
+                <Card style={{ width: '18rem' }}>
                   <Card.Img variant="top" src={user.image} />
                   <Card.Body>
                     <Card.Title>{user.first} {user.last}</Card.Title>
                     <Card.Text>
-                      About Me
+                      Room
                     </Card.Text>
-                    <Link to={`/user/${user.id}`}>
-                    </Link>
                   </Card.Body>
                 </Card>
               </button>
             </div>
-          )
-          })
-          :
-          null
-        }
+          ))
+        : null}
+    </div>
+  );
+}
 
-      </div>
-  )
-  }
-
-
-  export default UsersList;
+export default UsersList;

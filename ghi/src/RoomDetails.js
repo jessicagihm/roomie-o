@@ -44,13 +44,11 @@ function RoomDetails() {
         {roomData ? (
           <>
             <h2 className="custom-font">{capFirstLetter(roomData.space)}</h2>
-            Hosted by: <a href={`/host-profile/${roomData.hostId}`}>{roomData.profile}</a>
             <div className="image-container">
               <img src={roomData.picture} alt="Room" className="centered-image" />
             </div>
             <div className="text-columns">
               <div className="column">
-                <p>Host: {roomData.profile}</p>
                 <p>Listing Price: {roomData.cost}</p>
                 <p>Lease Type: {roomData.lease_type}</p>
                 <p>Available Rooms: {roomData.available_rooms}</p>

@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from "react";
-import useToken from "@galvanize-inc/jwtdown-for-react";
-import Card from "react-bootstrap/Card"
+import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
-
-function UsersList(props) {
+function UsersList() {
+  const [users, setUsers] = useState([]);
   const { token } = useToken();
-  const [users, setUsers] = useState();
   const navigate = useNavigate();
-
 
   const getData = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/users", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_HOST}/api/users`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
-      const data = await response.json();
+        const data = await response.json();
         setUsers(data.users);
       } else {
         throw new Error(`Must be logged in (status ${response.status})`);
@@ -28,11 +29,11 @@ function UsersList(props) {
     } catch (error) {
       console.error(error);
     }
+  };
 
   useEffect(() => {
     getData();
   }, []);
-
 
   return (
     <div>
@@ -41,7 +42,7 @@ function UsersList(props) {
             return (
               <div>
                 <button
-                  onClick={() => navigate(`/users/${user.id}`)}
+                  onClick={() => navigate("/")}
                   className="unstyled-button"
                 >
                   <Card key={user.id} style={{ width: "18rem" }}>
@@ -50,8 +51,8 @@ function UsersList(props) {
                       <Card.Title>
                         {user.first} {user.last}
                       </Card.Title>
-                      <Card.Text>Room Listing</Card.Text>
-                      <Link to={`/rooms/${user.id}`}></Link>
+                      <Card.Text>About Me</Card.Text>
+                      <Link to={`/user/${user.id}`}></Link>
                     </Card.Body>
                   </Card>
                 </button>
@@ -61,6 +62,6 @@ function UsersList(props) {
         : null}
     </div>
   );
-}}
+}
 
 export default UsersList;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import "./Nav.css";
 
@@ -7,9 +7,11 @@ function Nav() {
   const { token, logout, isAuthenticated } = useToken();
   const [isUserAuthenticated, setIsUserAuthenticated] = useState(!!token);
   console.log(isAuthenticated);
+  const navigate = useNavigate();
   const handleLogout = () => {
     logout();
     setIsUserAuthenticated(false);
+    navigate("/");
   };
 
   useEffect(() => {
@@ -47,7 +49,10 @@ function Nav() {
               <NavLink className="logged-in-nav-button" to="/rooms">
                 Rooms
               </NavLink>
-              <button className="logged-in-nav-button" onClick={handleLogout}>
+              <button
+                className="logged-in-nav-button logout-button"
+                onClick={handleLogout}
+              >
                 Logout
               </button>
             </>

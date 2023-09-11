@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from datetime import date
 from queries.pool import pool
-from typing import List, Union
+from typing import List, Union, Optional
 
 
 class Error(BaseModel):
@@ -19,7 +19,7 @@ class PrefIn(BaseModel):
     allergies: str
     looking_for_roomie: bool
     user_id: int
-    move_in_date: date | None
+    move_in_date: Optional[date]
 
 
 class PrefOut(BaseModel):
@@ -33,7 +33,7 @@ class PrefOut(BaseModel):
     allergies: str
     looking_for_roomie: bool
     user_id: int
-    move_in_date: date | None
+    move_in_date: Optional[date]
     pref_id: int
 
 
@@ -47,8 +47,7 @@ class PrefQueries:
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    SELECT pref_id,
-                        smoker_friendly,
+                    SELECT smoker_friendly,
                         hobbies,
                         pet_friendly,
                         budget,

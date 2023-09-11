@@ -36,7 +36,6 @@ def get_user_prefs(
         return record
 
 
-
 @router.delete("/api/preferences/{pref_id}", response_model=bool)
 def delete_pref(
     pref_id: int,

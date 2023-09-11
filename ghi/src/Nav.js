@@ -6,7 +6,7 @@ import "./Nav.css";
 function Nav() {
   const { token, logout, isAuthenticated } = useToken();
   const [isUserAuthenticated, setIsUserAuthenticated] = useState(!!token);
-
+  console.log(isAuthenticated);
   const handleLogout = () => {
     logout();
     setIsUserAuthenticated(false);
@@ -20,16 +20,13 @@ function Nav() {
     <nav className="custom-navbar navbar navbar-expand-lg">
       <div className="container-fluid">
         <div className="navbar-center">
-          <NavLink to="/">
+          <NavLink to="/home">
             <img
               src={`${process.env.PUBLIC_URL}/roomieologo.png`}
               alt="Logo"
               className="custom-logo-img"
             />
           </NavLink>
-          {/* <NavLink className="btn btn-light me-2" to="/rooms/">
-            RoomsList
-          </NavLink> */}
         </div>
         <div
           className={`navbar-center ${
@@ -46,6 +43,9 @@ function Nav() {
               </NavLink>
               <NavLink className="logged-in-nav-button" to="/users">
                 Roomies
+              </NavLink>
+              <NavLink className="logged-in-nav-button" to="/rooms">
+                Rooms
               </NavLink>
               <button className="logged-in-nav-button" onClick={handleLogout}>
                 Logout

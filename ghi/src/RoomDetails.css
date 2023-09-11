@@ -38,12 +38,12 @@ textarea#specialRequests {
     resize: none;
 }
 
-/* rsvn multi steps */
+
 .rsvnTab {
     display: none;
 }
 
-/* Make circles that indicate the steps of the form: */
+
 .step {
     height: 15px;
     width: 15px;
@@ -55,12 +55,12 @@ textarea#specialRequests {
     opacity: 0.5;
 }
 
-/* Mark the active step: */
+
 .step.active {
     opacity: 1;
 }
 
-/* Mark the steps that are finished and valid: */
+
 .step.finish {
     background-color: #4CAF50;
 }
@@ -70,13 +70,13 @@ input.invalid, select.invalid {
 }
 
 .page-container {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow effect */
-  padding: 20px; /* Add padding to separate shadow from content */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
 }
 
 
 .custom-font {
   font-family: 'Your Custom Font', sans-serif;
   font-size: 40px;
-  /* Add any other font-related CSS properties here */
+
 }

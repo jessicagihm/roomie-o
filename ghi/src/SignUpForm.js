@@ -16,6 +16,8 @@ function SignUpForm() {
   const { register } = useToken();
   const navigate = useNavigate();
 
+
+
   const handleRegistration = (e) => {
     e.preventDefault();
     const accountData = {
@@ -33,8 +35,7 @@ function SignUpForm() {
     e.target.reset();
     navigate("/preferences");
 
-    // this is going to navigate to the user preferences page.
-    // expecting this to be ("/preferences") on Ln40
+
   };
 
   return (

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
@@ -8,7 +7,6 @@ function UsersList() {
   const [users, setUsers] = useState([]);
   const { token } = useToken();
   const navigate = useNavigate();
-
   const getData = async () => {
     try {
       const response = await fetch(
@@ -19,7 +17,6 @@ function UsersList() {
           },
         }
       );
-
       if (response.ok) {
         const data = await response.json();
         setUsers(data.users);
@@ -30,35 +27,38 @@ function UsersList() {
       console.error(error);
     }
   };
-
   useEffect(() => {
     getData();
   }, []);
 
+  function capFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
   return (
-    <div>
+    <div className="users-container">
       {users
-        ? users.map((user) => {
-            return (
-              <div>
-                <button
-                  onClick={() => navigate("/")}
-                  className="unstyled-button"
-                >
-                  <Card key={user.id} style={{ width: "18rem" }}>
-                    <Card.Img variant="top" src={user.image} />
-                    <Card.Body>
-                      <Card.Title>
-                        {user.first} {user.last}
-                      </Card.Title>
-                      <Card.Text>About Me</Card.Text>
-                      <Link to={`/user/${user.id}`}></Link>
-                    </Card.Body>
-                  </Card>
-                </button>
-              </div>
-            );
-          })
+        ? users.map((user) => (
+            <div key={user.id}>
+              <button
+                onClick={() => navigate(`/preferences/${user.id}`)}
+                className="unstyled-button"
+              >
+                <Card style={{ width: "18rem" }}>
+                  <Card.Img variant="top" src={user.image} />
+                  <Card.Body>
+                    <Card.Title>
+                      {capFirstLetter(user.first)} {capFirstLetter(user.last)}
+                    </Card.Title>
+                    <Card.Text>
+                      {user.age}, {capFirstLetter(user.gender)}
+                    </Card.Text>
+                    <Card.Text>{user.bio}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </button>
+            </div>
+          ))
         : null}
     </div>
   );

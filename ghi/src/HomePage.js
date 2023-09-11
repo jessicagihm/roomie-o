@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import jwtDecode from "jwt-decode";
-import { Link } from "react-router-dom";
+import "./HomePage.css";
 
 const HomePage = () => {
   const { token } = useToken();
@@ -12,13 +12,16 @@ const HomePage = () => {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchUserData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/users", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `${process.env.REACT_APP_API_HOST}/api/users`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error(
@@ -33,13 +36,16 @@ const HomePage = () => {
       }
     };
 
-    const fetchRooms = async () => {
+    const fetchRoomData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/rooms", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `${process.env.REACT_APP_API_HOST}/api/rooms`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error(
@@ -55,8 +61,8 @@ const HomePage = () => {
     };
 
     if (token) {
-      fetchUsers();
-      fetchRooms();
+      fetchUserData();
+      fetchRoomData();
     }
   }, [token]);
 
@@ -69,13 +75,20 @@ const HomePage = () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         {users.slice(0, 3).map((user) => (
           <div key={user.id} style={{ marginRight: "20px" }}>
-            <Link to={`/user/${user.id}`}>
+            <span
+              className="clickable-card"
+              onClick={() => {
+                window.location.href = `/user/${user.id}`;
+              }}
+            >
               <div className="user-card">
-                <img src={user.image} alt={`${user.first} ${user.last}`} />
+                <div className="user-image">
+                  <img src={user.image} alt={`${user.first} ${user.last}`} />
+                </div>
                 <h3>{`${user.first} ${user.last}`}</h3>
                 <p>{user.bio}</p>
               </div>
-            </Link>
+            </span>
           </div>
         ))}
       </div>
@@ -83,13 +96,20 @@ const HomePage = () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         {rooms.slice(0, 3).map((room) => (
           <div key={room.room_id} style={{ marginRight: "20px" }}>
-            <Link to={`/room/${room.room_id}`}>
+            <span
+              className="clickable-card"
+              onClick={() => {
+                window.location.href = `/rooms/${room.room_id}`;
+              }}
+            >
               <div className="room-card">
-                <img src={room.picture} alt={`Room in ${room.city}`} />
+                <div className="room-image">
+                  <img src={room.picture} alt={`Room in ${room.city}`} />
+                </div>
                 <h3>{`${room.city}, ${room.state}`}</h3>
                 <p>{`Cost: $${room.cost} per month`}</p>
               </div>
-            </Link>
+            </span>
           </div>
         ))}
       </div>

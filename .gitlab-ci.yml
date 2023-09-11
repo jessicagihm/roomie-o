@@ -14,7 +14,7 @@ lint-test-job:
     - pip install flake8
     - flake8 api
 
-# # Run the unit tests
+# Run the unit tests
 api-unit-tests-job:
   image: python:3-bullseye
   stage: test
@@ -41,8 +41,6 @@ build-api-image:
     - docker push $GITLAB_IMAGE:latest
   only:
     - main
-
-
 # # Build the React/JavaScript front-end
 build-front-end-job:
   stage: build

@@ -11,3 +11,50 @@
     opacity: 1;
   }
 }
+
+.user-card,
+.room-card {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-card h3,
+.room-card h3 {
+  margin: 10px 0;
+}
+
+.user-card p,
+.room-card p {
+  margin: 0;
+}
+
+.user-image,
+.room-image {
+  position: relative;
+}
+
+.user-image::after,
+.room-image::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.user-image img,
+.room-image img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.clickable-card {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

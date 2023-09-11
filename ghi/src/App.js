@@ -38,9 +38,7 @@ function App() {
               <Route path="/signup" element={<SignUpForm />} />
               <Route path="/preferences" element={<PreferenceCreateForm />} />
               <Route path="/users" element={<UsersList />} />
-              <Route
-                path="/preferences/:user_id"
-                element={<PreferenceDisplay />}
+              <Route path="/preferences/:user_id" element={<PreferenceDisplay />}
               />
             </Routes>
           </div>

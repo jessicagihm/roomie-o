@@ -16,8 +16,6 @@ function SignUpForm() {
   const { register } = useToken();
   const navigate = useNavigate();
 
-
-
   const handleRegistration = (e) => {
     e.preventDefault();
     const accountData = {
@@ -34,8 +32,6 @@ function SignUpForm() {
 
     e.target.reset();
     navigate("/preferences");
-
-
   };
 
   return (
@@ -113,7 +109,7 @@ function SignUpForm() {
             <label className="form-label">Image</label>
             <input
               name="image"
-              type="file"
+              type="text"
               className="form-control"
               onChange={(e) => {
                 setImage(e.target.value);

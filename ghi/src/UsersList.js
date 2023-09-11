@@ -1,44 +1,37 @@
-import React, { useEffect, useState, useCallback } from "react";
-import useToken from "@galvanize-inc/jwtdown-for-react";
+import React, { useCallback, useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
-import './UsersList.css';
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function UsersList() {
-  const { token } = useToken();
   const [users, setUsers] = useState([]);
+  const { token } = useToken();
   const navigate = useNavigate();
 
-  const fetchUsers = useCallback(async () => {
+  const getData = useCallback(async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_HOST}/api/users`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(
-          `Network response failed (status ${response.status})`
-        );
+      const response = await fetch(
+        `${process.env.REACT_APP_API_HOST}/api/users`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setUsers(data.users);
+      } else {
+        throw new Error(`Must be logged in (status ${response.status})`);
       }
-
-      const data = await response.json();
-      setUsers(data.users);
     } catch (error) {
-      console.error("Could not fetch user data:", error);
+      console.error(error);
     }
-  }, [token]);
+  }, [token]); // Include token as a dependency
 
   useEffect(() => {
-    const loadData = async () => {
-      if (token) {
-        await fetchUsers();
-      }
-    };
-
-    loadData();
-  }, [token, fetchUsers]);
+    getData(); // Call getData inside the useEffect
+  }, [getData]);
 
   function capFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -49,17 +42,20 @@ function UsersList() {
       {users
         ? users.map((user) => (
             <div key={user.id}>
-              <button onClick={() => navigate(`/preferences/${user.id}`)} className="unstyled-button">
-                <Card style={{ width: '18rem' }}>
+              <button
+                onClick={() => navigate(`/preferences/${user.id}`)}
+                className="unstyled-button"
+              >
+                <Card style={{ width: "18rem" }}>
                   <Card.Img variant="top" src={user.image} />
                   <Card.Body>
-                    <Card.Title>{capFirstLetter(user.first)} {capFirstLetter(user.last)}</Card.Title>
+                    <Card.Title>
+                      {capFirstLetter(user.first)} {capFirstLetter(user.last)}
+                    </Card.Title>
                     <Card.Text>
                       {user.age}, {capFirstLetter(user.gender)}
                     </Card.Text>
-                    <Card.Text>
-                      {user.bio}
-                    </Card.Text>
+                    <Card.Text>{user.bio}</Card.Text>
                   </Card.Body>
                 </Card>
               </button>

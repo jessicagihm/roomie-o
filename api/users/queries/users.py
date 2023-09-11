@@ -110,7 +110,7 @@ class UserQueries:
                         bio
                     From users
                     ORDER BY id;
-                    """
+                    """,
                 )
                 results = cur.fetchall()
                 user_list = []

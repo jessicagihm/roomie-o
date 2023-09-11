@@ -35,11 +35,4 @@ Contacting Potential Roommates:
 
 ## Project Initialization
 
-1. Fork this respository
-2. Clone the repository https://gitlab.com/meme-team-supreme/roomie-o.git down onto your local machine
-3. CD into the  new project directory
-5. Run docker volume create pg-admin
-6. Run docker volume create postgres-data
-7. Run docker compose build
-8. Run docker compose up
-9. Go to http://localhost:3000
+Please put any and all documentation for your project in this folder. Other than the documents that are required at the end of week 13, feel free to organize this however your group sees fit.

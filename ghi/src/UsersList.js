@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
+import "./UsersList.css";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function UsersList() {

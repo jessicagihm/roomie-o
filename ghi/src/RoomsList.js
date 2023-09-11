@@ -48,7 +48,7 @@ function RoomsList() {
     <div className="rooms-container">
       {rooms
         ? rooms.map((room) => (
-          <div key={room.id}>
+          <div key={room.room_id}>
             <button onClick={() => navigate(`/rooms/${room.room_id}`)} className="unstyled-button">
               <Card style={{ width: "18rem" }}>
                 <Card.Img variant="top" src={room.picture} />

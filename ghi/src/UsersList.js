@@ -9,7 +9,6 @@ function UsersList() {
   const { token } = useToken();
   const navigate = useNavigate();
 
-
   const getData = useCallback(async () => {
     try {
       const response = await fetch(
@@ -32,8 +31,12 @@ function UsersList() {
   }, [token]); // Include token as a dependency
 
   useEffect(() => {
-    getData()
-  }, [])
+    getData(); // Call getData inside the useEffect
+  }, [getData]);
+
+  function capFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   return (
     <div className="users-container">

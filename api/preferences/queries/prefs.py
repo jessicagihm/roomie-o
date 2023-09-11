@@ -47,8 +47,7 @@ class PrefQueries:
             with conn.cursor() as cur:
                 cur.execute(
                     """
-                    SELECT pref_id,
-                        smoker_friendly,
+                    SELECT smoker_friendly,
                         hobbies,
                         pet_friendly,
                         budget,
@@ -82,6 +81,36 @@ class PrefQueries:
                         move_in_date=result[11],
                     )
                 return None
+
+    def get_all_prefs(self) -> List[PrefOut]:
+        with pool.connection() as conn:
+            print(conn)
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT pref_id,
+                        smoker_friendly,
+                        hobbies,
+                        pet_friendly,
+                        budget,
+                        house_pref,
+                        kids,
+                        work_sched,
+                        allergies,
+                        looking_for_roomie,
+                        user_id,
+                        move_in_date
+                    FROM preferences;
+                    """,
+                )
+                results = cur.fetchall()
+                pref_list = []
+                for result in results:
+                    print(result)
+                    pref_list.append(
+                        PrefOut()
+                    )
+                return pref_list
 
     def create_pref(self, pref: PrefIn) -> PrefOut:
         with pool.connection() as conn:

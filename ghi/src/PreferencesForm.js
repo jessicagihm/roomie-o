@@ -192,7 +192,9 @@ export default function PreferenceCreateForm() {
               />
               <label htmlFor="move_in_date">Move-in Date(Optional)</label>
             </div>
-            <button className="btn btn-primary">Create Preference</button>
+            <button className="custom-button preferences-btn">
+              Create Preference
+            </button>
           </form>
         </div>
       </div>

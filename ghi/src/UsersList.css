@@ -3,12 +3,18 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 10px;
+  border: white;
 }
 
 .user-card {
   flex: 1;
   margin: 10px;
   max-width: calc(25% - 20px);
+  border: none !important;
+}
+
+.card.border-0 {
+  border: none;
 }
 
 @media (max-width: 768px) {

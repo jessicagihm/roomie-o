@@ -83,6 +83,47 @@ class PrefQueries:
                     )
                 return None
 
+    class PrefQueries:
+        def get_user_prefs(self, user_id) -> PrefOut:
+            with pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(
+                        """
+                        SELECT pref_id,
+                            smoker_friendly,
+                            hobbies,
+                            pet_friendly,
+                            budget,
+                            house_pref,
+                            kids,
+                            work_sched,
+                            allergies,
+                            looking_for_roomie,
+                            user_id,
+                            move_in_date,
+                        From preferences
+                        WHERE user_id = %s
+                        """,
+                        [user_id],
+                    )
+                    result = cur.fetchone()
+                    if result:
+                        return PrefOut(
+                            pref_id=result[0],
+                            smoker_friendly=result[1],
+                            hobbies=result[2],
+                            pet_friendly=result[3],
+                            budget=result[4],
+                            house_pref=result[5],
+                            kids=result[6],
+                            work_sched=result[7],
+                            allergies=result[8],
+                            looking_for_roomie=result[9],
+                            user_id=result[10],
+                            move_in_date=result[11],
+                        )
+                    return None
+
     def create_pref(self, pref: PrefIn) -> PrefOut:
         with pool.connection() as conn:
             with conn.cursor() as db:

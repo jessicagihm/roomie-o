@@ -7,6 +7,7 @@ function UsersList() {
   const [users, setUsers] = useState([]);
   const { token } = useToken();
   const navigate = useNavigate();
+
   const getData = async () => {
     try {
       const response = await fetch(
@@ -29,12 +30,12 @@ function UsersList() {
   };
   useEffect(() => {
     getData();
-  }, []);
+  }, [getData]);
 
   function capFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  
+
   return (
     <div className="users-container">
       {users

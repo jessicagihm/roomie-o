@@ -1,5 +1,7 @@
 from fastapi.testclient import TestClient
 from fastapi import FastAPI, Depends, HTTPException, APIRouter, Response
+from pydantic import BaseModel
+from datetime import date
 from authenticator import authenticator
 from typing import Union
 from preferences.queries.prefs import PrefQueries, PrefIn, PrefOut, Error

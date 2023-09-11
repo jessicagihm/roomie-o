@@ -49,7 +49,7 @@ function UsersList() {
       {users
         ? users.map((user) => (
             <div key={user.id}>
-              <button onClick={() => navigate(`/preferences/${user.pref_id}`)} className="unstyled-button">
+              <button onClick={() => navigate(`/preferences/${user.id}`)} className="unstyled-button">
                 <Card style={{ width: '18rem' }}>
                   <Card.Img variant="top" src={user.image} />
                   <Card.Body>

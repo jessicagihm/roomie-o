@@ -38,14 +38,14 @@ function Nav() {
               <NavLink className="logged-in-nav-button" to="/rooms/create">
                 List a Room
               </NavLink>
-              <NavLink className="logged-in-nav-button" to="/rooms">
-                Rooms
-              </NavLink>
               <NavLink className="logged-in-nav-button" to="/preferences">
                 Preferences
               </NavLink>
               <NavLink className="logged-in-nav-button" to="/users">
                 Roomies
+              </NavLink>
+              <NavLink className="logged-in-nav-button" to="/rooms">
+                Rooms
               </NavLink>
               <button className="logged-in-nav-button" onClick={handleLogout}>
                 Logout

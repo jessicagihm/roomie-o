@@ -22,6 +22,20 @@ def get_pref(
         return record
 
 
+@router.get("/api/preferences/{user_id}", response_model=PrefOut)
+def get_user_prefs(
+    user_id: int,
+    queries: PrefQueries = Depends(),
+):
+    record = queries.get_user(user_id)
+    if record is None:
+        raise HTTPException(
+            status_code=404, detail="No user found with id {}".format(user_id)
+        )
+    else:
+        return record
+
+
 @router.delete("/api/preferences/{pref_id}", response_model=bool)
 def delete_pref(
     pref_id: int,

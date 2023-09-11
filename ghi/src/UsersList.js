@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
@@ -8,7 +8,7 @@ function UsersList() {
   const { token } = useToken();
   const navigate = useNavigate();
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_HOST}/api/users`,
@@ -27,9 +27,10 @@ function UsersList() {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [token]); // Include token as a dependency
+
   useEffect(() => {
-    getData();
+    getData(); // Call getData inside the useEffect
   }, [getData]);
 
   function capFirstLetter(string) {

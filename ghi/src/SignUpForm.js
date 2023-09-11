@@ -32,8 +32,6 @@ function SignUpForm() {
 
     e.target.reset();
     navigate("/preferences");
-
-
   };
 
   return (

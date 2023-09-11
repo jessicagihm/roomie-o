@@ -78,7 +78,7 @@ const HomePage = () => {
             <span
               className="clickable-card"
               onClick={() => {
-                window.location.href = `/user/${user.id}`;
+                window.location.href = `/preferences/${user.id}`;
               }}
             >
               <div className="user-card">

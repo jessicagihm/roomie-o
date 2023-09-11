@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import "./LoginForm.css";
+import "./SignUpForm.css";
 
 function SignUpForm() {
   const [username, setUsername] = useState("");
@@ -36,102 +36,107 @@ function SignUpForm() {
   };
 
   return (
-    <div className="card text-bg-light mb-3">
-      <h5 className="card-header">Sign Up</h5>
-      <div className="card-body">
-        <form onSubmit={(e) => handleRegistration(e)}>
-          <div className="mb-3">
-            <label className="form-label">Email</label>
-            <input
-              value={username}
-              type="text"
-              className="form-control"
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Password</label>
-            <input
-              value={password}
-              type="password"
-              className="form-control"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">First</label>
-            <input
-              name="first"
-              type="text"
-              className="form-control"
-              onChange={(e) => {
-                setFirst(e.target.value);
-              }}
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Last</label>
-            <input
-              name="last"
-              type="text"
-              className="form-control"
-              onChange={(e) => {
-                setLast(e.target.value);
-              }}
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Age</label>
-            <input
-              name="age"
-              type="text"
-              className="form-control"
-              onChange={(e) => {
-                setAge(e.target.value);
-              }}
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Gender</label>
-            <input
-              name="gender"
-              type="text"
-              className="form-control"
-              onChange={(e) => {
-                setGender(e.target.value);
-              }}
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Image</label>
-            <input
-              name="image"
-              type="file"
-              className="form-control"
-              onChange={(e) => {
-                setImage(e.target.value);
-              }}
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Bio</label>
-            <input
-              name="bio"
-              type="text"
-              className="form-control"
-              onChange={(e) => {
-                setBio(e.target.value);
-              }}
-            />
-          </div>
-          <div>
-            <input className="custom-button" type="submit" value="Sign Up" />
-          </div>
-        </form>
+    <div className="centered-container">
+      <div className="card preferences-form mb-3">
+        <h5 className="card-header">Sign Up</h5>
+        <div className="card-body">
+          <form onSubmit={(e) => handleRegistration(e)}>
+            <div className="mb-3">
+              <label className="form-label">Email</label>
+              <input
+                value={username}
+                type="text"
+                className="form-control preferences-form-input"
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Password</label>
+              <input
+                value={password}
+                type="password"
+                className="form-control preferences-form-input"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">First</label>
+              <input
+                name="first"
+                type="text"
+                className="form-control preferences-form-input"
+                onChange={(e) => {
+                  setFirst(e.target.value);
+                }}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Last</label>
+              <input
+                name="last"
+                type="text"
+                className="form-control preferences-form-input"
+                onChange={(e) => {
+                  setLast(e.target.value);
+                }}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Age</label>
+              <input
+                name="age"
+                type="text"
+                className="form-control preferences-form-input"
+                onChange={(e) => {
+                  setAge(e.target.value);
+                }}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Gender</label>
+              <input
+                name="gender"
+                type="text"
+                className="form-control preferences-form-input"
+                onChange={(e) => {
+                  setGender(e.target.value);
+                }}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Image URL</label>
+              <input
+                name="image"
+                type="text"
+                className="form-control preferences-form-input"
+                onChange={(e) => {
+                  setImage(e.target.value);
+                }}
+              />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Tell us about yourself</label>
+              <input
+                name="bio"
+                type="text"
+                className="form-control preferences-form-input"
+                onChange={(e) => {
+                  setBio(e.target.value);
+                }}
+              />
+            </div>
+            <div>
+              <button className="custom-button preferences-btn" type="submit">
+                Sign Up
+                <div className="glow"></div>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

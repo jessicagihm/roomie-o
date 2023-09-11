@@ -1,13 +1,22 @@
-/* Shared Form Styles */
-.form-container {
-  align-items: flex-start !important;
-  width: 100%;
-  margin-top: 15px;
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #ffffff;
 }
 
-.input-box-container {
-  margin: 10px 0px;
-  width: 100%;
+.login-text-container {
+  text-align: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+  font-size: 48px;
+  margin-bottom: 20px;
 }
 
 .label {
@@ -16,13 +25,18 @@
   margin-bottom: 3px;
 }
 
+.input-box-container {
+  margin: 10px 0px;
+}
+
 .input-container {
   background-color: #f6f6f6;
   padding: 0px 5px;
   border: 2px solid rgba(216, 216, 216, 1);
   border-radius: 10px;
   overflow: hidden;
-  justify-content: flex-start;
+  display: flex;
+  align-items: center;
 }
 
 input {
@@ -35,41 +49,6 @@ input {
 
 .input i {
   color: rgba(0, 0, 0, 0.4);
-}
-
-.check span {
-  color: #000000b2;
-  font-size: 15px;
-  font-weight: bold;
-  margin-left: 5px;
-}
-
-.btn {
-  color: #ffffff;
-  border-radius: 20px;
-  padding: 10px 15px;
-  background: linear-gradient(
-    90deg,
-    rgba(249, 0, 64, 1) 0%,
-    rgba(179, 0, 255, 1) 100%
-  );
-  margin-top: 30px;
-  margin-bottom: 10px;
-  font-size: 16px;
-  transition: all 0.3s linear;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-}
-
-.extra-line {
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.extra-line a {
-  color: #0095b6;
 }
 
 .custom-button {
@@ -137,4 +116,13 @@ input {
   left: 0;
   top: 0;
   border-radius: 10px;
+}
+
+.extra-line {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.extra-line a {
+  color: #0095b6;
 }

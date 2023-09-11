@@ -1,60 +1,42 @@
-.row {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
+.centered-container {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.preferences-form {
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.card {
   background-color: #ffffff;
-  width: 80%;
-  padding: 20px;
+  border: none;
 }
 
-.preferences-form h1 {
+.card-header {
   font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
-  text-align: center;
+  background-color: #222;
+  color: #fff;
 }
 
-.preferences-form label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
+.card-body {
+  padding: 100px;
 }
 
-.preferences-form input[type="checkbox"],
-.preferences-form input[type="radio"] {
-  margin-right: 10px;
-}
-
-.preferences-form-input {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px 15px;
-  font-size: 16px;
-  color: #555;
-  width: 100%;
+.form-label {
+  font-size: 18px;
+  color: black;
   margin-bottom: 10px;
 }
 
-.preferences-floating > label {
-  padding: 0 10px;
-  background-color: #fff;
-  transition: all 0.3s ease;
+.form-control {
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: 10px;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  font-size: 16px;
+  width: 100%;
 }
 
-.preferences-floating > input:focus + label {
-  color: #007bff;
-}
-
-.preferences-btn {
-  padding: 0.6em 2em;
+.custom-button {
+  padding: 1em 2.5em;
   border: none;
   outline: none;
   color: rgb(255, 255, 255);
@@ -68,7 +50,7 @@
   touch-action: manipulation;
 }
 
-.preferences-btn:before {
+.custom-button:before {
   content: "";
   background: linear-gradient(
     45deg,
@@ -108,7 +90,7 @@
   }
 }
 
-.preferences-btn:after {
+.custom-button:after {
   z-index: -1;
   content: "";
   position: absolute;

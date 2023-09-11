@@ -55,7 +55,10 @@ function UsersList() {
                   <Card.Body>
                     <Card.Title>{capFirstLetter(user.first)} {capFirstLetter(user.last)}</Card.Title>
                     <Card.Text>
-                      Room
+                      {user.age}, {capFirstLetter(user.gender)}
+                    </Card.Text>
+                    <Card.Text>
+                      {user.bio}
                     </Card.Text>
                   </Card.Body>
                 </Card>

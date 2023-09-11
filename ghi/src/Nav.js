@@ -21,47 +21,14 @@ function Nav() {
   return (
     <nav className="custom-navbar navbar navbar-expand-lg">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">
-          Home
-        </NavLink>
-        <div className="d-flex">
-          <NavLink className="btn btn-light me-2" to="/login/">
-            Login
+        <div className="navbar-center">
+          <NavLink to="/home">
+            <img
+              src={`${process.env.PUBLIC_URL}/roomieologo.png`}
+              alt="Logo"
+              className="custom-logo-img"
+            />
           </NavLink>
-        </div>
-        <div
-          className={`navbar-center ${
-            isUserAuthenticated ? "is-authenticated" : ""
-          }`}
-        >
-          {isUserAuthenticated ? (
-            <>
-              <NavLink className="logged-in-nav-button" to="/rooms/create">
-                List a Room
-              </NavLink>
-              <NavLink className="logged-in-nav-button" to="/preferences">
-                Preferences
-              </NavLink>
-              <NavLink className="logged-in-nav-button" to="/users">
-                Roomies
-              </NavLink>
-              <NavLink className="logged-in-nav-button" to="/rooms">
-                Rooms
-              </NavLink>
-              <button className="logged-in-nav-button" onClick={handleLogout}>
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <NavLink className="custom-nav-button" to="/login/">
-                Login
-              </NavLink>
-              <NavLink className="custom-nav-button" to="/signup/">
-                Sign Up
-              </NavLink>
-            </>
-          )}
         </div>
         <div
           className={`navbar-center ${

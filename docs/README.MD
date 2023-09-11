@@ -10,7 +10,7 @@ Find Your Perfect Roommate!
 ## Design
 
 * [API Design](http://localhost:8000/docs)
-* [Database model](data-model.MD)
+* [Database model](dbdiagram.MD)
 * [GHI](ghi.MD)
 
 ## Intended Market
@@ -42,4 +42,4 @@ Contacting Potential Roommates:
 6. Run docker volume create postgres-data
 7. Run docker compose build
 8. Run docker compose up
-9. http://localhost:3000
+9. Go to http://localhost:3000

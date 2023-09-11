@@ -16,9 +16,7 @@ function SignUpForm() {
   const { register } = useToken();
   const navigate = useNavigate();
 
-  const handlePicture = (e) => {
-    picture: picture ? URL.createObjectURL(picture.file) : null,
-  }
+
 
   const handleRegistration = (e) => {
     e.preventDefault();

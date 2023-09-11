@@ -32,3 +32,13 @@ We are targeting consumers that are looking to find an ideal roommate and those 
 
 Contacting Potential Roommates:
 - A user can contact other potential roommates with by email (as their username is their email)
+
+## Project Initialization
+
+1. Clone the repository down onto your local machine
+2. CD into the  new project directory
+3. Run docker volume create pg-admin
+4. Run docker volume create postgres-data
+5. Run docker compose build
+6. Run docker compose up
+

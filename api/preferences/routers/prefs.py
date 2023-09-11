@@ -22,14 +22,14 @@ def get_pref(
         return record
 
 
-@router.get("/api/preferences", response_model=PrefOut)
-def get_all_prefs(
-    queries: PrefQueries = Depends(),
-    account: dict = Depends(authenticator.get_current_account_data),
-):
-    if account:
-        return {"preferences": queries.get_all_prefs()}
-    raise HTTPException(status_code=401, detail="Login required")
+# @router.get("/api/preferences", response_model=PrefOut)
+# def get_all_prefs(
+#     queries: PrefQueries = Depends(),
+#     account: dict = Depends(authenticator.get_current_account_data),
+# ):
+#     if account:
+#         return {"preferences": queries.get_all_prefs()}
+#     raise HTTPException(status_code=401, detail="Login required")
 
 
 @router.delete("/api/preferences/{pref_id}", response_model=bool)

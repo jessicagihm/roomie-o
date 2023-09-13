@@ -6,28 +6,13 @@ from typing import Union
 router = APIRouter()
 
 
-@router.get("/api/preferences/{pref_id}", response_model=PrefOut)
-def get_pref(
-    pref_id: int,
-    queries: PrefQueries = Depends(),
-    record: dict = Depends(authenticator.get_current_account_data),
-):
-    record = queries.get_pref(pref_id)
-    if record is None:
-        raise HTTPException(
-            status_code=404,
-            detail="No preferences found with that id {}".format(pref_id),
-        )
-    else:
-        return record
-
-
 @router.get("/api/preferences/{user_id}", response_model=PrefOut)
 def get_user_prefs(
     user_id: int,
     queries: PrefQueries = Depends(),
+    record: dict = Depends(authenticator.get_current_account_data),
 ):
-    record = queries.get_user(user_id)
+    record = queries.get_user_prefs(user_id)
     if record is None:
         raise HTTPException(
             status_code=404, detail="No user found with id {}".format(user_id)

@@ -42,46 +42,6 @@ class PrefList(BaseModel):
 
 
 class PrefQueries:
-    def get_pref(self, pref_id) -> PrefOut:
-        with pool.connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute(
-                    """
-                    SELECT smoker_friendly,
-                        hobbies,
-                        pet_friendly,
-                        budget,
-                        house_pref,
-                        kids,
-                        work_sched,
-                        allergies,
-                        looking_for_roomie,
-                        user_id,
-                        move_in_date,
-                        pref_id
-                    From preferences
-                    WHERE pref_id = %s
-                    """,
-                    [pref_id],
-                )
-                result = cur.fetchone()
-                if result:
-                    return PrefOut(
-                        pref_id=result[0],
-                        smoker_friendly=result[1],
-                        hobbies=result[2],
-                        pet_friendly=result[3],
-                        budget=result[4],
-                        house_pref=result[5],
-                        kids=result[6],
-                        work_sched=result[7],
-                        allergies=result[8],
-                        looking_for_roomie=result[9],
-                        user_id=result[10],
-                        move_in_date=result[11],
-                    )
-                return None
-
     def get_user_prefs(self, user_id) -> PrefOut:
         with pool.connection() as conn:
             with conn.cursor() as cur:
@@ -98,7 +58,7 @@ class PrefQueries:
                         allergies,
                         looking_for_roomie,
                         user_id,
-                        move_in_date,
+                        move_in_date
                     FROM preferences
                     WHERE user_id = %s
                     """,
@@ -107,17 +67,17 @@ class PrefQueries:
                 result = cur.fetchone()
                 if result:
                     return PrefOut(
-                        pref_id=result[0],
-                        smoker_friendly=result[1],
+                        pref_id=int(result[0]),
+                        smoker_friendly=bool(result[1]),
                         hobbies=result[2],
-                        pet_friendly=result[3],
-                        budget=result[4],
+                        pet_friendly=bool(result[3]),
+                        budget=int(result[4]),
                         house_pref=result[5],
-                        kids=result[6],
+                        kids=int(result[6]),
                         work_sched=result[7],
                         allergies=result[8],
-                        looking_for_roomie=result[9],
-                        user_id=result[10],
+                        looking_for_roomie=bool(result[9]),
+                        user_id=int(result[10]),
                         move_in_date=result[11],
                     )
                 return None

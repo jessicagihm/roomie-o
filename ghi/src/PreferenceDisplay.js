@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import jwtDecode from "jwt-decode";
-
+import "./PrefDisplay.css";
 function PreferenceDisplay() {
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -52,11 +52,9 @@ function PreferenceDisplay() {
     fetchData();
   }, [token, loading]);
 
-
   if (isLoading) {
     return <div>Loading User Preferences...</div>;
   }
-
 
   if (error) {
     return <div>Error: {error}</div>;

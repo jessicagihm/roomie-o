@@ -164,7 +164,6 @@ input.invalid, select.invalid {
   }
 }
 
-/* CSS in RoomDetails.css */
 .overlay {
   display: none;
   position: fixed;
@@ -184,4 +183,37 @@ input.invalid, select.invalid {
   background-color: transparent;
   padding: 20px;
   z-index: 1001; /* Place it above the overlay */
+}
+
+.amenities {
+  margin-top: 20px;
+}
+
+/* Style each amenity column */
+.amenity-column {
+  float: left;
+  width: 33.33%;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+
+.amenities::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.amenities-label {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.description-label {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.custom-font h2 {
+  font-size: 24px; /* Adjust the font size as needed */
 }

@@ -12,6 +12,7 @@ import {
   faCity,
   faGlobe,
   faCalendarDays,
+  faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal'; // Import React Modal
 
@@ -111,7 +112,7 @@ function RoomDetails() {
     }
 
 
-  return (
+return (
   <div className="page-container">
     <div className="room-details" style={{ overflow: 'hidden' }}>
       {isEditing ? (
@@ -134,8 +135,7 @@ function RoomDetails() {
             <div className="column">
               <p style={{ marginTop: '20px' }}></p>
               <p className="custom-font">
-                <FontAwesomeIcon icon={faUser} /> Host: {userData?.firstName}{' '}
-                {userData?.lastName}
+                <FontAwesomeIcon icon={faUser} /> Host: {userData?.username}{' '}
               </p>
               <p className="custom-font">
                 <FontAwesomeIcon icon={faDollarSign} /> Listing Price: ${roomData.cost}{' '}
@@ -168,10 +168,55 @@ function RoomDetails() {
                 <FontAwesomeIcon icon={faCalendarDays} /> Available Date:{' '}
                 {formatDate(roomData.created)}
               </p>
-              <p className="custom-font">
-                <i className="fa fa-info-circle"></i> Description: {roomData.description}
-              </p>
             </div>
+          </div>
+
+          <hr />
+          <div className="description">
+            <h3 className="description-label">Description</h3>
+            <p className="custom-font">
+              {roomData.description}
+            </p>
+          </div>
+
+          {/* Add a horizontal line */}
+          <hr />
+
+          <div className="amenities">
+          <h3 className="amenities-label">Amenities</h3>
+          <div className="amenity-column">
+            <p className="custom-font">
+              <FontAwesomeIcon icon={faCheck} /> Bedrooms
+            </p>
+            <p className="custom-font">
+              <FontAwesomeIcon icon={faCheck} /> Wi-Fi
+            </p>
+            <p className="custom-font">
+              <FontAwesomeIcon icon={faCheck} /> Parking
+            </p>
+          </div>
+          <div className="amenity-column">
+            <p className="custom-font">
+              <FontAwesomeIcon icon={faCheck} /> Air Condition
+            </p>
+            <p className="custom-font">
+              <FontAwesomeIcon icon={faCheck} /> Laundry
+            </p>
+            <p className="custom-font">
+              <FontAwesomeIcon icon={faCheck} /> Deck or Patio
+            </p>
+          </div>
+          <div className="amenity-column">
+            <p className="custom-font">
+              <FontAwesomeIcon icon={faCheck} /> Private Closet
+            </p>
+            <p className="custom-font">
+              <FontAwesomeIcon icon={faCheck} /> Private Bedroom
+            </p>
+            <p className="custom-font">
+              <FontAwesomeIcon icon={faCheck} /> Cable
+            </p>
+          </div>
           </div>
         </>
       )}

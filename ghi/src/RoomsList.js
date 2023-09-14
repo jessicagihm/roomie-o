@@ -50,9 +50,9 @@ function RoomsList() {
         ? rooms.map((room) => (
           <div key={room.room_id}>
             <button onClick={() => navigate(`/rooms/${room.room_id}`)} className="unstyled-button">
-              <Card style={{ width: "18rem" }}>
+              <Card className="hovered-card" style={{ width: "20rem", height: "19rem" }}>
                 <Card.Img variant="top" src={room.picture} />
-                <Card.Body>
+                <Card.Body style={{ padding: "1rem" }}>
                   <Card.Title>
                     {capFirstLetter(room.city)}, {room.state}
                   </Card.Title>

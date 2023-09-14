@@ -16,3 +16,14 @@
     max-width: calc(50% - 20px);
   }
 }
+
+.unstyled-button {
+  outline: none; /* Remove the default focus outline */
+  border: 2px solid white; /* Add a white border as the focus outline */
+}
+
+.hovered-card:hover {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adjust the shadow values as needed */
+  filter: blur(2px); /* Add a blur effect as well */
+  transition: box-shadow 0.5s ease, filter 0.3s ease; /* Add a smooth transition effect */
+}
